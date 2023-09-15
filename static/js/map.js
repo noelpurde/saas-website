@@ -1,5 +1,6 @@
+
 // Get all path elements within the SVG
-var paths = document.querySelectorAll('path');
+const paths = document.querySelectorAll("path");
 
 // Function to change CSS variables based on class
 function updateCSSVariables(className) {
@@ -120,3 +121,20 @@ for (let i = 0; i < paths.length; i++) {
       svgPaths.forEach(path => {
           path.addEventListener("click", getPathClassName);
       });
+
+      // Function to handle path click event
+function getPathClassName(event) {
+  const path = event.target;
+  if (path.tagName === "path") {
+    const className = path.getAttribute("class");
+    const capitalizedClassName = className.charAt(0).toUpperCase() + className.slice(1);
+    
+    // Check if the continent is already selected, and if so, remove it
+    if (selectedFilters.has(capitalizedClassName)) {
+      selectedFilters.delete(capitalizedClassName);
+    } else {
+      addFilter(capitalizedClassName); // Add the continent name as a filter
+    }
+  }
+  updateFilters(); // Update the displayed filters
+}

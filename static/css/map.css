@@ -1,4 +1,4 @@
-:root {
+    :root {
     --europe_stroke: black;
     --europe_width: 1;
     --europe_fill: white;
@@ -23,29 +23,27 @@
     --oceania_width: 1;
     --oceania_fill: white;
 }
-
 body {
     background-color: #f4f4f4;
 }
-
-#container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#filters {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.mapdiv {
     position: relative;
-    background-color: white;
-    border: 1px solid #959595;
-    height: 600px;
-    top: 50px;
-    left: 40px;
-    z-index: 2;
+    top: -550px;
+    margin-bottom: -1050px;
+    left: -500px;
+    margin-right: -1000px; 
+    transform: scale(0.58)
 }
+
+.below_map {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 200px;
+}
+
+.filters{z-index: 2;}
 
 #harta {
     width: 1200px;
@@ -56,16 +54,10 @@ body {
     left: -100px;
     z-index: 1;
 }
-
-.mapdiv {
-    margin: auto;
-}
-
 .mapdiv svg {
     width: 100%;
     height: 100%;
 }
-
 .mapdiv path {
     fill: white;
     stroke: black;
@@ -81,112 +73,40 @@ svg .oceania,
 svg .asia {
     transition: fill 0.1s ease, stroke 0.005s ease;
 }
-
 .mapdiv path {
     fill: var(--europe_fill);
     transition: fill 0.3s ease;
 }
-
 .mapdiv path:hover {
     fill: rgb(230, 218, 239);
 }
-
-
 svg .europe {
     stroke: var(--europe_stroke);
     stroke-width: var(--europe_width);
     fill: var(--europe_fill);
 }
-
 svg .northAmerica {
     stroke: var(--northAmerica_stroke);
     stroke-width: var(--northAmerica_width);
     fill: var(--northAmerica_fill);
 }
-
 svg .africa {
     stroke: var(--africa_stroke);
     stroke-width: var(--africa_width);
     fill: var(--africa_fill);
 }
-
 svg .southAmerica {
     stroke: var(--southAmerica_stroke);
     stroke-width: var(--southAmerica_width);
     fill: var(--southAmerica_fill);
 }
-
 svg .oceania {
     stroke: var(--oceania_stroke);
     stroke-width: var(--oceania_width);
     fill: var(--oceania_fill);
 }
-
 svg .asia {
     stroke: var(--asia_stroke);
     stroke-width: var(--asia_width);
     fill: var(--asia_fill);
-}
-/*  FILTER CSS  -------------------------------------------------------------*/
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-.filters {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-.search-bar {
-    width: 300px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.options {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-}
-
-.option {
-    display: flex;
-    align-items: center;
-}
-
-.option button {
-    margin-left: 10px;
-    cursor: pointer;
-    border: none; /* Remove button border */
-    outline: none; /* Remove button focus outline */
-}
-
-.filter-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-.filter {
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 20px; /* Rounded corners for filters */
-    padding: 5px 10px;
-    display: flex;
-    align-items: center;
-}
-
-.filter-remove {
-    margin-left: 5px;
-    cursor: pointer;
-}
-
-.highlight {
-    background-color: #FF00FF;
 }
