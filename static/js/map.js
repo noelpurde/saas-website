@@ -123,18 +123,20 @@ for (let i = 0; i < paths.length; i++) {
       });
 
       // Function to handle path click event
-function getPathClassName(event) {
-  const path = event.target;
-  if (path.tagName === "path") {
-    const className = path.getAttribute("class");
-    const capitalizedClassName = className.charAt(0).toUpperCase() + className.slice(1);
-    
-    // Check if the continent is already selected, and if so, remove it
-    if (selectedFilters.has(capitalizedClassName)) {
-      selectedFilters.delete(capitalizedClassName);
-    } else {
-      addFilter(capitalizedClassName); // Add the continent name as a filter
-    }
-  }
-  updateFilters(); // Update the displayed filters
-}
+      function getPathClassName(event) {
+        const path = event.target;
+        if (path.tagName === "path") {
+          const className = path.getAttribute("class");
+          const capitalizedClassName = className.charAt(0).toUpperCase() + className.slice(1);
+          
+          // Check if the continent is already selected
+          if (selectedFilters.has(capitalizedClassName)) {
+            selectedFilters.delete(capitalizedClassName); // Remove the filter if it exists
+          } else {
+            addFilter(capitalizedClassName); // Add the continent name as a filter
+          }
+          
+          updateFilters(); // Update the displayed filters
+        }
+      }
+      
