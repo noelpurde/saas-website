@@ -1,67 +1,3 @@
-const filterList = document.querySelector(".filter-list_geography");
-const options = document.querySelector(".options_geography");
-const searchInput = document.querySelector(".search-bar_geography");
-const includeButtons = document.querySelectorAll(".include");
-const excludeButtons = document.querySelectorAll(".exclude");
-const optionElements = document.querySelectorAll(".option_geography");
-
-const selectedFilters = new Set();
-
-function updateFilters() {
-    filterList.innerHTML = "";
-    selectedFilters.forEach((filter_geography) => {
-        const filterElement = document.createElement("div");
-        filterElement.classList.add("filter_geography");
-        filterElement.textContent = filter_geography;
-        const removeButton = document.createElement("span");
-        removeButton.classList.add("filter-remove_geography");
-        removeButton.textContent = "X";
-        removeButton.addEventListener("click", () => {
-            selectedFilters.delete(filter_geography);
-            updateFilters();
-        });
-        filterElement.appendChild(removeButton);
-        filterList.appendChild(filterElement);
-    });
-}
-
-function addFilter(option_geography) {
-    if (!selectedFilters.has(option_geography)) {
-        selectedFilters.add(option_geography);
-        updateFilters();
-        // Show the filter section when a filter is added
-        filterSection.style.display = "block";
-    }
-}
-
-includeButtons.forEach((includeButton, index) => {
-    includeButton.addEventListener("click", () => {
-        const optionText = optionElements[index].querySelector("span").textContent;
-        addFilter(optionText);
-    });
-});
-
-excludeButtons.forEach((excludeButton, index) => {
-    excludeButton.addEventListener("click", () => {
-        const optionText = optionElements[index].querySelector("span").textContent;
-        selectedFilters.delete(optionText);
-        updateFilters();
-    });
-});
-
-searchInput.addEventListener("input", () => {
-    // Your search functionality here
-    // You can filter/search based on selected filters and the search input value
-});
-
-//Map check to remove existent filters
-function removeContinent(classname) {
-  if(selectedFilters.has(classname)){
-    selectedFilters.delete(classname);
-    updateFilters();
-  }
-}
-
 ///////////////////////////////////// - MAP - ///////////////////////////////////////////////
 // Get all path elements within the SVG
 const paths = document.querySelectorAll("path");
@@ -150,7 +86,6 @@ function resetCSSVariables(className) {
       break;
   }
 }
-/////////////////////////////////////////////////////////////////////////////////
 // Add mouseenter and mouseleave event listeners to each path
 for (let i = 0; i < paths.length; i++) {
   const path = paths[i];
@@ -198,27 +133,27 @@ function getPathClassName(event) {
     // Check if the class name matches one of the continents
     switch (continentName) {
       case "europe":
-        addFilter("Europe")
+        addFilter_geography("Europe")
         removeContinent("Europe")
         break;
       case "asia":
-        addFilter("Asia")
+        addFilter_geography("Asia")
         removeContinent("Asia")
         break;
       case "northAmerica":
-        addFilter("North America")
+        addFilter_geography("North America")
         removeContinent("North America")
         break;
       case "southAmerica":
-        addFilter("South America")
+        addFilter_geography("South America")
         removeContinent("South America")
         break;
       case "africa":
-        addFilter("Africa")
+        addFilter_geography("Africa")
         removeContinent("Africa")
         break;
       case "oceania":
-        addFilter("Oceania")
+        addFilter_geography("Oceania")
         removeContinent("Oceania")
         break;
       default:
@@ -233,8 +168,185 @@ document.querySelectorAll("path").forEach((path) => {
   path.addEventListener("click", getPathClassName);
 }); 
 
+///////////////////////////////////// - FILTERS G E O G R A P H Y - ///////////////////////////////////////////////
+  
+const filterList_geography = document.querySelector(".filter-list_geography");
+const options_geography = document.querySelector(".options_geography_geography");
+const searchInput_geography = document.querySelector(".search-bar_geography");
+const includeButtons_geography = document.querySelectorAll(".include_geography");
+const excludeButtons_geography = document.querySelectorAll(".exclude_geography");
+const optionElements_geography = document.querySelectorAll(".option_geography");
 
-  
-  
-  
+const selectedFilters_geography = new Set();
 
+function updateFilters_geography() {
+    filterList_geography.innerHTML = "";
+    selectedFilters_geography.forEach((filter_geography) => {
+        const filterElement_geography = document.createElement("div");
+        filterElement_geography.classList.add("filter_geography");
+        filterElement_geography.textContent = filter_geography;
+        const removeButton_geography = document.createElement("span");
+        removeButton_geography.classList.add("filter-remove_geography");
+        removeButton_geography.textContent = "X";
+        removeButton_geography.addEventListener("click", () => {
+            selectedFilters_geography.delete(filter_geography);
+            updateFilters_geography();
+        });
+        filterElement_geography.appendChild(removeButton_geography);
+        filterList_geography.appendChild(filterElement_geography);
+    });
+}
+
+function addFilter_geography(option_geography) {
+    if (!selectedFilters_geography.has(option_geography)) {
+        selectedFilters_geography.add(option_geography);
+        updateFilters_geography();
+        // Show the filter section when a filter is added
+        filterSection.style.display = "block";
+    }
+}
+
+includeButtons_geography.forEach((includeButton, index) => {
+    includeButton.addEventListener("click", () => {
+        const optionText = optionElements_geography[index].querySelector("span").textContent;
+        addFilter_geography(optionText);
+    });
+});
+
+excludeButtons_geography.forEach((excludeButton, index) => {
+    excludeButton.addEventListener("click", () => {
+        const optionText = optionElements_geography[index].querySelector("span").textContent;
+        selectedFilters_geography.delete(optionText);
+        updateFilters_geography();
+    });
+});
+
+searchInput_geography.addEventListener("input", () => {
+    // Your search functionality here
+    // You can filter/search based on selected filters and the search input value
+});
+
+//Map check to remove existent filters
+function removeContinent(classname) {
+  if(selectedFilters_geography.has(classname)){
+    selectedFilters_geography.delete(classname);
+    updateFilters_geography();
+  }
+}
+  
+///////////////////////////////////// - FILTERS H E A D C O U N T - ///////////////////////////////////////////////
+
+const filterList_headcount = document.querySelector(".filter-list_headcount");
+const options_headcount = document.querySelector(".options_headcount_headcount");
+const searchInput_headcount = document.querySelector(".search-bar_headcount");
+const includeButtons_headcount = document.querySelectorAll(".include_headcount");
+const excludeButtons_headcount = document.querySelectorAll(".exclude_headcount");
+const optionElements_headcount = document.querySelectorAll(".option_headcount");
+
+const selectedFilters_headcount = new Set();
+
+function updateFilters_headcount() {
+    filterList_headcount.innerHTML = "";
+    selectedFilters_headcount.forEach((filter_headcount) => {
+        const filterElement_headcount = document.createElement("div");
+        filterElement_headcount.classList.add("filter_headcount");
+        filterElement_headcount.textContent = filter_headcount;
+        const removeButton_headcount = document.createElement("span");
+        removeButton_headcount.classList.add("filter-remove_headcount");
+        removeButton_headcount.textContent = "X";
+        removeButton_headcount.addEventListener("click", () => {
+            selectedFilters_headcount.delete(filter_headcount);
+            updateFilters_headcount();
+        });
+        filterElement_headcount.appendChild(removeButton_headcount);
+        filterList_headcount.appendChild(filterElement_headcount);
+    });
+}
+
+function addFilter_headcount(option_headcount) {
+    if (!selectedFilters_headcount.has(option_headcount)) {
+        selectedFilters_headcount.add(option_headcount);
+        updateFilters_headcount();
+        // Show the filter section when a filter is added
+        filterSection.style.display = "block";
+    }
+}
+
+includeButtons_headcount.forEach((includeButton, index) => {
+    includeButton.addEventListener("click", () => {
+        const optionText = optionElements_headcount[index].querySelector("span").textContent;
+        addFilter_headcount(optionText);
+    });
+});
+
+excludeButtons_headcount.forEach((excludeButton, index) => {
+    excludeButton.addEventListener("click", () => {
+        const optionText = optionElements_headcount[index].querySelector("span").textContent;
+        selectedFilters_headcount.delete(optionText);
+        updateFilters_headcount();
+    });
+});
+
+searchInput_headcount.addEventListener("input", () => {
+    // Your search functionality here
+    // You can filter/search based on selected filters and the search input value
+});
+
+
+///////////////////////////////////// - FILTERS F U N C T I O N - ///////////////////////////////////////////////
+
+const filterList_function = document.querySelector(".filter-list_function");
+const options_function = document.querySelector(".options_function_function");
+const searchInput_function = document.querySelector(".search-bar_function");
+const includeButtons_function = document.querySelectorAll(".include_function");
+const excludeButtons_function = document.querySelectorAll(".exclude_function");
+const optionElements_function = document.querySelectorAll(".option_function");
+
+const selectedFilters_function = new Set();
+
+function updateFilters_function() {
+    filterList_function.innerHTML = "";
+    selectedFilters_function.forEach((filter_function) => {
+        const filterElement_function = document.createElement("div");
+        filterElement_function.classList.add("filter_function");
+        filterElement_function.textContent = filter_function;
+        const removeButton_function = document.createElement("span");
+        removeButton_function.classList.add("filter-remove_function");
+        removeButton_function.textContent = "X";
+        removeButton_function.addEventListener("click", () => {
+            selectedFilters_function.delete(filter_function);
+            updateFilters_function();
+        });
+        filterElement_function.appendChild(removeButton_function);
+        filterList_function.appendChild(filterElement_function);
+    });
+}
+
+function addFilter_function(option_function) {
+    if (!selectedFilters_function.has(option_function)) {
+        selectedFilters_function.add(option_function);
+        updateFilters_function();
+        // Show the filter section when a filter is added
+        filterSection.style.display = "block";
+    }
+}
+
+includeButtons_function.forEach((includeButton, index) => {
+    includeButton.addEventListener("click", () => {
+        const optionText = optionElements_function[index].querySelector("span").textContent;
+        addFilter_function(optionText);
+    });
+});
+
+excludeButtons_function.forEach((excludeButton, index) => {
+    excludeButton.addEventListener("click", () => {
+        const optionText = optionElements_function[index].querySelector("span").textContent;
+        selectedFilters_function.delete(optionText);
+        updateFilters_function();
+    });
+});
+
+searchInput_function.addEventListener("input", () => {
+    // Your search functionality here
+    // You can filter/search based on selected filters and the search input value
+});
