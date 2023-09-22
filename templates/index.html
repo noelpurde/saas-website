@@ -2,7 +2,11 @@
 
 
 {% block content%}
-<div class="container">
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+<div class="container" data-aos="fade-in" >
     <p style="text-align: center;">Win more deals faster by using your personal network to find verified Champions👑 </p>
     <div id="filter_map">
         <div class="three_filters">
@@ -2385,18 +2389,20 @@
         </div>
 
         <br><br><br><br>
-
-        <h2 style="text-align: center;">
+        <div data-aos="fade-right">
+           <h2 style="text-align: center;">
             500,000 Champions <br>
             45 Different Functions <br>
             15 Regions <br>
             10 Company Sizes <br>
-        </h2>
+            </h2> 
+        </div>
+        
         <br><br>
     </div>
 </div>
 
-<div class="all">
+<div class="all" data-aos="fade-left">
     <div class="testimonials">
         <div class="inner">
             <h1>Testimonials</h1>
@@ -2431,51 +2437,38 @@
     </div>
     </div>
 
+    <br><br>
+
+    <div class="logo-footer hidden">
+        <span>
+            <img src="../static/images/logo.png" alt="">
+        </span>
+    </div>
+
     <br><br><br><br>
 
-    <div class="all_container">
-        <div class="price-container">
-            <h2>Choose your credits</h2>
-            <div class="credit-row">
-                <div class="credit-col">
-                    <p>Basic</p>
-                    <h3>8$<span> / month</span></h3>
-                    <h3>10 credits</h3>
-                    <ul>
-                        <li>All analitics features</li>
-                        <li>Database of 250 000 champions</li>
-                        <li>Email Support</li>
-                        <li>Something else</li>
-                    </ul>
-                    <button>Add To Cart</button>
-                </div>
-                <div class="credit-col">
-                    <p>Starter</p>
-                    <h3>80$ <span>/ month</span></h3>
-                    <h3>100 credits</h3>
-                    <ul>
-                        <li>All analitics features</li>
-                        <li>Database of 250 000 champions</li>
-                        <li>Email Support</li>
-                        <li>Something else</li>
-                    </ul>
-                    <button>Add To Cart</button>
-                </div>
-                <div class="credit-col">
-                    <p>Pro</p>
-                    <h3>160$<span> / month</span></h3>
-                    <h3>200 credits</h3>
-                    <ul>
-                        <li>All analitics features</li>
-                        <li>Database of 250 000 champions</li>
-                        <li>Email Support</li>
-                        <li>Something else</li>
-                    </ul>
-                    <button>Add To Cart</button>
-                </div>
-            </div>
+    <div class="slider-container" data-aos="fade-in" id="pricing">
+        <div class="before-included">
+            <div class="pricing"><strong>PRICING</strong></div> 
+            <div class="pricing1">Pricing for usage</div>
+            <div class="pricing2">Use the credits as needed, when more are necessary just re-up</div>
+            <input type="range" min="0" max="7" value="0" class="slider" id="priceSlider"> <br><br>
+            <div id="credits">Credits: 100</div>
+            <div id="companyOffer">$80 @ $.80 / credit</div>
+        </div>
+        <div class="included"> <br><br>
+            <h2 style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">What's included</h2>
+            <ul>
+                <li>All analitics features</li>
+                <li>Database of 250 000 champions</li>
+                <li>Email Support</li>
+                <li>Something else</li>
+            </ul>
+            <img src="../static/images/pricing-logo.PNG" alt="" style="float: right; margin: 0 0 0 15px; top: -120px;">
+            <button>Get started</button>
         </div>
     </div>
+    
 
     <br><br><br><br>
 
@@ -2494,5 +2487,13 @@
             <p>Copyright &copy;2023 Backchanneling</p>
         </div>
     </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({
+        duration: 1300,
+        once: true,
+    });
+  </script>
 
 {% endblock %}
