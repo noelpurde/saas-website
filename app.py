@@ -1,7 +1,27 @@
 from flask import Flask, render_template
-
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
+
+# Add database
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///users.db'
+# Secret Key
+app.config['SECRET_KEY']='secret key'
+# Init Database
+db = SQLAlchemy(app)
+
+# Create Model
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    date_added = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    #Create a String
+    def __repr__(self):
+        return '<Name %r>' % self.name
+
 
 
 @app.route('/')
