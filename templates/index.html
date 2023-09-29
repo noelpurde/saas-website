@@ -2429,12 +2429,16 @@
     <div class="below_map">
         <p style="text-align: center;">There are 1,330 contacts who are in South America, between 51-200 employees, and who work in Accounting in your network!</p>
 
-        <div style="display: flex; justify-content: center; align-items: center;">
+        <div style="display: flexf; justify-content: center; align-items: center;">
             <button type="button" style="border: none; 
             border-radius: 30px; background-color: purple; color: white;
             padding: 12px 30px; align-items:center ;">Start Backchanneling</button>
-            <img src="https://static.vecteezy.com/system/resources/previews/018/930/587/non_2x/linkedin-logo-linkedin-icon-transparent-free-png.png" 
-            alt="Linkedin Logo" style="height: 4rem; width: 4rem;">
+            <a href="{{ url_for('linkedin_signin')}}">
+                <button type="button" class="linkedin_signin" style="border: none; border-radius: 30px; background-color: #f4f4f4;">
+                    <img src="https://static.vecteezy.com/system/resources/previews/018/930/587/non_2x/linkedin-logo-linkedin-icon-transparent-free-png.png" 
+                        alt="Linkedin Logo" style="height: 4rem; width: 4rem;">
+                </button>
+            </a>
         </div>
 
         <br><br><br><br>

@@ -1,10 +1,14 @@
-from flask import Flask, render_template
+from aiohttp import request
+from flask import Flask, redirect, render_template
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import requests
+
+
 
 app = Flask(__name__)
 
-# Add database
+# Add database  -----------------------------------------------------------------------------------------------------------------------------------
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///users.db'
 # Secret Key
 app.config['SECRET_KEY']='secret key'
@@ -18,11 +22,27 @@ class Users(db.Model):
     email = db.Column(db.String(120), nullable=False)
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
     
-    #Create a String
+    # Create a String
     def __repr__(self):
         return '<Name %r>' % self.name
 
 
+# Linkedin Access Tokens --------------------------------------------------------------------------------------------------------------------------
+
+# LinkedIn API credentials
+CLIENT_ID = '78dzgjwk5agxjz'
+CLIENT_SECRET = 'uWmtl7kTPYbvSmV5'
+REDIRECT_URI = 'http://127.0.0.1:5000/callback'  # Update with your redirect URI
+
+# Session secret key
+app.secret_key = 'd501039709f9dd179b87310405113491d14ac0e877c51e97'
+
+# LinkedIn API URLs
+AUTHORIZATION_URL = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id'
+TOKEN_URL = 'https://www.linkedin.com/oauth/v2/accessToken'
+USER_INFO_URL = 'https://api.linkedin.com/v2/me'
+
+# Routes  -----------------------------------------------------------------------------------------------------------------------------------------
 
 @app.route('/')
 def index():
@@ -36,15 +56,62 @@ def user(name):
     return render_template("user.html", user_name=name)
 
 
-#Invalid URL
+# Invalid URL
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html"), 404
 
-#Internal Server Error
+# Internal Server Error
 @app.errorhandler(500)
 def page_not_found(e):
     return render_template("500.html"), 500
+
+
+#LINKEDIN ROUTES ---------------------------------------------------------------------------------------------------------------------
+
+@app.route('/linkedin_signin')
+def linkedin_signin():
+    # RedirectING the user to LinkedIn's authentication page
+    params = {
+        'response_type': 'code',
+        'client_id': CLIENT_ID,
+        'redirect_uri': REDIRECT_URI,
+        'scope': 'r_liteprofile',  # Update with desired permissions
+    }
+    auth_url = f"{AUTHORIZATION_URL}?{'&'.join([f'{k}={v}' for k, v in params.items()])}"
+    return redirect(auth_url)
+
+@app.route('/callback')
+def callback():
+    # Callback handling from LinkedIn
+    code = request.args.get('code')
+    if code:
+        # The authorization code for an access token exchange
+        token_data = {
+            'grant_type': 'authorization_code',
+            'code': code,
+            'redirect_uri': REDIRECT_URI,
+            'client_id': CLIENT_ID,
+            'client_secret': CLIENT_SECRET,
+        }
+        response = requests.post(TOKEN_URL, data=token_data)
+        access_token = response.json().get('access_token')
+
+        # Using access token to get user info
+        headers = {
+            'Authorization': f'Bearer {access_token}',
+        }
+        user_info_response = requests.get(USER_INFO_URL, headers=headers)
+        user_info = user_info_response.json()
+
+        # Use 'user_info' to access the LinkedIn user's profile info
+
+        # Testing to display the user's LinkedIn profile ID
+        profile_id = user_info.get('id')
+        return f'LinkedIn Profile ID: {profile_id}'
+    else:
+        return 'Authorization failed'
+
 
 if __name__ == "__main__":
     app.run(debug=True)
