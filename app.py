@@ -38,7 +38,7 @@ REDIRECT_URI = 'http://127.0.0.1:5000/callback'  # Update with your redirect URI
 app.secret_key = 'd501039709f9dd179b87310405113491d14ac0e877c51e97'
 
 # LinkedIn API URLs
-AUTHORIZATION_URL = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id'
+AUTHORIZATION_URL = 'https://www.linkedin.com/oauth/v2/authorization'
 TOKEN_URL = 'https://www.linkedin.com/oauth/v2/accessToken'
 USER_INFO_URL = 'https://api.linkedin.com/v2/me'
 
@@ -76,7 +76,7 @@ def linkedin_signin():
         'response_type': 'code',
         'client_id': CLIENT_ID,
         'redirect_uri': REDIRECT_URI,
-        'scope': 'r_liteprofile',  # Update with desired permissions
+        'scope': 'profile w_member_social',  # Update with desired permissions
     }
     auth_url = f"{AUTHORIZATION_URL}?{'&'.join([f'{k}={v}' for k, v in params.items()])}"
     return redirect(auth_url)
