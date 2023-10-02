@@ -1,9 +1,10 @@
-from aiohttp import request
-from flask import Flask, redirect, render_template
+# from aiohttp import request
+from flask import Flask, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import requests
-
+import os 
+from dotenv import load_dotenv
 
 
 app = Flask(__name__)
@@ -27,12 +28,13 @@ class Users(db.Model):
         return '<Name %r>' % self.name
 
 
-# Linkedin Access Tokens --------------------------------------------------------------------------------------------------------------------------
+# Linkedin Access --------------------------------------------------------------------------------------------------------------------------
 
-# LinkedIn API credentials
-CLIENT_ID = '78dzgjwk5agxjz'
-CLIENT_SECRET = 'uWmtl7kTPYbvSmV5'
-REDIRECT_URI = 'http://127.0.0.1:5000/callback'  # Update with your redirect URI
+load_dotenv()
+
+CLIENT_ID = os.getenv('CLIENT_ID')
+CLIENT_SECRET = os.getenv('CLIENT_SECRET')
+REDIRECT_URI =os.getenv('REDIRECT_URI')
 
 # Session secret key
 app.secret_key = 'd501039709f9dd179b87310405113491d14ac0e877c51e97'
@@ -49,24 +51,18 @@ def index():
     first_name = "John"
     stuff = "This is <strong> Bold </strong> Text"
     return render_template("index.html", first_name=first_name, stuff=stuff)
-
 # localhost:500/user/Noel
 @app.route('/user/<name>')
 def user(name):
     return render_template("user.html", user_name=name)
-
-
 # Invalid URL
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html"), 404
-
 # Internal Server Error
 @app.errorhandler(500)
 def page_not_found(e):
     return render_template("500.html"), 500
-
-
 #LINKEDIN ROUTES ---------------------------------------------------------------------------------------------------------------------
 
 @app.route('/linkedin_signin')
@@ -100,15 +96,14 @@ def callback():
         # Using access token to get user info
         headers = {
             'Authorization': f'Bearer {access_token}',
-        }
+        }        
         user_info_response = requests.get(USER_INFO_URL, headers=headers)
+        
         user_info = user_info_response.json()
 
         # Use 'user_info' to access the LinkedIn user's profile info
 
-        # Testing to display the user's LinkedIn profile ID
-        profile_id = user_info.get('id')
-        return f'LinkedIn Profile ID: {profile_id}'
+        return redirect(url_for('index'))
     else:
         return 'Authorization failed'
 
