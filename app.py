@@ -1,5 +1,5 @@
 # from aiohttp import request
-from flask import Flask, redirect, render_template, request
+from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import requests
@@ -28,18 +28,18 @@ class Users(db.Model):
         return '<Name %r>' % self.name
 
 
-# Linkedin Access --------------------------------------------------------------------------------------------------------------------------
+# Enviroment Variables ----------------------------------------------------------------------------------------------------------------------------
 
 load_dotenv()
 
 CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 REDIRECT_URI =os.getenv('REDIRECT_URI')
-
+STATE = os.getenv('PARAMETERS_STATE')
 # Session secret key
-app.secret_key = 'd501039709f9dd179b87310405113491d14ac0e877c51e97'
+app.secret_key = os.getenv('APP_SECRET_KEY')
 
-# LinkedIn API URLs
+# LinkedIn API URLs - Endpoints -------------------------------------------------------------------
 AUTHORIZATION_URL = 'https://www.linkedin.com/oauth/v2/authorization'
 TOKEN_URL = 'https://www.linkedin.com/oauth/v2/accessToken'
 USER_INFO_URL = 'https://api.linkedin.com/v2/me'
@@ -63,7 +63,8 @@ def page_not_found(e):
 @app.errorhandler(500)
 def page_not_found(e):
     return render_template("500.html"), 500
-#LINKEDIN ROUTES ---------------------------------------------------------------------------------------------------------------------
+
+#LINKEDIN ROUTES ----------------------------------------------------------------------------------------------------------------------------------
 
 @app.route('/linkedin_signin')
 def linkedin_signin():
@@ -72,6 +73,7 @@ def linkedin_signin():
         'response_type': 'code',
         'client_id': CLIENT_ID,
         'redirect_uri': REDIRECT_URI,
+        'state': STATE,
         'scope': 'profile w_member_social',  # Update with desired permissions
     }
     auth_url = f"{AUTHORIZATION_URL}?{'&'.join([f'{k}={v}' for k, v in params.items()])}"
@@ -101,12 +103,19 @@ def callback():
         
         user_info = user_info_response.json()
 
-        # Use 'user_info' to access the LinkedIn user's profile info
+        error = request.args.get('error')
+        error_description = request.args.get('error_description')
+    
+        error_params={
+            'error_name': error,
+            'error_desc': error_description,
+            'state': STATE,
+        }
+        error_url =  f"{REDIRECT_URI}?{'&'.join([f'{k}={v}' for k, v in error_params.items()])}"
 
         return redirect(url_for('index'))
     else:
-        return 'Authorization failed'
-
+        return redirect(error_url)
 
 if __name__ == "__main__":
     app.run(debug=True)
