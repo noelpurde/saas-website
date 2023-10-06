@@ -54,7 +54,7 @@ def index():
 # localhost:500/user/Noel
 @app.route('/user/<name>')
 def user(name):
-    return render_template("user.html", user_name=name)
+    return render_template("user.html", name=name)
 # Invalid URL
 @app.errorhandler(404)
 def page_not_found(e):
@@ -88,9 +88,10 @@ def callback():
         token_data = {
             'grant_type': 'authorization_code',
             'code': code,
-            'redirect_uri': REDIRECT_URI,
             'client_id': CLIENT_ID,
             'client_secret': CLIENT_SECRET,
+            'redirect_uri': REDIRECT_URI,
+
         }
         response = requests.post(TOKEN_URL, data=token_data)
         access_token = response.json().get('access_token')
@@ -102,6 +103,7 @@ def callback():
         user_info_response = requests.get(USER_INFO_URL, headers=headers)
         
         user_info = user_info_response.json()
+        print(f'------------------------------------------{user_info_response.text}')
 
         error = request.args.get('error')
         error_description = request.args.get('error_description')
@@ -113,9 +115,10 @@ def callback():
         }
         error_url =  f"{REDIRECT_URI}?{'&'.join([f'{k}={v}' for k, v in error_params.items()])}"
 
-        return redirect(url_for('index'))
+        user_name = user_info.get('name', 'User')
+        return redirect(url_for('user', name=user_name))
     else:
-        return redirect(error_url)
+        return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(debug=True)
