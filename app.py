@@ -63,6 +63,9 @@ def page_not_found(e):
 @app.errorhandler(500)
 def page_not_found(e):
     return render_template("500.html"), 500
+@app.route('/privacypolicy')
+def privacypolicy():
+    return render_template("privacypolicy.html")
 
 #LINKEDIN ROUTES ----------------------------------------------------------------------------------------------------------------------------------
 
@@ -96,6 +99,8 @@ def callback():
         response = requests.post(TOKEN_URL, data=token_data)
         access_token = response.json().get('access_token')
 
+        print(f'-------------------------------------------------------{access_token}')
+
         # Using access token to get user info
         headers = {
             'Authorization': f'Bearer {access_token}',
@@ -103,7 +108,7 @@ def callback():
         user_info_response = requests.get(USER_INFO_URL, headers=headers)
         
         user_info = user_info_response.json()
-        print(f'------------------------------------------{user_info_response.text}')
+        print(f'-------------------------------------------------------{user_info}')
 
         error = request.args.get('error')
         error_description = request.args.get('error_description')
