@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="{{ url_for('static',
+filename = 'css/navbar.css') }}">
+
+<nav class="navbar_normal">
+    <div></div>
+
+    <div class="navbar_normal_list">
+      <ul>
+        <li><a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a></li>
+        <li><a class="nav-link" href="#">Features</a></li>
+        <li><a class="nav-link" href="#pricing">Pricing</a></li>
+        <li><a class="nav-link" href="#">Resources</a></li>
+      </ul>
+    </div>
+
+    <div class="navbar_button_group">
+      <button class="backchanneling_button" type="button">Start Backchanneling</button>
+      <a href="{{ url_for('linkedin_signin')}}">
+          <button type="button" class="linkedin_signin" style="border: none; border-radius: 30px; background-color: #f4f4f4;">
+            <img src="https://static.vecteezy.com/system/resources/previews/018/930/587/non_2x/linkedin-logo-linkedin-icon-transparent-free-png.png" 
+                alt="Linkedin Logo" style="height: 4rem; width: 4rem;">
+          </button>
+      </a>
+    </div>  
+</nav>

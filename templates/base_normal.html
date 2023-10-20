@@ -11,10 +11,14 @@
     filename = 'css/map.css') }}">
     <link rel="stylesheet" href="{{ url_for('static',
     filename = 'css/filters.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',
+    filename = 'css/navbar.css') }}">
+    
+  
     
   </head>
   <body>
-    {%include 'navbar.html'%}
+    {%include 'navbars/navbar.html'%}
     <br>
     <div class="container">
         {% block content%}

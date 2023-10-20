@@ -58,11 +58,11 @@ def user(name):
 # Invalid URL
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template("404.html"), 404
+    return render_template("errors/404.html"), 404
 # Internal Server Error
 @app.errorhandler(500)
 def page_not_found(e):
-    return render_template("500.html"), 500
+    return render_template("errors/500.html"), 500
 @app.route('/privacypolicy')
 def privacypolicy():
     return render_template("privacypolicy.html")

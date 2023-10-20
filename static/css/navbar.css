@@ -1,0 +1,110 @@
+.backchanneling_button{
+    border: none; 
+    border-radius: 100px; 
+    background-color: purple; 
+    color: white;
+    padding: 12px 0px;
+    align-items: center;
+    width: 200px;
+    height: 55px;
+
+}
+
+/*------------------------------------------------------------------------------------------------------- NORMAL NAVBAR */
+.navbar_normal{
+    background-color: #f4f4f4; 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding-top: 10px;
+}
+
+.navbar_normal_list{
+    display: flex; 
+    flex-direction: row;
+    align-items: center; 
+    justify-content: center;
+}
+
+.navbar_button_group{
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: 50px;
+}
+
+.navbar_normal_list .ul {
+    list-style: none;
+  }
+  
+.navbar_normal_list li {
+    display: inline-block;
+    margin-right: 50px;
+}
+
+.navbar_normal_list a{
+    text-decoration: none;
+    color: black;
+    opacity: 0.7;
+    border-bottom: 2px solid transparent;
+}
+
+.navbar_normal_list li a:hover{
+    color: purple;
+    opacity: 1;
+    border-bottom: 2px solid purple;
+    /* border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px; */
+}
+
+/*------------------------------------------------------------------------------------------------------- ADMIN NAVBAR */
+
+.navbar_admin{
+    background-color: rgb(107, 74, 253);
+    height: 75px;
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: 0.5fr 3fr 0.5fr;
+
+}
+
+.navbar_admin_list{
+    display: flex; 
+    flex-direction: row;
+    align-items: center; 
+    justify-content: center;
+}
+
+.admin_profile{
+    color: white;
+    padding-top: 10px;
+    margin-left: auto;
+    margin-right: 50px;
+}
+
+.navbar_admin_list .ul {
+    list-style: none;
+  }
+  
+.navbar_admin_list li {
+    display: inline-block;
+    margin-right: 100px;
+}
+
+.navbar_admin_list a{
+    text-decoration: none;
+    color: white;
+    border-bottom: 2px solid transparent;
+}
+
+.navbar_admin_list li a:hover,
+.navbar_admin_list li a:active {
+    color: white;
+    border-bottom: 2px solid white;
+    /* border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px; */
+}
+
+.navbar_admin_list li a:visited{
+    color: white;
+    border-bottom: 2px solid white;
+}
