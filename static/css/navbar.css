@@ -56,6 +56,13 @@
     border-bottom-right-radius: 5px; */
 }
 
+.linkedin_signin{
+    border: none;
+    border-radius: 30px;
+    background-color: #f4f4f4;
+    margin-top: -5px;
+}
+
 /*------------------------------------------------------------------------------------------------------- ADMIN NAVBAR */
 
 .navbar_admin{
@@ -72,13 +79,6 @@
     flex-direction: row;
     align-items: center; 
     justify-content: center;
-}
-
-.admin_profile{
-    color: white;
-    padding-top: 10px;
-    margin-left: auto;
-    margin-right: 50px;
 }
 
 .navbar_admin_list .ul {
@@ -107,4 +107,18 @@
 .navbar_admin_list li a:visited{
     color: white;
     border-bottom: 2px solid white;
+}
+
+.admin_profile_button{
+    background: transparent;
+    border: none;
+    color: white;
+    padding-top: 10px;
+    margin-left: auto;
+    margin-right: 50px;
+}
+
+.admin_profile_button img{
+    scale: 0.3%;
+    border-radius: 50%;
 }

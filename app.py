@@ -51,10 +51,7 @@ def index():
     first_name = "John"
     stuff = "This is <strong> Bold </strong> Text"
     return render_template("index.html", first_name=first_name, stuff=stuff)
-# localhost:500/user/Noel
-@app.route('/user/<name>')
-def user(name):
-    return render_template("user.html", name=name)
+
 # Invalid URL
 @app.errorhandler(404)
 def page_not_found(e):
@@ -66,6 +63,35 @@ def page_not_found(e):
 @app.route('/privacypolicy')
 def privacypolicy():
     return render_template("privacypolicy.html")
+#ADMIN ROUTES ----------------------------------------------------------------------------------------------------------------------------------
+
+@app.route('/search')
+def search():
+    return render_template("admin_routes/search.html")
+
+@app.route('/feed')
+def feed():
+    return render_template("admin_routes/feed.html")
+
+@app.route('/introduction')
+def introduction():
+    return render_template("admin_routes/introduction.html")
+
+@app.route('/lists')
+def lists():
+    return render_template("admin_routes/lists.html")
+
+@app.route('/admin')
+def admin():
+    return render_template("admin_routes/admin.html")
+
+@app.route('/credits')
+def credits():
+    return render_template("admin_routes/credits.html")
+
+@app.route('/user/<name>')
+def user(name):
+    return render_template("admin_routes/user.html", name=name)
 
 #LINKEDIN ROUTES ----------------------------------------------------------------------------------------------------------------------------------
 
