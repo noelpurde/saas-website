@@ -5,21 +5,29 @@ filename = 'css/navbar.css') }}">
 
     <div></div>
 
-    <div class="navbar_admin_list">
-      <ul>
+
+      <ul class="navbar_admin_list">
         <li><a class="nav-link" href="{{ url_for('search') }}">Search</a></li>
         <li><a class="nav-link" href="{{ url_for('feed') }}">Feed</a></li>
         <li><a class="nav-link" href="{{ url_for('introduction') }}">Introduction</a></li>
         <li><a class="nav-link" href="{{ url_for('lists') }}">Lists</a></li>
         <li><a class="nav-link" href="{{ url_for('admin') }}">Admin</a></li>
-        <li><a class="nav-link" href="{{ url_for('credits') }}">Credits</a></li>
+        <li>
+          <a class="nav-link admin_credits" href="{{ url_for('credits') }}">
+            <img src="../static/images/credits_icon.png" alt="">
+            <p>Credits 5!</p>
+          </a>
+        </li>
       </ul>
-    </div>
+
+      <div class="admin_profile_name">
+        <a class="image_anchor" href="{{ url_for('user', name='User') }}">
+          <img src="../static/images/user_icon.png" alt="">
+          <p>John Smith</p>
+        </a>
+      </div>
+
     
-    <button class="admin_profile_button">
-      <a href="" class="admin_profile_name"></a>
-        <!-- <img src="/static/images/user_icon.png" alt=""> -->
-        <p>John Smith</p>
-      </a>
-    </button>
+    
+
 </nav>
