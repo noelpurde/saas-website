@@ -11,6 +11,11 @@
 }
 .nav-link{
     text-decoration: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 /*------------------------------------------------------------------------------------------------------- NORMAL NAVBAR */
 .navbar_normal{
@@ -159,4 +164,39 @@
 }
 .image_anchor p{
     color: white;   
+}
+
+/*------------------------------------------------------------------------------------------------------- USER SETTINGS NAVBAR */
+
+.navbar_user_settings{
+    background-color: #f4f4f4; 
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.navbar_user_settings_list{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    text-align: center;
+}
+
+.navbar_user_settings_list .ul {
+    list-style: none;
+  }
+  
+.navbar_user_settings_list li {
+    display: inline-block;
+    font-weight: 700;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+/*------------------------------- VISIBILITY */
+.admin_visibility{
+    opacity: 0;
+    pointer-events: none;
 }
