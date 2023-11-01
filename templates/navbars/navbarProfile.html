@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="css/navbar.css">
+
+<nav class="navbar_user_settings">
+    <ul class="navbar_user_settings_list">
+        <li><a class="nav-link" href="{{ url_for('integrations') }}">Integrations</a></li>
+        <li><a class="nav-link admin_visibility" href="{{ url_for('team') }}">Team</a></li>
+        <li><a class="nav-link" href="{{ url_for('notifications') }}">Notifications</a></li>
+        <li><a class="nav-link admin_visibility" href="{{ url_for('team_settings') }}">Team Settings</a></li>
+        <li><a class="nav-link" href="{{ url_for('profile_settings') }}">Profile Settings</a></li>
+        <li><a class="nav-link" href="{{ url_for('reports') }}">Reports</a></li>
+        <li><a class="nav-link" href="{{ url_for('billing') }}">Billing</a></li>
+
+    </ul>
+</nav>

@@ -63,7 +63,7 @@ def page_not_found(e):
 @app.route('/privacypolicy')
 def privacypolicy():
     return render_template("privacypolicy.html")
-#ADMIN ROUTES ----------------------------------------------------------------------------------------------------------------------------------
+#ADMIN PURPLE NAVBAR ROUTES ----------------------------------------------------------------------------------------------------------------------------------
 
 @app.route('/search')
 def search():
@@ -92,6 +92,36 @@ def credits():
 @app.route('/user/<name>')
 def user(name):
     return render_template("admin_routes/user.html", name=name)
+
+#USER SETTINGS ROUTES ----------------------------------------------------------------------------------------------------------------------------------
+
+@app.route('/user-settings/integrations')
+def integrations():
+    return render_template('user_settings/integrations.html')
+
+@app.route('/user-settings/team')
+def team():
+    return render_template('user_settings/team.html')
+
+@app.route('/user-settings/notifications')
+def notifications():
+    return render_template('user_settings/notifications.html')
+
+@app.route('/user-settings/ team_settings')
+def team_settings():
+    return render_template('user_settings/team_settings.html')
+
+@app.route('/user-settings/profile_settings')
+def profile_settings():
+    return render_template('user_settings/profile_settings.html')
+
+@app.route('/user-settings/reports')
+def reports():
+    return render_template('user_settings/reports.html')
+
+@app.route('/user-settings/billing')
+def billing():
+    return render_template('user_settings/billing.html')
 
 #LINKEDIN ROUTES ----------------------------------------------------------------------------------------------------------------------------------
 

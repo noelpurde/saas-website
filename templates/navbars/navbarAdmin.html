@@ -5,13 +5,12 @@ filename = 'css/navbar.css') }}">
 
     <div></div>
 
-
       <ul class="navbar_admin_list">
         <li><a class="nav-link" href="{{ url_for('search') }}">Search</a></li>
         <li><a class="nav-link" href="{{ url_for('feed') }}">Feed</a></li>
         <li><a class="nav-link" href="{{ url_for('introduction') }}">Introduction</a></li>
         <li><a class="nav-link" href="{{ url_for('lists') }}">Lists</a></li>
-        <li><a class="nav-link" href="{{ url_for('admin') }}">Admin</a></li>
+        <li><a class="nav-link admin_visibility" href="{{ url_for('admin') }}">Admin</a></li>
         <li>
           <a class="nav-link admin_credits" href="{{ url_for('credits') }}">
             <img src="../static/images/credits_icon.png" alt="">
@@ -26,8 +25,5 @@ filename = 'css/navbar.css') }}">
           <p>John Smith</p>
         </a>
       </div>
-
-    
-    
 
 </nav>
