@@ -141,7 +141,7 @@ def linkedin_signin():
 
     return redirect(auth_url)
 
-@app.route('/callback', methods=['POST'])
+@app.route('/callback')
 def callback():
     # Callback handling from LinkedIn
     code = request.args.get('code')
@@ -157,6 +157,7 @@ def callback():
         }
         response = requests.post(TOKEN_URL, data=token_data)
         access_token = response.json().get('access_token')
+
 
         # Using access token to get user info
         headers = {
@@ -177,8 +178,14 @@ def callback():
         error_url =  f"{REDIRECT_URI}?{'&'.join([f'{k}={v}' for k, v in error_params.items()])}"
 
 
+        user_name = user_info.get('name', 'User')
+        return redirect(url_for('user', name=user_name))
+    else:
+        return redirect(url_for('index'))
 
-# Database Users Table Population ----------------------------------------------------------------------------------
+@app.route('/database_testing', methods=['POST'])
+def database_testing():
+    # Database Users Table Population
     if request.method == 'POST':
 
         data = request.get_json()
@@ -195,8 +202,6 @@ def callback():
             with connection.cursor() as cursor:
                 cursor.execute(CREATE_USERS_TABLE)
                 cursor.execute(INSERT_USERS_RETURN_ID, (name, title, company, region, company_size, function, product_bought, email))
-
-
     return jsonify({"response": "Request Succesful"})
 
 
