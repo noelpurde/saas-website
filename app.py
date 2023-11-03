@@ -1,43 +1,45 @@
 # from aiohttp import request
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, redirect, render_template, request, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import requests
 import os 
 from dotenv import load_dotenv
+import psycopg2
 
 
 app = Flask(__name__)
-
-# Add database  -----------------------------------------------------------------------------------------------------------------------------------
-app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///users.db'
-# Secret Key
-app.config['SECRET_KEY']='secret key'
-# Init Database
-db = SQLAlchemy(app)
-
-# Create Model
-class Users(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(200), nullable=False)
-    email = db.Column(db.String(120), nullable=False)
-    date_added = db.Column(db.DateTime, default=datetime.utcnow)
-    
-    # Create a String
-    def __repr__(self):
-        return '<Name %r>' % self.name
-
 
 # Enviroment Variables ----------------------------------------------------------------------------------------------------------------------------
 
 load_dotenv()
 
+# Database url
+URL = os.getenv('DATABASE_URL')
+
+# Linkedin Secret Stuff
 CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 REDIRECT_URI =os.getenv('REDIRECT_URI')
 STATE = os.getenv('PARAMETERS_STATE')
+
 # Session secret key
 app.secret_key = os.getenv('APP_SECRET_KEY')
+
+
+# Add database  -----------------------------------------------------------------------------------------------------------------------------------
+
+connection = psycopg2.connect(URL)
+
+CREATE_USERS_TABLE = (
+    "CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, name TEXT,title TEXT, company TEXT, region TEXT, company_size TEXT, function TEXT, product_bought TEXT, email TEXT);"
+)
+INSERT_USERS_RETURN_ID = (
+    "INSERT INTO users (name, title, company, region, company_size, function, product_bought, email) "
+    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING user_id;"
+)
+
+
 
 # LinkedIn API URLs - Endpoints -------------------------------------------------------------------
 AUTHORIZATION_URL = 'https://www.linkedin.com/oauth/v2/authorization'
@@ -63,7 +65,7 @@ def page_not_found(e):
 @app.route('/privacypolicy')
 def privacypolicy():
     return render_template("privacypolicy.html")
-#ADMIN PURPLE NAVBAR ROUTES ----------------------------------------------------------------------------------------------------------------------------------
+#ADMIN PURPLE NAVBAR ROUTES -----------------------------------------------------------------------
 
 @app.route('/search')
 def search():
@@ -93,7 +95,7 @@ def credits():
 def user(name):
     return render_template("admin_routes/user.html", name=name)
 
-#USER SETTINGS ROUTES ----------------------------------------------------------------------------------------------------------------------------------
+#USER SETTINGS ROUTES -----------------------------------------------------------------------------
 
 @app.route('/user-settings/integrations')
 def integrations():
@@ -123,7 +125,7 @@ def reports():
 def billing():
     return render_template('user_settings/billing.html')
 
-#LINKEDIN ROUTES ----------------------------------------------------------------------------------------------------------------------------------
+#LINKEDIN ROUTES ----------------------------------------------------------------------------------
 
 @app.route('/linkedin_signin')
 def linkedin_signin():
@@ -136,9 +138,10 @@ def linkedin_signin():
         'scope': 'profile w_member_social',  # Update with desired permissions
     }
     auth_url = f"{AUTHORIZATION_URL}?{'&'.join([f'{k}={v}' for k, v in params.items()])}"
+
     return redirect(auth_url)
 
-@app.route('/callback')
+@app.route('/callback', methods=['POST'])
 def callback():
     # Callback handling from LinkedIn
     code = request.args.get('code')
@@ -155,8 +158,6 @@ def callback():
         response = requests.post(TOKEN_URL, data=token_data)
         access_token = response.json().get('access_token')
 
-        print(f'-------------------------------------------------------{access_token}')
-
         # Using access token to get user info
         headers = {
             'Authorization': f'Bearer {access_token}',
@@ -164,7 +165,6 @@ def callback():
         user_info_response = requests.get(USER_INFO_URL, headers=headers)
         
         user_info = user_info_response.json()
-        print(f'-------------------------------------------------------{user_info}')
 
         error = request.args.get('error')
         error_description = request.args.get('error_description')
@@ -176,10 +176,29 @@ def callback():
         }
         error_url =  f"{REDIRECT_URI}?{'&'.join([f'{k}={v}' for k, v in error_params.items()])}"
 
-        user_name = user_info.get('name', 'User')
-        return redirect(url_for('user', name=user_name))
-    else:
-        return redirect(url_for('index'))
+
+
+# Database Users Table Population ----------------------------------------------------------------------------------
+    if request.method == 'POST':
+
+        data = request.get_json()
+        name = data["name"]
+        title = data["title"]
+        company = data["company"]
+        region = data["region"]
+        company_size = data["company_size"]
+        function = data["function"]
+        product_bought = data["product_bought"]
+        email = data["email"]
+
+        with connection:
+            with connection.cursor() as cursor:
+                cursor.execute(CREATE_USERS_TABLE)
+                cursor.execute(INSERT_USERS_RETURN_ID, (name, title, company, region, company_size, function, product_bought, email))
+
+
+    return jsonify({"response": "Request Succesful"})
+
 
 if __name__ == "__main__":
     app.run(debug=True)
