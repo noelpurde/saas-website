@@ -2,7 +2,40 @@
 
 {% block content%}
 
-    <div style="position:absolute; margin-top: 40px;margin-left: 10px;">
-        {% include 'filters.html' %}
+
+    <div class="search_container">
+        <div class="search_filters">
+            {% include 'filters.html' %}
+        </div>
+
+        <div style="margin-left: 300px;">
+            <table class="search_table">
+                <tr>
+                    <th>Name</th>
+                    <th>Title</th>
+                    <th>Company</th>
+                    <th>Region</th>
+                    <th>Company Size</th>
+                    <th>Function</th>
+                    <th>Product Bought</th>
+                    <th>Email</th>
+                </tr>
+                {% for user in users_data %}
+                <tr>
+                    <td>{{ user[1] }}</td>
+                    <td>{{ user[2] }}</td>
+                    <td>{{ user[3] }}</td>
+                    <td>{{ user[4] }}</td>
+                    <td>{{ user[5] }}</td>
+                    <td>{{ user[6] }}</td>
+                    <td>{{ user[7] }}</td>
+                    <td>{{ user[8] }}</td>
+                </tr>
+                {% endfor %}
+            </table>        
+        </div>
+
     </div>
+
+
 {% endblock %}

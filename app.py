@@ -69,7 +69,19 @@ def privacypolicy():
 
 @app.route('/search')
 def search():
-    return render_template("admin_routes/search.html")
+          # Fetch data from the database
+        with connection:
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute("SELECT * FROM users;")
+                    users_data = cursor.fetchall()
+                    print(users_data)  
+                except psycopg2.Error as e:
+                    print("Error: Unable to fetch data from the database.")
+                    print(e)
+
+        # Render the data using Jinja2 template and save it to table.html
+        return render_template("admin_routes/search.html", users_data=users_data)
 
 @app.route('/feed')
 def feed():
@@ -187,7 +199,6 @@ def callback():
 def database_testing():
     # Database Users Table Population
     if request.method == 'POST':
-
         data = request.get_json()
         name = data["name"]
         title = data["title"]
@@ -202,7 +213,9 @@ def database_testing():
             with connection.cursor() as cursor:
                 cursor.execute(CREATE_USERS_TABLE)
                 cursor.execute(INSERT_USERS_RETURN_ID, (name, title, company, region, company_size, function, product_bought, email))
-    return jsonify({"response": "Request Succesful"})
+
+    return jsonify({"response": "Request Successful"})
+
 
 
 if __name__ == "__main__":

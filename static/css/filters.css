@@ -112,6 +112,12 @@ span {
     align-items: center;
     margin-top: 10px;  
     height: 25px; 
+    
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
 }
 
 .filter-remove_geography {
