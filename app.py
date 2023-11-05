@@ -170,6 +170,7 @@ def callback():
         response = requests.post(TOKEN_URL, data=token_data)
         access_token = response.json().get('access_token')
 
+
         # Using access token to get user info
         headers = {
             'Authorization': f'Bearer {access_token}',
@@ -214,6 +215,7 @@ def database_testing():
                 cursor.execute(INSERT_USERS_RETURN_ID, (name, title, company, region, company_size, function, product_bought, email))
 
     return jsonify({"response": "Request Successful"})
+
 
 
 if __name__ == "__main__":
