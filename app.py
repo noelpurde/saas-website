@@ -6,6 +6,9 @@ import requests
 import os 
 from dotenv import load_dotenv
 import psycopg2
+from db import create_filters_tables
+
+
 
 
 app = Flask(__name__)
@@ -15,7 +18,7 @@ app = Flask(__name__)
 load_dotenv()
 
 # Database url
-URL = os.getenv('DATABASE_URL')
+DATABASE_URL = os.getenv('DATABASE_URL')
 
 # Linkedin Secret Stuff
 CLIENT_ID = os.getenv('CLIENT_ID')
@@ -29,7 +32,7 @@ app.secret_key = os.getenv('APP_SECRET_KEY')
 
 # Add database  -----------------------------------------------------------------------------------------------------------------------------------
 
-connection = psycopg2.connect(URL)
+connection = psycopg2.connect(DATABASE_URL)
 
 CREATE_USERS_TABLE = (
     "CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, name TEXT,title TEXT, company TEXT, region TEXT, company_size TEXT, function TEXT, product_bought TEXT, email TEXT);"
@@ -38,6 +41,9 @@ INSERT_USERS_RETURN_ID = (
     "INSERT INTO users (name, title, company, region, company_size, function, product_bought, email) "
     "VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING user_id;"
 )
+
+# Database filters jinja template creation
+create_filters_tables()
 
 
 
@@ -51,8 +57,7 @@ USER_INFO_URL = 'https://api.linkedin.com/v2/me'
 @app.route('/')
 def index():
     first_name = "John"
-    stuff = "This is <strong> Bold </strong> Text"
-    return render_template("index.html", first_name=first_name, stuff=stuff)
+    return render_template("index.html", first_name=first_name)
 
 # Invalid URL
 @app.errorhandler(404)
@@ -72,16 +77,22 @@ def search():
           # Fetch data from the database
         with connection:
             with connection.cursor() as cursor:
-                try:
-                    cursor.execute("SELECT * FROM users;")
-                    users_data = cursor.fetchall()
-                    print(users_data)  
-                except psycopg2.Error as e:
-                    print("Error: Unable to fetch data from the database.")
-                    print(e)
+                # Users Data
+                cursor.execute("SELECT * FROM users;")
+                users_data = cursor.fetchall()
+                # Filter Geography
+                cursor.execute("SELECT * FROM filters_geography;")
+                geography_data = cursor.fetchall()
+                 # Filter Company Headcount
+                cursor.execute("SELECT * FROM filters_headcount;")
+                headcount_data = cursor.fetchall()
+                 # Filter Function
+                cursor.execute("SELECT * FROM filters_function;")
+                function_data = cursor.fetchall()
+        
 
         # Render the data using Jinja2 template and save it to table.html
-        return render_template("admin_routes/search.html", users_data=users_data)
+        return render_template("admin_routes/search.html", users_data=users_data, geography_data=geography_data, headcount_data=headcount_data,function_data=function_data )
 
 @app.route('/feed')
 def feed():

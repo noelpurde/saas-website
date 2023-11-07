@@ -78,6 +78,8 @@
     padding-top: 10px;
     display: grid;
     grid-template-columns: 0.5fr 3fr 0.1fr;
+    align-items: center;
+    justify-content: center;
 
 }
 
@@ -106,7 +108,7 @@
 .navbar_admin_list li a:hover,
 .navbar_admin_list li a:active {
     color: white;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid white;     
     /* border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px; */
 }
@@ -116,12 +118,19 @@
     border-bottom: 2px solid white;
 }
 /*-----------ADMIN CREDITS*/
+.credits_container{
+
+}
+
 .admin_credits{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     margin-left: -10px;
+    width: max-content;
+    height: 27px;
+    margin-bottom: 1px;
 }
 
 .admin_credits img{
@@ -139,11 +148,12 @@
 /*-----------ADMIN NAVBAR PROFILE IN THE END*/
 .admin_profile_name{
     border-radius:5px;
-    margin: 0px;
+    margin-bottom: 18px;
     background: transparent;
     margin-left: auto;
     margin-right: 50px;
-    width: 200px;
+    width: max-content;
+    height: 35px;    
 
     user-select: none;
     -moz-user-select: none;
@@ -161,11 +171,11 @@
     text-decoration: none;
 }
 .image_anchor img{
-    height: 48px; 
-    width: 48px;
+    height: 40px; 
+    width: 40px;
     background: transparent;
     padding: 10px;
-    margin-bottom: 13px;
+    margin-bottom: 14px;
     color: white;
 }
 .image_anchor p{

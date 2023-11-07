@@ -12,10 +12,12 @@ filename = 'css/navbar.css') }}">
         <li><a class="nav-link" href="{{ url_for('lists') }}">Lists</a></li>
         <li><a class="nav-link admin_visibility" href="{{ url_for('admin') }}">Admin</a></li>
         <li>
-          <a class="nav-link admin_credits" href="{{ url_for('credits') }}">
-            <img src="../static/images/credits_icon.png" alt="">
-            <p>Credits 5!</p>
-          </a>
+            <div class="admin_credits">
+              <a class="nav-link admin_credits" href="{{ url_for('credits') }}">
+                <img src="../static/images/credits_icon.png" alt="">
+                <p>Credits 5!</p>
+              </a>
+            </div>
         </li>
       </ul>
 

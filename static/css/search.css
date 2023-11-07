@@ -1,4 +1,8 @@
 
+body{
+    overflow-y: hidden;
+}
+
 /*======== SEARCH ==========*/
 
 .search_container{
@@ -11,8 +15,8 @@
 
 .search_filters{
     position:absolute; 
-    margin-top: 27px;
-    margin-left: -57px;
+    margin-top: 26px;
+    margin-left: -66px;
 }
 
 /*======== TABLE ==========*/
