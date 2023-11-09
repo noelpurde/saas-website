@@ -22,6 +22,7 @@ button {
 }
 .options {
     margin-top: 5px;
+    width: 95%;
 }
 .filternameOutterDiv{
     display: flex;
@@ -42,24 +43,30 @@ button {
 span {
     font-weight: 500;
 }
+
+.hidden{
+    display: none;
+}
+
 /* FILTERS FOR GEOGRAPHY----------------------------------------------------*/
 .filters_geography {
+    background-color: white;
+    border: 1px solid #959595;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: relative;
+    left: -50px;
+    top: -50px;
+
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
-    position: relative;
-    left: -50px;
-    top: -50px;
-    background-color: white;
-    border: 1px solid #959595;
     border-radius: 5px;
     height: 600px;
     width: 300px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    margin: 0;
     padding-left: 10px;
-    
 }
 
 .search-bar_geography {
@@ -73,16 +80,15 @@ span {
 
 .option_geography {
     display: flex;
-    justify-content: space-between;
-    gap: 99px;
     flex-direction: row-reverse;
+    justify-content: space-between;
 }
-
 .option_geography span{
     order: 1;
     font-size: 10px;
     padding-top: 8px;
 }
+
 .button-group_geography {
     order: 2;
 }
@@ -143,7 +149,6 @@ span {
     overflow-y: scroll;
     overflow-x: hidden;
     padding-left: 10px;
-    
 }
 
 .search-bar_headcount {
@@ -155,12 +160,9 @@ span {
     border-radius: 5px;
 }
 
-
-
 .option_headcount {
     display: flex;
     justify-content: space-between;
-    gap: 100px;
     flex-direction: row;
 }
 
@@ -178,7 +180,6 @@ span {
     cursor: pointer;
     border: none; /* Remove button border */
     outline: none; /* Remove button focus outline */
-    
 }
 
 .filter-list_headcount {
@@ -222,7 +223,6 @@ span {
     overflow-y: scroll;
     overflow-x: hidden;
     padding-left: 10px;
-    
 }
 
 .search-bar_function {
@@ -237,7 +237,6 @@ span {
 .option_function {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
     flex-direction: row-reverse;
 }
 
@@ -255,7 +254,6 @@ span {
     cursor: pointer;
     border: none; /* Remove button border */
     outline: none; /* Remove button focus outline */
-    
 }
 
 .filter-list_function {

@@ -350,3 +350,5 @@ searchInput_function.addEventListener("input", () => {
     // Your search functionality here
     // You can filter/search based on selected filters and the search input value
 });
+
+

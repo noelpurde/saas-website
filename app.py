@@ -56,8 +56,22 @@ USER_INFO_URL = 'https://api.linkedin.com/v2/me'
 
 @app.route('/')
 def index():
-    first_name = "John"
-    return render_template("index.html", first_name=first_name)
+     # Fetch data from the database
+        with connection:
+            with connection.cursor() as cursor:
+                # Filter Geography
+                cursor.execute("SELECT * FROM filters_geography;")
+                geography_data = cursor.fetchall()
+                 # Filter Company Headcount
+                cursor.execute("SELECT * FROM filters_headcount;")
+                headcount_data = cursor.fetchall()
+                 # Filter Function
+                cursor.execute("SELECT * FROM filters_function;")
+                function_data = cursor.fetchall()
+        
+
+        # Render the data using Jinja2 template and save it to table.html
+        return render_template("index.html", geography_data=geography_data, headcount_data=headcount_data,function_data=function_data )
 
 # Invalid URL
 @app.errorhandler(404)
@@ -74,7 +88,7 @@ def privacypolicy():
 
 @app.route('/search')
 def search():
-          # Fetch data from the database
+        # Fetch data from the database
         with connection:
             with connection.cursor() as cursor:
                 # Users Data
