@@ -117,3 +117,4 @@ def create_filters_tables():
 
     conn.commit()
     conn.close()
+

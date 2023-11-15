@@ -11,73 +11,75 @@
     <div id="filter_map">
         
         <!------FILTERS------->
-        <div class="three_filters">
-            <!--Filters for G E O G R A P H Y-->
-                <div class="filters_geography">
-                    <div class="filternameOutterDiv"><div class="filternameInnerDiv"><p class="filterNameParagraph">Geography</p></div></div>
-                    <div class="filter-list_geography">
-                        <!-- Filter options will be added here -->
-                    </div>
-                    <input type="text" class="search-bar_geography" placeholder="Search...">
-                    <div class="options">
-
-                        {% for geography in geography_data %}
-                        <div class="option_geography">
-                            <span tabindex="-1">{{ geography[0] }}</span>
-                            <div class="button_group_geography">
-                                <button class="include_geography" tabindex="-1">Include</button>
-                                <button class="middlepartButton" tabindex="-1" style="margin: 0; padding: 0;">|</button>
-                                <button class="exclude_geography" tabindex="-1">Exclude</button>
-                            </div>
+        <div class="search_filters">
+            <div class="three_filters">
+                <!--Filters for G E O G R A P H Y-->
+                    <div class="filters_geography">
+                        <div class="filternameOutterDiv"><div class="filternameInnerDiv"><p class="filterNameParagraph">Geography</p></div></div>
+                        <div class="filter-list_geography">
+                            <!-- Filter options will be added here -->
                         </div>
-                       {% endfor %}
+                        <input type="text" class="search-bar_geography" placeholder="Search...">
+                        <div class="options">
 
-                    </div>
-                </div>
-            <!--Filters for COMPANY H E A D C O U N T -->
-                <div class="filters_headcount">
-                    <div class="filternameOutterDiv"><div class="filternameInnerDiv"><p class="filterNameParagraph">Headcount</p></div></div>
-                    <div class="filter-list_headcount">
-                        <!-- Filter options will be added here -->
-                    </div>
-                    <input type="text" class="search-bar_headcount" placeholder="Search...">
-                    <div class="options">
-
-                        {% for headcount in headcount_data %}
-                        <div class="option_headcount">
-                            <span tabindex="-1">{{ headcount[0] }}</span>
-                            <div class="button-group_headcount">        
-                                <button class="include_headcount" tabindex="-1">Include</button>
-                                <button class="middlepartButton" tabindex="-1" style="margin: 0; padding: 0;">|</button>
-                                <button class="exclude_headcount" tabindex="-1">Exclude</button>
+                            {% for geography in geography_data %}
+                            <div class="option_geography">
+                                <span tabindex="-1">{{ geography[0] }}</span>
+                                <div class="button_group_geography">
+                                    <button class="include_geography" tabindex="-1">Include</button>
+                                    <button class="middlepartButton" tabindex="-1" style="margin: 0; padding: 0;">|</button>
+                                    <button class="exclude_geography" tabindex="-1">Exclude</button>
+                                </div>
                             </div>
+                           {% endfor %}
+
                         </div>
-                        {% endfor %}
-
                     </div>
-                </div>
-            
-            <!--Filters for F U N C T I O N -->
-                <div class="filters_function">
-                    <div class="filternameOutterDiv"><div class="filternameInnerDiv"><p class="filterNameParagraph">Function</p></div></div>
-                    <div class="filter-list_function">
-                        <!-- Filter options will be added here -->
-                    </div>
-                    <input type="text" class="search-bar_function" placeholder="Search...">
-                    <div class="options">
+                <!--Filters for COMPANY H E A D C O U N T -->
+                    <div class="filters_headcount">
+                        <div class="filternameOutterDiv"><div class="filternameInnerDiv"><p class="filterNameParagraph">Headcount</p></div></div>
+                        <div class="filter-list_headcount">
+                            <!-- Filter options will be added here -->
+                        </div>
+                        <input type="text" class="search-bar_headcount" placeholder="Search...">
+                        <div class="options">
 
-                        {% for function in function_data %}
-                        <div class="option_function">
-                            <span tabindex="-1">{{ function[0] }}</span>
-                            <div class="button_group_function">        
-                                <button class="include_function" tabindex="-1">Include</button>
-                                <button class="middlepartButton" tabindex="-1" style="margin: 0; padding: 0;">|</button>
-                                <button class="exclude_function" tabindex="-1">Exclude</button>
+                            {% for headcount in headcount_data %}
+                            <div class="option_headcount">
+                                <span tabindex="-1">{{ headcount[0] }}</span>
+                                <div class="button-group_headcount">        
+                                    <button class="include_headcount" tabindex="-1">Include</button>
+                                    <button class="middlepartButton" tabindex="-1" style="margin: 0; padding: 0;">|</button>
+                                    <button class="exclude_headcount" tabindex="-1">Exclude</button>
+                                </div>
                             </div>
+                            {% endfor %}
+
                         </div>
-                        {% endfor %}
+                    </div>
+                
+                <!--Filters for F U N C T I O N -->
+                    <div class="filters_function">
+                        <div class="filternameOutterDiv"><div class="filternameInnerDiv"><p class="filterNameParagraph">Function</p></div></div>
+                        <div class="filter-list_function">
+                            <!-- Filter options will be added here -->
+                        </div>
+                        <input type="text" class="search-bar_function" placeholder="Search...">
+                        <div class="options">
+
+                            {% for function in function_data %}
+                            <div class="option_function">
+                                <span tabindex="-1">{{ function[0] }}</span>
+                                <div class="button_group_function">        
+                                    <button class="include_function" tabindex="-1">Include</button>
+                                    <button class="middlepartButton" tabindex="-1" style="margin: 0; padding: 0;">|</button>
+                                    <button class="exclude_function" tabindex="-1">Exclude</button>
+                                </div>
+                            </div>
+                            {% endfor %}
 
 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -205,6 +207,5 @@
         once: true,
     });
   </script>
-  
 
 {% endblock %}
