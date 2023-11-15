@@ -6,8 +6,8 @@ import requests
 import os 
 from dotenv import load_dotenv
 import psycopg2
-from db import create_filters_tables
-
+from filters_filling import create_filters_tables
+from filtered_search import search_query_real_time_refresh
 
 
 
@@ -56,8 +56,22 @@ USER_INFO_URL = 'https://api.linkedin.com/v2/me'
 
 @app.route('/')
 def index():
-    first_name = "John"
-    return render_template("index.html", first_name=first_name)
+     # MAIN SCREEN MAP FILTERS
+        with connection:
+            with connection.cursor() as cursor:
+                # Filter Geography
+                cursor.execute("SELECT * FROM filters_geography;")
+                geography_data = cursor.fetchall()
+                 # Filter Company Headcount
+                cursor.execute("SELECT * FROM filters_headcount;")
+                headcount_data = cursor.fetchall()
+                 # Filter Function
+                cursor.execute("SELECT * FROM filters_function;")
+                function_data = cursor.fetchall()
+        
+
+        # Render the data using Jinja2 template and save it to table.html
+        return render_template("index.html", geography_data=geography_data, headcount_data=headcount_data,function_data=function_data )
 
 # Invalid URL
 @app.errorhandler(404)
@@ -74,7 +88,7 @@ def privacypolicy():
 
 @app.route('/search')
 def search():
-          # Fetch data from the database
+        # Fetch data from the database
         with connection:
             with connection.cursor() as cursor:
                 # Users Data
@@ -90,7 +104,6 @@ def search():
                 cursor.execute("SELECT * FROM filters_function;")
                 function_data = cursor.fetchall()
         
-
         # Render the data using Jinja2 template and save it to table.html
         return render_template("admin_routes/search.html", users_data=users_data, geography_data=geography_data, headcount_data=headcount_data,function_data=function_data )
 
@@ -105,7 +118,7 @@ def introduction():
 @app.route('/lists')
 def lists():
     return render_template("admin_routes/lists.html")
-
+ 
 @app.route('/admin')
 def admin():
     return render_template("admin_routes/admin.html")
@@ -147,6 +160,26 @@ def reports():
 @app.route('/user-settings/billing')
 def billing():
     return render_template('user_settings/billing.html')
+
+
+# TESTING FITLERED SEARCH
+@app.route('/update_data', methods=['POST'])
+def update_data():
+    filters = request.json
+
+    # Build the query based on the filters
+    query_data=search_query_real_time_refresh(filters)  
+    # print(filters)
+
+    # Render the data using Jinja2 template and save it to search.html
+    return render_template(
+        "admin_routes/search.html", query_data=query_data)
+  
+
+
+
+
+
 
 #LINKEDIN ROUTES ----------------------------------------------------------------------------------
 

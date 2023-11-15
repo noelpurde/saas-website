@@ -54,3 +54,6 @@ tr:hover {
     background-color: #ddd;
 }
 
+.hidden{
+    display: none;
+}

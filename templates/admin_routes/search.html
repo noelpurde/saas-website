@@ -2,14 +2,13 @@
 
 {% block content%}
 
- 
-
     <div class="search_container">
         <div class="search_filters">
             <div class="three_filters">
                 <!--Filters for G E O G R A P H Y-->
                     <div class="filters_geography">
-                        <div class="filternameOutterDiv"><div class="filternameInnerDiv"><p class="filterNameParagraph">Geography</p></div></div>
+                        <div class="filternameOutterDiv"><div class="filternameInnerDiv"><p class="filterNameParagraph">Geography</p></div>
+                        </div>
                         <div class="filter-list_geography">
                             <!-- Filter options will be added here -->
                         </div>
@@ -26,6 +25,7 @@
                                 </div>
                             </div>
                            {% endfor %}
+
                         </div>
                     </div>
                 <!--Filters for COMPANY H E A D C O U N T -->
@@ -77,34 +77,39 @@
                 </div>
             </div>
 
+<!--------------------------------------------------------------------------------->
+
         <div style="margin-left: 300px;">
             <table class="search_table">
-                <tr>
-                    <th>Name</th>
-                    <th>Title</th>
-                    <th>Company</th>
-                    <th>Region</th>
-                    <th>Company Size</th>
-                    <th>Function</th>
-                    <th>Product Bought</th>
-                    <th>Email</th>
-                </tr>
-                {% for user in users_data %}
-                <tr>
-                    <td>{{ user[1] }}</td>
-                    <td>{{ user[2] }}</td>
-                    <td>{{ user[3] }}</td>
-                    <td>{{ user[4] }}</td>
-                    <td>{{ user[5] }}</td>
-                    <td>{{ user[6] }}</td>
-                    <td>{{ user[7] }}</td>
-                    <td>{{ user[8] }}</td>
-                </tr>
-                {% endfor %}
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Title</th>
+                        <th>Company</th>
+                        <th>Region</th>
+                        <th>Company Size</th>
+                        <th>Function</th>
+                        <th>Product Bought</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    {% for user in query_data %}
+                    <tr>
+                        <td>{{ user[1] }}</td>
+                        <td>{{ user[2] }}</td>
+                        <td>{{ user[3] }}</td>
+                        <td>{{ user[4] }}</td>
+                        <td>{{ user[5] }}</td>
+                        <td>{{ user[6] }}</td>
+                        <td>{{ user[7] }}</td>
+                        <td>{{ user[8] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>        
         </div>
 
     </div>
-
 
 {% endblock %}
