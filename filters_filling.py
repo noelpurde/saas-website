@@ -84,7 +84,7 @@ def create_filters_tables():
         'Accounting',
         'Administrative',
         'Arts and Design',
-        'Business Development',
+        'Buisness Development',
         'Community and Social Services',
         'Consulting',
         'Customer Success and Support',
