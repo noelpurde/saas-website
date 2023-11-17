@@ -12,6 +12,10 @@ def search_query_real_time_refresh(filters):
     conn = psycopg2.connect(URL)
     cur = conn.cursor()
 
+    # Check if all filter arrays are empty
+    if not any(filters.values()):
+        return []
+
     query = "SELECT * FROM users WHERE 1=1"
     params = []
 
@@ -32,5 +36,4 @@ def search_query_real_time_refresh(filters):
         with conn.cursor() as cur:
             cur.execute(query, tuple(params))
             result = cur.fetchall()
-    print(result)
     return result

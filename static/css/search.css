@@ -1,6 +1,12 @@
 
 body{
     overflow-y: hidden;
+
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
 }
 
 /*======== SEARCH ==========*/
@@ -20,13 +26,22 @@ body{
 }
 
 /*======== TABLE ==========*/
-.search_table {
-    width: 120%;
-    margin-left: -100px;
-    margin-bottom: 20px;
-    border: none;
-    border-spacing: 10px;
-}
+.search_table th, .search_table td {
+    width: 150px;
+    text-align: center;
+  }
+  
+  .search_table {
+    table-layout: fixed;
+    width: 800px;
+
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+  }
+  
 
 th, td {
     width: 250px;

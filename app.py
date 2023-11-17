@@ -103,7 +103,7 @@ def search():
                  # Filter Function
                 cursor.execute("SELECT * FROM filters_function;")
                 function_data = cursor.fetchall()
-        
+
         # Render the data using Jinja2 template and save it to table.html
         return render_template("admin_routes/search.html", users_data=users_data, geography_data=geography_data, headcount_data=headcount_data,function_data=function_data )
 
@@ -162,21 +162,17 @@ def billing():
     return render_template('user_settings/billing.html')
 
 
+
 # TESTING FITLERED SEARCH
 @app.route('/update_data', methods=['POST'])
 def update_data():
     filters = request.json
 
     # Build the query based on the filters
-    query_data=search_query_real_time_refresh(filters)  
-    # print(filters)
-
-    # Render the data using Jinja2 template and save it to search.html
-    return render_template(
-        "admin_routes/search.html", query_data=query_data)
-  
-
-
+    filtered_data=search_query_real_time_refresh(filters)
+    print(filters)
+    print(filtered_data)
+    return jsonify({'filtered_data': filtered_data})
 
 
 
@@ -262,5 +258,5 @@ def database_testing():
 
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    debug=True

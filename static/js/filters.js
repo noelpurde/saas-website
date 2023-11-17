@@ -213,7 +213,7 @@ includeButtons_geography.forEach((includeButton, index) => {
     includeButton.addEventListener("click", () => {
         const optionText = optionElements_geography[index].querySelector("span").textContent;
         addFilter_geography(optionText);
-        updateFilters_geography()
+        updateFilters_geography();
     });
 });
 excludeButtons_geography.forEach((excludeButton, index) => {
@@ -221,7 +221,6 @@ excludeButtons_geography.forEach((excludeButton, index) => {
         const optionText = optionElements_geography[index].querySelector("span").textContent;
         selectedFilters_geography.delete(optionText);
         updateFilters_geography();
-        updateFilters_geography()
     });
 });
 
@@ -278,7 +277,7 @@ includeButtons_headcount.forEach((includeButton, index) => {
     includeButton.addEventListener("click", () => {
         const optionText = optionElements_headcount[index].querySelector("span").textContent;
         addFilter_headcount(optionText);
-        updateFilters_geography()
+        updateFilters_headcount()
     });
 });
 excludeButtons_headcount.forEach((excludeButton, index) => {
@@ -286,7 +285,6 @@ excludeButtons_headcount.forEach((excludeButton, index) => {
         const optionText = optionElements_headcount[index].querySelector("span").textContent;
         selectedFilters_headcount.delete(optionText);
         updateFilters_headcount();
-        updateFilters_geography()
     });
 });
 
@@ -352,13 +350,16 @@ excludeButtons_function.forEach((excludeButton, index) => {
 
 
 // TEMPORARY
-const filters = {
-  geography: Array.from(selectedFilters_geography),
-  headcount: Array.from(selectedFilters_headcount),
-  function: Array.from(selectedFilters_function),
-};
-updateData(filters)
-// TEMPORARY
+// const filters = {
+//   geography: ["EMEA", "Europe"],
+//   headcount: Array.from(selectedFilters_headcount),
+//   function: Array.from(selectedFilters_function),
+// };
+// updateData(filters)
+// TEMPORARY  
+
+
+//---------------------------AJAX FUNCTION---------------------------
 
 function updateData(filters) {
   fetch('/update_data', {
@@ -368,14 +369,65 @@ function updateData(filters) {
       },
       body: JSON.stringify(filters),
   })
-
   .then(response => response.json())
   .then(data => {
       console.log('Updated data from server:', data);
+      // Assuming 'data.filtered_data' is an array of filtered data
+      updateTable(data.filtered_data);
   })
-
   .catch(error => {
       console.error('Error updating data:', error);
   });
-  console.log(filters)
 }
+
+function updateTable(filteredData) {
+  // Update your HTML table with the new filtered data
+  const tableBody = document.querySelector('.search_table tbody');
+  tableBody.innerHTML = '';  // Clear existing rows
+
+  // Add the static header row
+  const headerRow = document.createElement('tr');
+  headerRow.innerHTML = `
+    <th>Name</th>
+    <th>Title</th>
+    <th>Company</th>
+    <th>Region</th>
+    <th>Company Size</th>
+    <th>Function</th>
+    <th>Product Bought</th>
+    <th>Email</th>
+  `;
+  tableBody.appendChild(headerRow);
+
+  // Add dynamic rows
+  filteredData.forEach(user => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${user[1]}</td>
+      <td>${user[2]}</td>
+      <td>${user[3]}</td>
+      <td>${user[4]}</td>
+      <td>${user[5]}</td>
+      <td>${user[6]}</td>
+      <td>${user[7]}</td>
+      <td>${user[8]}</td>
+    `;
+    tableBody.appendChild(row);
+  });
+}
+
+
+
+// includeButton.addEventListener("click", () => {
+//   const tableContent = document.getElementById("table-body");
+
+//   fetch("/update_data", {
+//     method: "GET"
+//   })
+//     .then(response => {
+//       return response.text();
+//     })
+//     .then(html => {
+//       tableContent.innerHTML = html;
+//     });
+// });
