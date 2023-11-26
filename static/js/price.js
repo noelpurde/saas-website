@@ -1,44 +1,62 @@
 const priceSlider = document.getElementById('priceSlider');
-        const priceDisplay = document.getElementById('credits');
-        const companyOfferDisplay = document.getElementById('companyOffer');
-        
-        // Define your price values here
-        const credits = [100, 1000, 2000, 4000, 8000, 16000, 32000, 64000];
-        
-        priceSlider.addEventListener('input', updatePrice);
+const priceDisplay = document.getElementById('credits');
+const companyOfferDisplay = document.getElementById('companyOffer');
+const sliderBubble = document.getElementById('sliderBubble');
+const sliderWrapper = document.querySelector('.slider-container');
 
-        function updatePrice() {
-            const index = priceSlider.value;
-            const credit = credits[index];
-            priceDisplay.textContent = `CREDITS: ${credit}`;
-            priceDisplay.style.fontWeight = 'bold';
-            priceDisplay.style.fontSize = '24px';
+const credits = [100, 1000, 2000, 4000, 8000, 16000, 32000, 64000];
 
-            
-            // You can customize the company offer based on the price here
-            if (credit == 100) {
-                companyOfferDisplay.textContent = "$80 @ $.80 / credit";
-                companyOfferDisplay.style.fontWeight = 'bold';
-                companyOfferDisplay.style.fontSize = '16px';
-            } else if (credit == 1000) {
-                companyOfferDisplay.textContent = "$880 @ $.80 / credit";
-            } else if (credit == 2000) {
-                companyOfferDisplay.textContent = "$1,760 @ $.80 / credit";
-            } else if (credit == 4000) {
-                companyOfferDisplay.textContent = "$3,520 @ $.80 / credit";
-            } else if (credit == 8000) {
-                companyOfferDisplay.textContent = "$7,040 @ $.80 / credit";
-            } else if (credit == 16000) {
-                companyOfferDisplay.textContent = "$14,080 @ $.80 / credit";
-            } else if (credit == 32000) {
-                companyOfferDisplay.textContent = "$28,160 @ $.80 / credit";
-            } else if (credit == 64000) {
-                companyOfferDisplay.textContent = "$56,320 @ $.80 / credit";
-            }
+priceSlider.addEventListener('input', updatePrice);
+
+function updatePrice() {
+    const index = priceSlider.value;
+    const credit = credits[index];
+    priceDisplay.textContent = `Credits: ${credit}`;
+    priceDisplay.style.fontWeight = 'normal';
+    priceDisplay.style.fontSize = '24px';
+
+    companyOfferDisplay.style.fontFamily = 'Quicksand, sans-serif';
+    companyOfferDisplay.style.color = '#25254e'; 
+
+
+    if (credit == 100) {
+        companyOfferDisplay.innerHTML = `<span id="creditAmount"><b>$${credit * 0.80}</span> <span id="otherAmount"><b>@ $.80 / credit</span>`;
+        document.getElementById('creditAmount').style.fontSize = '28px';
+        document.getElementById('otherAmount').style.color = '#9d9d9d';
+    } else {
+        companyOfferDisplay.innerHTML = `<span id="creditAmount"><b>$${credit * 0.80}</span> <span id="otherAmount"><b>@ $.80 / credit</span>`;
+        document.getElementById('creditAmount').style.fontSize = '28px';
+        document.getElementById('otherAmount').style.color = '#9d9d9d';
         }
 
-        // Set the maximum value of the slider to the number of prices
-        priceSlider.max = credits.length - 1;
+    updateSliderBubble();
+}
 
-        // Initial update
-        updatePrice();
+function updateSliderBubble() {
+    const index = priceSlider.value;
+    const thumbSize = 20;
+    const position = (priceSlider.clientWidth - thumbSize) / (credits.length - 1) * index;
+
+    sliderBubble.textContent = credits[index];
+    sliderBubble.style.left = `calc(${position}px + ${thumbSize / 2}px)`;
+
+    sliderBubble.style.display = 'block';
+}
+
+function showSliderBubble() {
+    sliderBubble.style.opacity = 1;
+}
+
+function hideSliderBubble() {
+    sliderBubble.style.opacity = 0;
+}
+
+sliderWrapper.addEventListener('mouseover', () => {
+    showSliderBubble();
+});
+
+sliderWrapper.addEventListener('mouseout', () => {
+    hideSliderBubble();
+});
+
+updatePrice();
