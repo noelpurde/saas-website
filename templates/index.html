@@ -5,9 +5,10 @@
 
 <head>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap">
 </head>
 <div class="container" data-aos="fade-in" >
-    <p style="text-align: center;">Win more deals faster by using your personal network to find verified Champions👑 </p>
+    <p style="text-align: center;"><span style="color: rgb(74, 57, 254); font-weight: bolder;">Win more deals faster</span> by using your personal network to find verified <span style="color: rgb(74, 57, 254); font-weight: bolder;">Champions👑</span> </p>
     <div id="filter_map">
         
         <!------FILTERS------->
@@ -87,25 +88,22 @@
             {% include 'map.html' %}
 
     <div class="below_map">
-        <p style="text-align: center;">There are 1,330 contacts who are in South America, between 51-200 employees, and who work in Accounting in your network!</p>
+        <p style="text-align: center;">There are <span>1,330 contacts</span>
+             who are in <span>South America</span>, between 
+             <span>51-200 employees</span>, and who work in 
+             <span>Accounting</span> in your network!</p>
 
         <div style="display: flex; justify-content: center; align-items: center;">
             <button class="backchanneling_button" type="button">Start Backchanneling</button>
-            <a href="{{ url_for('linkedin_signin')}}">
-                <button type="button" class="linkedin_signin" style="border: none; border-radius: 30px; background-color: #f4f4f4;">
-                    <img src="https://static.vecteezy.com/system/resources/previews/018/930/587/non_2x/linkedin-logo-linkedin-icon-transparent-free-png.png" 
-                        alt="Linkedin Logo" style="height: 4rem; width: 4rem;">
-                </button>
-            </a>
         </div>
 
         <br><br><br><br>
         <div data-aos="fade-right">
            <h2 style="text-align: center;">
-            500,000 Champions <br>
-            45 Different Functions <br>
-            15 Regions <br>
-            10 Company Sizes <br>
+            <span>500,000</span> Champions <br>
+            <span>45</span> Different Functions <br>
+            <span>15</span> Regions <br>
+            <span>10</span> Company Sizes <br>
             </h2> 
         </div>
         
@@ -113,33 +111,33 @@
     </div>
 </div>
 
-<div class="all" data-aos="fade-left">
+<div class="all-testimonials" data-aos="fade-left">
     <div class="testimonials">
-        <div class="inner">
+        <div class="inner-testimonials">
             <h1>Testimonials</h1>
-            <div class="border"></div>
+            <div class="border-testimonials"></div>
     
-            <div class="row">
-                <div class="col">
+            <div class="row-testimonials">
+                <div class="col-testimonials">
                     <div class="testimonial">
-                        <img src="/static/images/person1.jfif" alt="">
-                        <div class="name">Full Name</div>
-                        <p>"I couldn't be happier with the service I received from XYZ Company. From the moment I contacted them, they were responsive, professional, and attentive to my needs. They exceeded my expectations and delivered a product that truly impressed me. I highly recommend their services to anyone looking for top-notch quality and customer care."</p>
+                        <img src="/static/images/person1.jfif" alt=""><br><br>
+                        <div class="name">Scott Doe</div>
+                        <p>"I couldn't be happier with the service I received from Backchannel.com. From the moment I contacted them, they were responsive, professional, and attentive to my needs. They exceeded my expectations and delivered a product that truly impressed me. I highly recommend their services to anyone looking for top-notch quality and customer care."</p>
                     </div>
                 </div>
     
-                <div class="col">
+                <div class="col-testimonials">
                     <div class="testimonial">
-                        <img src="/static/images/person2.jfif" alt="">
-                        <div class="name">Full Name</div>
-                        <p>"I couldn't be happier with the service I received from XYZ Company. From the moment I contacted them, they were responsive, professional, and attentive to my needs. They exceeded my expectations and delivered a product that truly impressed me. I highly recommend their services to anyone looking for top-notch quality and customer care."</p>
+                        <img src="/static/images/person2.jfif" alt=""><br><br>
+                        <div class="name">Chan Tai Man</div>
+                        <p>"I'm extremely pleased with the exceptional service provided by Backchannel.com. Their professionalism and dedication to meeting my requirements surpassed my expectations. I wholeheartedly recommend Backchannel.com to anyone seeking to link with other people on the same expertiese."</p>
                     </div>
                 </div>
                 <div class="col">
                     <div class="testimonial">
-                        <img src="/static/images/person3.jfif" alt="">
-                        <div class="name">Full Name</div>
-                        <p>"I couldn't be happier with the service I received from XYZ Company. From the moment I contacted them, they were responsive, professional, and attentive to my needs. They exceeded my expectations and delivered a product that truly impressed me. I highly recommend their services to anyone looking for top-notch quality and customer care."</p>
+                        <img src="/static/images/person3.jfif" alt=""><br><br>
+                        <div class="name">Zhang Chen</div>
+                        <p>"Choosing Backchannel.com was a decision I won't regret. From the moment I reached out, their responsiveness and attention to detail stood out. They not only met but exceeded my expectations, delivering a service that truly impressed me. I highly recommend Backchannel.com for their high quality service."</p>
                     </div>
                 </div>
             </div>
@@ -160,25 +158,46 @@
 
     <div class="slider-container" data-aos="fade-in" id="pricing">
         <div class="before-included">
-            <div class="pricing"><strong>PRICING</strong></div> 
+            <div class="pricing"><strong>PRICING</strong></div>
             <div class="pricing1">Pricing for usage</div>
             <div class="pricing2">Use the credits as needed, when more are necessary just re-up</div>
-            <input type="range" min="0" max="7" value="0" class="slider" id="priceSlider"> <br><br>
-            <div id="credits">Credits: 100</div>
-            <div id="companyOffer">$80 @ $.80 / credit</div>
+            <div class="slider-wrapper">
+                <input type="range" min="0" max="7" value="0" class="slider" id="priceSlider">
+                <div class="slider-bubble" id="sliderBubble">100</div>
+            </div>
+            <br><br>
         </div>
-        <div class="included"> <br><br>
-            <h2 style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">What's included</h2>
-            <ul>
-                <li>All analitics features</li>
-                <li>Database of 250 000 champions</li>
-                <li>Email Support</li>
-                <li>Something else</li>
-            </ul>
-            <img src="../static/images/pricing-logo.PNG" alt="" style="float: right; margin: 0 0 0 15px; top: -120px;">
-            <button>Get started</button>
+        
+        <div class="pricing-container">
+            <div class="img-basic-pricing-info">
+            <div class="img-basic">
+                <div class="image-container">
+                    <img src="../static/images/pricing-logo.PNG" alt="">
+                </div>
+                <div class="basic-container">
+                    <div class="for-individuals">For Individuals</div>
+                    <div class="basic">Basic</div>
+                </div>
+            </div>
+            <div class="pricing-info">
+                <div id="credits">Credits: 100</div>
+                <div id="companyOffer">$80 @ $.80 / credit</div>
+                <button class="get-started-button">Get started</button>
+            </div>
+            </div>
+            <div class="included">
+                <p>What's included</p>
+                <ul>
+                    <li><div class="success-checkmark"><img src="../static/images/tick.png" alt=""></div>&nbsp;&nbsp;All analytics features</li>
+                    <li><div class="success-checkmark"><img src="../static/images/tick.png" alt=""></div>&nbsp;&nbsp;Database of 250,000 champions</li>
+                    <li><div class="success-checkmark"><img src="../static/images/tick.png" alt=""></div>&nbsp;&nbsp;Email Support</li>
+                    <li><div class="success-checkmark"><img src="../static/images/tick.png" alt=""></div>&nbsp;&nbsp;Something else</li>
+                </ul>
+            </div>
         </div>
+        
     </div>
+    
     
 
     <br><br><br><br>
@@ -186,7 +205,6 @@
     <footer class="all-footer">
         <div class="footer-content">
             <h3></h3>
-            <p>This is the footer</p>
             <ul class="socials">
                 <li>Facebook</li>
                 <li>Instagram</li>
