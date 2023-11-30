@@ -208,6 +208,11 @@ function addFilter_geography(option_geography) {
         selectedFilters_geography.add(option_geography);
         updateFilters_geography();
     }
+    else {
+        selectedFilters_geography.delete(option_geography)
+        updateFilters_geography();
+
+    }
 }
 includeButtons_geography.forEach((includeButton, index) => {
     includeButton.addEventListener("click", () => {
@@ -226,12 +231,12 @@ excludeButtons_geography.forEach((excludeButton, index) => {
 
 
 //Map check to remove existent filters
-function removeContinent(classname) {
-  if(selectedFilters_geography.has(classname)){
-    selectedFilters_geography.delete(classname);
-    updateFilters_geography();
-  }
-}
+// function removeContinent(classname) {
+//   if(selectedFilters_geography.has(classname)){
+//     selectedFilters_geography.delete(classname);
+//     updateFilters_geography();
+//   }
+// }
 ///////////////////////////////////// - FILTERS H E A D C O U N T - ///////////////////////////////////////////////
 
 const filterList_headcount = document.querySelector(".filter-list_headcount");
