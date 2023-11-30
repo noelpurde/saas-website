@@ -34,6 +34,7 @@ body{
   .search_table {
     table-layout: fixed;
     width: 800px;
+    margin-left: -100px;
 
     user-select: none;
     -moz-user-select: none;
@@ -44,7 +45,7 @@ body{
   
 
 th, td {
-    width: 250px;
+    width: 300px;
     padding: 20px;
     text-align: center;
     border: none;
