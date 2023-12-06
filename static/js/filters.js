@@ -211,13 +211,19 @@ function addFilter_geography(option_geography) {
     else {
         selectedFilters_geography.delete(option_geography)
         updateFilters_geography();
-
     }
+}
+
+function addFilter_geography_include(option_geography) {
+  if (!selectedFilters_geography.has(option_geography)) {
+      selectedFilters_geography.add(option_geography);
+      updateFilters_geography();
+  }
 }
 includeButtons_geography.forEach((includeButton, index) => {
     includeButton.addEventListener("click", () => {
         const optionText = optionElements_geography[index].querySelector("span").textContent;
-        addFilter_geography(optionText);
+        addFilter_geography_include(optionText);
         updateFilters_geography();
     });
 });
