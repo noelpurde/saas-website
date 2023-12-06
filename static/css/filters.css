@@ -8,7 +8,9 @@
     justify-content: flex-start;
     align-items: center;
     height: 600px;
-    z-index: 10;
+    width: 340px;
+    
+    transform: scale(0.8);
 }
 button {
     background-color: white;
@@ -19,8 +21,15 @@ button {
 }
 .options {
     margin-top: 5px;
-    width: 95%;
+    width: 99%
 }
+
+.scrollable-options{
+    overflow-y: auto;
+    max-height: 300px;
+    padding-right: 3%;
+}
+
 .filternameOutterDiv{
     display: flex;
     flex-direction: row;
@@ -28,6 +37,8 @@ button {
     width: 260px;
     height: 20px;
     margin-top: 10px;
+    position: sticky;
+    z-index: 2;
 }
 .filternameInnerDiv{
     margin-bottom: 0;
@@ -45,6 +56,12 @@ span {
     display: none;
 }
 
+.button_group_geography,
+.button_group_headcount,
+.button_group_function{
+    white-space: nowrap;
+}
+
 /* FILTERS FOR GEOGRAPHY----------------------------------------------------*/
 .filters_geography {
     background-color: white;
@@ -54,7 +71,6 @@ span {
     position: relative;
     left: -50px;
     top: -50px;
-    z-index: 10;
 
     display: flex;
     align-items: center;
@@ -62,14 +78,13 @@ span {
     flex-direction: column;
     border-radius: 5px;
     height: 600px;
-    width: 300px;
+    width: 340px;
     margin: 0;
     padding-left: 10px;
 }
 
 .search-bar_geography {
-    margin-right: 7px;
-    width: 270px;
+    width: 300px;
     height: 30px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -78,13 +93,15 @@ span {
 
 .option_geography {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row-reverse ;
     justify-content: space-between;
 }
 .option_geography span{
     order: 1;
-    font-size: 10px;
-    padding-top: 8px;
+    font-size: 12px;
+    padding-top: 1.7%;
+    padding-left: 2%;
+    white-space: nowrap;
 }
 
 .button-group_geography {
@@ -92,7 +109,7 @@ span {
 }
 
 .option_geography button {
-    font-size: 9px;
+    font-size: 11px;
     cursor: pointer;
     border: none; /* Remove button border */
     outline: none; /* Remove button focus outline */
@@ -109,7 +126,7 @@ span {
 
 .filter_geography {
     background-color: #4CAF50;
-    font-size: 10px;
+    font-size: 12px;
     color: white;
     border-radius: 18px; /* Rounded corners for filters */
     padding: 5px 10px;
@@ -137,23 +154,21 @@ span {
     justify-content: top;
     flex-direction: column;
     position: relative;
-    left: -50px;
+    left: -50px;    
     top: -50px;
-    z-index: 10;
 
     background-color: white;
     border: 1px solid #959595;
     border-radius: 5px;
     height: 600px;
-    width: 300px;
+    width: 340px;
     overflow-y: scroll;
     overflow-x: hidden;
     padding-left: 10px;
 }
 
 .search-bar_headcount {
-    margin-right: 7px;
-    width: 270px;
+    width: 300px;
     height: 30px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -168,15 +183,17 @@ span {
 
 .option_headcount span{
     order: 1;
-    font-size: 10px;
-    padding-top: 8px;
+    font-size: 12px;
+    padding-top: 1.7%;
+    padding-left: 2%;
+    white-space: nowrap;
 }
 .button-group_headcount {
     order: 2;
 }
 
 .option_headcount button {
-    font-size: 9px;
+    font-size: 11px;
     cursor: pointer;
     border: none; /* Remove button border */
     outline: none; /* Remove button focus outline */
@@ -191,7 +208,7 @@ span {
 
 .filter_headcount {
     background-color: #4CAF50;
-    font-size: 10px;
+    font-size: 12px;
     color: white;
     border-radius: 18px; /* Rounded corners for filters */
     padding: 5px 10px;
@@ -221,21 +238,19 @@ span {
     position: relative;
     left: -50px;
     top: -50px;    
-    z-index: 10;
 
     background-color: white;
     border: 1px solid #959595;
     border-radius: 5px;
     height: 600px;
-    width: 300px;
+    width: 340px;
     overflow-y: scroll;
     overflow-x: hidden;
     padding-left: 10px;
 }
 
 .search-bar_function {
-    margin-right: 7px;
-    width: 270px;
+    width: 300px;
     height: 30px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -250,15 +265,18 @@ span {
 
 .option_function span{
     order: 1;
-    font-size: 10px;
-    padding-top: 8px;
+    font-size: 12px;
+    padding-top: 1.7%;
+    padding-left: 2%;
+
+    white-space: nowrap;
 }
 .button-group_function {
     order: 2;
 }
 
 .option_function button {
-    font-size: 9px;
+    font-size: 11px;
     cursor: pointer;
     border: none; /* Remove button border */
     outline: none; /* Remove button focus outline */
@@ -273,7 +291,7 @@ span {
 
 .filter_function {
     background-color: #4CAF50;
-    font-size: 10px;
+    font-size: 12px;
     color: white;
     border-radius: 18px; /* Rounded corners for filters */
     padding: 5px 10px;
