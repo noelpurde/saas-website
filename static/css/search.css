@@ -15,14 +15,16 @@ body{
     display: flex;
     flex-direction:row;
     justify-content: space-between;
+    align-items: flex-start;
 }
 
 /*======== FILTERS ==========*/
 
 .search_filters{
-    position:absolute; 
-    margin-top: 26px;
-    margin-left: -66px;
+    position:relative; 
+    margin-left: -5%;
+    margin-right: 8%;
+    margin-top: -5%;
 }
 
 /*======== TABLE ==========*/
@@ -34,7 +36,7 @@ body{
   .search_table {
     table-layout: fixed;
     width: 800px;
-    margin-left: -100px;
+    margin-left: -40%;
 
     user-select: none;
     -moz-user-select: none;

@@ -100,6 +100,7 @@
                 {% include 'map.html' %}
             </div>
         </div><!--SUBCONTAINER-->
+        
             <!--DATA FROM DATABASE FILTERED SEARCH NUMBERS-->
         <div class="filters-data-update">
             <p style="text-align: center;">There are <span>1,330 contacts</span>
@@ -108,7 +109,7 @@
                 <span>Accounting</span> in your network!</p>
 
             <div style="display: flex; justify-content: center; align-items: center;">
-                <button class="backchanneling_button" type="button">Start Backchanneling</button>
+                <a href="{{ url_for('linkedin_signin') }}"><button class="backchanneling_button" type="button">Start Backchanneling</button></a>
             </div>
 
             <br><br><br><br>

@@ -36,11 +36,12 @@ body {
 }
 
 #filter_map{
+    max-height: 415px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: -11%;
+    margin-bottom: 13%;
 }
 
 .map-container{
@@ -58,7 +59,6 @@ body {
     justify-content: center;
     margin-top: 50px;
     margin-top: -7%;
-
 }
 
 .filters{z-index: 2;}
