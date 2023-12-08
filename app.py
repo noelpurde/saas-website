@@ -1,5 +1,5 @@
 # from aiohttp import request
-from flask import Flask, redirect, render_template, request, url_for, jsonify
+from flask import Flask, redirect, render_template, request, url_for, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import requests
@@ -163,7 +163,7 @@ def billing():
 
 
 
-# TESTING FITLERED SEARCH
+# FITLERED SEARCH ADMIN PAGE -> PASSING DATA FROM FILTERS TO JAVASCRIPT FOR LOADING TABLE COLUMNS
 @app.route('/update_data', methods=['POST'])
 def update_data():
     filters = request.json
@@ -181,6 +181,10 @@ def update_data():
 
 @app.route('/linkedin_signin')
 def linkedin_signin():
+
+    if 'linkedin_token' in session:
+        # User is already logged in, redirect to a certain route
+        return redirect(url_for('search'))
     # RedirectING the user to LinkedIn's authentication page
     params = {
         'response_type': 'code',
@@ -210,7 +214,6 @@ def callback():
         response = requests.post(TOKEN_URL, data=token_data)
         access_token = response.json().get('access_token')
 
-
         # Using access token to get user info
         headers = {
             'Authorization': f'Bearer {access_token}',
@@ -230,8 +233,8 @@ def callback():
         error_url =  f"{REDIRECT_URI}?{'&'.join([f'{k}={v}' for k, v in error_params.items()])}"
 
 
-        user_name = user_info.get('name', 'User')
-        return redirect(url_for('user', name=user_name))
+
+        return redirect(url_for('search'))
     else:
         return redirect(url_for('index'))
 
