@@ -28,7 +28,7 @@
     font-weight: bold;
 }
 
-.your-backchannel-feed-activity, .you-feed-activity{
+.your-backchannel-feed-activity, .you-feed-activity {
     flex: 1;
 }
 
@@ -44,4 +44,5 @@
 
 .you-feed-activity {
     margin-left: 385px;
+    display: none;  
 }
