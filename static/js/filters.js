@@ -57,6 +57,7 @@ function resetCSSVariables(className) {
     case 'asia':
     case 'africa':
     case 'oceania':
+      
       // Reset the CSS variables for the specific classes
       root.style.removeProperty('--europe_stroke');
       root.style.removeProperty('--northAmerica_stroke');
