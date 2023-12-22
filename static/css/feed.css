@@ -1,0 +1,48 @@
+.feed-conatiner{
+    display: flex;
+    flex-direction: column;
+}
+
+.feed-navbar-container {
+    display: flex;
+    font-size: 26px;
+    width: 50vw;
+    margin-left: 10px;
+}
+
+.feed-activity{
+    display: flex;
+    width: 50vw;
+    margin-left: 10px;
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+.your-backchannel, .you {
+    cursor: pointer;
+    flex: 1;
+    border-bottom: 2px solid black;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.your-backchannel-feed-activity, .you-feed-activity {
+    flex: 1;
+}
+
+.feed-activity span {
+    color: rgb(74, 57, 254);
+}
+
+.feed-activity a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.you-feed-activity {
+    margin-left: 385px;
+    display: none;  
+}

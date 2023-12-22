@@ -2,5 +2,37 @@
 
 {% block content%}
 
+<head>
+    <link rel="stylesheet" href="/static/css/feed.css" />
+</head>
+
+
+<div class='feed-conatiner'>
+    <div class="feed-navbar-container">
+        <div class="your-backchannel" onclick="toggleDiv('your-backchannel', 'you')">
+            <p>Your Backchannel</p>
+        </div>
+        
+        <div class="you" onclick="toggleDiv('you', 'your-backchannel')">
+            <p>You</p>
+        </div>
+    </div>
+    <div class="feed-activity">
+        <div class="your-backchannel-feed-activity">
+            <p><span><a href="">John Smith</a></span> asked <span><a href="">Mike White</a></span> for an introduction 12 minutes ago</p>
+            <p><span>John Smith</span> asked <span>Mike White</span> for an introduction 12 minutes ago</p>
+            <p><span>John Smith</span> asked <span>Mike White</span> for an introduction 12 minutes ago</p>
+            <p><span>John Smith</span> asked <span>Mike White</span> for an introduction 12 minutes ago</p>
+        </div>
+        <div class="you-feed-activity">
+            <p>You asked <span><a href="">Garry Tan</a></span> for an introduction 12 minutes ago</p>
+            <p>You asked <span><a href="">Garry Tan</a></span> for an introduction 12 minutes ago</p>
+            <p>You asked <span><a href="">Garry Tan</a></span> for an introduction 12 minutes ago</p>
+            <p>You asked <span><a href="">Garry Tan</a></span> for an introduction 12 minutes ago</p>
+        </div>
+    </div>
+</div> 
+
+<script src="/static/js/feed.js"></script>
 
 {% endblock %}
