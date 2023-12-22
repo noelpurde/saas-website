@@ -225,7 +225,7 @@ def callback():
     # Callback handling from LinkedIn
     code = request.args.get('code')
     if code:
-        # The authorization code for an access token exchange
+        # The authorization code for an access token exchangex
         token_data = {
             'grant_type': 'authorization_code',
             'code': code,
