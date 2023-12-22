@@ -1,13 +1,11 @@
 # from aiohttp import request
-from flask import Flask, redirect, render_template, request, url_for, jsonify, session
+from flask import Flask, redirect, render_template, request, url_for, jsonify, session, g
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import requests
-import os 
 from dotenv import load_dotenv
-import psycopg2
 from filters_filling import create_filters_tables
-from filtered_search import search_query_real_time_refresh
+from filtered_search import search_query_real_time_refresh, create_or_replace_table, filter_data_from_database
+import requests, os, json, psycopg2
 
 
 
@@ -86,26 +84,30 @@ def privacypolicy():
     return render_template("privacypolicy.html")
 #ADMIN PURPLE NAVBAR ROUTES -----------------------------------------------------------------------
 
-@app.route('/search')
-def search():
-        # Fetch data from the database
-        with connection:
-            with connection.cursor() as cursor:
-                # Users Data
-                cursor.execute("SELECT * FROM users;")
-                users_data = cursor.fetchall()
-                # Filter Geography
-                cursor.execute("SELECT * FROM filters_geography;")
-                geography_data = cursor.fetchall()
-                 # Filter Company Headcount
-                cursor.execute("SELECT * FROM filters_headcount;")
-                headcount_data = cursor.fetchall()
-                 # Filter Function
-                cursor.execute("SELECT * FROM filters_function;")
-                function_data = cursor.fetchall()
+def get_db():
+    if 'db' not in g:
+        g.db = psycopg2.connect(DATABASE_URL)
+    return g.db
 
-        # Render the data using Jinja2 template and save it to table.html
-        return render_template("admin_routes/search.html", users_data=users_data, geography_data=geography_data, headcount_data=headcount_data,function_data=function_data )
+@app.route('/search', methods=['GET'])
+def search():
+    # FETCH DATA FROM THE DATABASE
+    with get_db(), get_db().cursor() as cursor:
+        # Users Data
+        cursor.execute("SELECT * FROM users;")
+        users_data = cursor.fetchall()
+        # Filter Geography
+        cursor.execute("SELECT * FROM filters_geography;")
+        geography_data = cursor.fetchall()
+        # Filter Company Headcount
+        cursor.execute("SELECT * FROM filters_headcount;")
+        headcount_data = cursor.fetchall()
+        # Filter Function
+        cursor.execute("SELECT * FROM filters_function;")
+        function_data = cursor.fetchall()
+
+    return render_template("admin_routes/search.html", users_data=users_data, geography_data=geography_data, headcount_data=headcount_data, function_data=function_data)
+
 
 @app.route('/feed')
 def feed():
@@ -162,8 +164,7 @@ def billing():
     return render_template('user_settings/billing.html')
 
 
-
-# FITLERED SEARCH ADMIN PAGE -> PASSING DATA FROM FILTERS TO JAVASCRIPT FOR LOADING TABLE COLUMNS
+# BACKCHANNEL BUTTON LOGIN CHECK FOR REDIRECTION TO ADMIN PAGE
 @app.route('/update_data', methods=['POST'])
 def update_data():
     filters = request.json
@@ -174,9 +175,31 @@ def update_data():
     print(filtered_data)
     return jsonify({'filtered_data': filtered_data})
 
+# FITLERED SEARCH ADMIN PAGE -> PASSING DATA FROM FILTERS TO JAVASCRIPT FOR LOADING TABLE COLUMNS
+@app.route('/backchannel_button_data', methods=['POST', 'GET'])
+def backchannel_button_data():
 
+    filters = request.json
+    print(filters)
+    create_or_replace_table(filters)
+    return jsonify({'filtered_data': filters})
+    
+# BACKCHANNEL BUTTON FILTER 'GET' METHOD
+@app.route('/backchannel_button')
+def backchannel_button():
+    if 'linkedin_token' in session:
+        # Access the filters from the user's session
+        return redirect(url_for('search'))
+    else:
+        return redirect(url_for('linkedin_signin'))
+# BACKCHANNEL FILTER UPDATE FROM DATABASE TO JAVASCRIPT
+@app.route('/filter_db_to_js_update', methods=['GET'])
+def filter_db_to_js_update():
+    data = filter_data_from_database()
+    print(data)
+    return jsonify(data)  
 
-
+     
 #LINKEDIN ROUTES ----------------------------------------------------------------------------------
 
 @app.route('/linkedin_signin')
