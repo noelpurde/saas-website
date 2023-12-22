@@ -109,9 +109,11 @@
                 <span>Accounting</span> in your network!</p>
 
             <div style="display: flex; justify-content: center; align-items: center;">
-                <a href="{{ url_for('linkedin_signin') }}"><button class="backchanneling_button" type="button">Start Backchanneling</button></a>
+                <a href="{{ url_for('backchannel_button') }}">
+                    <button class="backchanneling_button" type="button", onclick="backchannel_button()">Start Backchanneling</button>
+                </a>
             </div>
-
+-
             <br><br><br><br>
             <div data-aos="fade-right">
             <h2 style="text-align: center;">

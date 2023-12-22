@@ -57,6 +57,7 @@ function resetCSSVariables(className) {
     case 'asia':
     case 'africa':
     case 'oceania':
+      
       // Reset the CSS variables for the specific classes
       root.style.removeProperty('--europe_stroke');
       root.style.removeProperty('--northAmerica_stroke');
@@ -104,17 +105,6 @@ for (let i = 0; i < paths.length; i++) {
     resetCSSVariables(className);
   });
 }
-
-        // Function to handle path click event
-        function getPathClassName(event) {
-          const path = event.target;
-          const h1Element = document.getElementById("test");
-          if (path.tagName === "path") {
-              const className = path.getAttribute("class");
-              h1Element.textContent=className;
-          }
-      }
-
       // Attach click event listener to all SVG paths
       const svgPaths = document.querySelectorAll("svg path");
       svgPaths.forEach(path => {
@@ -134,27 +124,21 @@ function getPathClassName(event) {
     switch (continentName) {
       case "europe":
         addFilter_geography("Europe")
-        removeContinent("Europe")
         break;
       case "asia":
         addFilter_geography("Asia")
-        removeContinent("Asia")
         break;
       case "northAmerica":
         addFilter_geography("North America")
-        removeContinent("North America")
         break;
       case "southAmerica":
         addFilter_geography("South America")
-        removeContinent("South America")
         break;
       case "africa":
         addFilter_geography("Africa")
-        removeContinent("Africa")
         break;
       case "oceania":
         addFilter_geography("Oceania")
-        removeContinent("Oceania")
         break;
       default:
   
@@ -177,7 +161,8 @@ const includeButtons_geography = document.querySelectorAll(".include_geography")
 const excludeButtons_geography = document.querySelectorAll(".exclude_geography");
 const optionElements_geography = document.querySelectorAll(".option_geography");
 
-const selectedFilters_geography = new Set();                                        /*GEOGRAPHY SET*/
+const selectedFilters_geography = new Set();                                 /*GEOGRAPHY SET*/
+// selectedFilters_geography.add("Albania") 
 
 function updateFilters_geography() {
     filterList_geography.innerHTML = "";
@@ -201,7 +186,9 @@ function updateFilters_geography() {
       headcount: Array.from(selectedFilters_headcount),
       function: Array.from(selectedFilters_function),
   };
-  updateData(filters);
+  filter_update_backchannel(filters);
+
+
 }
 function addFilter_geography(option_geography) {
     if (!selectedFilters_geography.has(option_geography)) {
@@ -235,14 +222,6 @@ excludeButtons_geography.forEach((excludeButton, index) => {
     });
 });
 
-
-//Map check to remove existent filters
-// function removeContinent(classname) {
-//   if(selectedFilters_geography.has(classname)){
-//     selectedFilters_geography.delete(classname);
-//     updateFilters_geography();
-//   }
-// }
 ///////////////////////////////////// - FILTERS H E A D C O U N T - ///////////////////////////////////////////////
 
 const filterList_headcount = document.querySelector(".filter-list_headcount");
@@ -272,11 +251,11 @@ function updateFilters_headcount() {
     });
       //Filters for the AJAX
       const filters = {
-          geography: Array.from(selectedFilters_geography),
-          headcount: Array.from(selectedFilters_headcount),
-          function: Array.from(selectedFilters_function),
-      };
-      updateData(filters);
+        geography: Array.from(selectedFilters_geography),
+        headcount: Array.from(selectedFilters_headcount),
+        function: Array.from(selectedFilters_function),
+    };
+    filter_update_backchannel(filters);
 }
 function addFilter_headcount(option_headcount) {
     if (!selectedFilters_headcount.has(option_headcount)) {
@@ -314,7 +293,7 @@ function updateFilters_function() {
     filterList_function.innerHTML = "";
     selectedFilters_function.forEach((filter_function) => {
         const filterElement_function = document.createElement("div");
-        filterElement_function.classList.add("filter_function");
+        filterElement_function.classList.add("filter_function");     
         filterElement_function.textContent = filter_function;
         const removeButton_function = document.createElement("span");
         removeButton_function.classList.add("filter-remove_function");
@@ -326,13 +305,13 @@ function updateFilters_function() {
         filterElement_function.appendChild(removeButton_function);
         filterList_function.appendChild(filterElement_function);
     });
-      //Filters for the AJAX
-      const filters = {
-          geography: Array.from(selectedFilters_geography),
-          headcount: Array.from(selectedFilters_headcount),
-          function: Array.from(selectedFilters_function),
-      };
-      updateData(filters);
+    //Filters for the AJAX
+    const filters = {
+      geography: Array.from(selectedFilters_geography),
+      headcount: Array.from(selectedFilters_headcount),
+      function: Array.from(selectedFilters_function),
+  };
+  filter_update_backchannel(filters);
 }
 function addFilter_function(option_function) {
     if (!selectedFilters_function.has(option_function)) {
@@ -355,90 +334,20 @@ excludeButtons_function.forEach((excludeButton, index) => {
     });
 });
 
+//------------FILTER POPULATION FROM BACKCHANNEL BUTTON--------------
 
-// FETCHING DATA FOR FILTERS
-
-
-
-// TEMPORARY
-// const filters = {
-//   geography: ["EMEA", "Europe"],
-//   headcount: Array.from(selectedFilters_headcount),
-//   function: Array.from(selectedFilters_function),
-// };
-// updateData(filters)
-// TEMPORARY  
-
-
-//---------------------------AJAX FUNCTION---------------------------
-
-function updateData(filters) {
-  fetch('/update_data', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(filters),
+function filter_update_backchannel(backchannel_filters) {
+  fetch('/backchannel_button_data', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(backchannel_filters),
   })
   .then(response => response.json())
   .then(data => {
       console.log('Updated data from server:', data);
-      // Assuming 'data.filtered_data' is an array of filtered data
-      updateTable(data.filtered_data);
   })
-  .catch(error => {
-      console.error('Error updating data:', error);
-  });
+
+  console.log(backchannel_filters);
 }
-
-function updateTable(filteredData) {
-  // Update your HTML table with the new filtered data
-  const tableBody = document.querySelector('.search_table tbody');
-  tableBody.innerHTML = '';  // Clear existing rows
-
-  // Add the static header row
-  const headerRow = document.createElement('tr');
-  headerRow.innerHTML = `
-    <th>Name</th>
-    <th>Title</th>
-    <th>Company</th>
-    <th>Region</th>
-    <th>Company Size</th>
-    <th>Function</th>
-    <th>Product Bought</th>
-    <th>Email</th>
-  `;
-  tableBody.appendChild(headerRow);
-
-  // Add dynamic rows
-  filteredData.forEach(user => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${user[1]}</td>
-      <td>${user[2]}</td>
-      <td>${user[3]}</td>
-      <td>${user[4]}</td>
-      <td>${user[5]}</td>
-      <td>${user[6]}</td>
-      <td>${user[7]}</td>
-      <td>${user[8]}</td>
-    `;
-    tableBody.appendChild(row);
-  });
-}
-
-
-
-// includeButton.addEventListener("click", () => {
-//   const tableContent = document.getElementById("table-body");
-
-//   fetch("/update_data", {
-//     method: "GET"
-//   })
-//     .then(response => {
-//       return response.text();
-//     })
-//     .then(html => {
-//       tableContent.innerHTML = html;
-//     });
-// });
