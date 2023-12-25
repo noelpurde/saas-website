@@ -186,6 +186,7 @@ function updateFilters_geography() {
       headcount: Array.from(selectedFilters_headcount),
       function: Array.from(selectedFilters_function),
   };
+  network_quote(filters);
   filter_update_backchannel(filters);
 
 
@@ -255,6 +256,7 @@ function updateFilters_headcount() {
         headcount: Array.from(selectedFilters_headcount),
         function: Array.from(selectedFilters_function),
     };
+    network_quote(filters);
     filter_update_backchannel(filters);
 }
 function addFilter_headcount(option_headcount) {
@@ -311,6 +313,7 @@ function updateFilters_function() {
       headcount: Array.from(selectedFilters_headcount),
       function: Array.from(selectedFilters_function),
   };
+  network_quote(filters);
   filter_update_backchannel(filters);
 }
 function addFilter_function(option_function) {
@@ -344,10 +347,75 @@ function filter_update_backchannel(backchannel_filters) {
     },
     body: JSON.stringify(backchannel_filters),
   })
-  .then(response => response.json())
+    .then(response => response.json())
   .then(data => {
       console.log('Updated data from server:', data);
   })
 
   console.log(backchannel_filters);
+}
+
+function network_quote(filters) {
+  fetch('/update_data', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(filters),
+  })
+    .then(response => response.json())
+    .then(data => {
+      let filteredData = data.filtered_data;
+      const totalContacts = data.length;
+      const geography = filters.geography.join(', ');
+      const headcount = filters.headcount.join(', ');
+      const functions = filters.function.join(', ');
+    
+      const quote = document.querySelector("#filters-data-update_paragraph");
+      quote.innerHTML = "Select filters to get started champions";
+    
+      if (filters.geography.length > 0 || filters.headcount.length > 0 || filters.function.length > 0) {
+            if (totalContacts === 0) {
+              quote.innerHTML = `There are no contacts</span>,`;
+            }
+            else if (totalContacts === 1) {
+              quote.innerHTML = `There is 1 contact</span>,`;
+            }
+            else {
+              quote.innerHTML = `There are <span>${totalContacts} contacts</span>,`;
+            }
+      if (filters.geography.length > 0) {
+            if (totalContacts === 1) {
+              quote.innerHTML += ` who is in <span>${geography}</span>`;
+            }
+            else {
+              quote.innerHTML += ` who are in <span>${geography}</span>`;
+            }
+        }
+    
+      if (filters.headcount.length > 0) {
+            if (filters.headcount[0] === "Self-employed") {
+              quote.innerHTML += ` as <span>${headcount}</span>`;
+            }
+            else {
+              quote.innerHTML += ` between <span>${headcount}</span>`;
+            }
+        }
+      if (filters.function.length > 0) {
+            if (totalContacts === 1) {
+              quote.innerHTML += ` and who works in <span>${functions}</span>`;
+            }
+            else {
+              quote.innerHTML += ` and who work in <span>${functions}</span>`;
+            }
+      }
+    
+        quote.innerHTML += ` in your network!`;
+      }
+      // Use the filtered data and length as needed in your JavaScript logic
+      console.log('Filtered Data:', filteredData);
+      console.log('Length:', length);
+    })
+    .catch(error => console.error('Error:', error));
+  
 }
