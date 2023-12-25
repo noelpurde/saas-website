@@ -91,7 +91,7 @@ def get_db():
 
 @app.route('/search', methods=['GET'])
 def search():
-    # FETCH DATA FROM THE DATABASE
+    # FETCH DATA FROM THE DATABASE FOR THE OPTIONS IN FILTERS SEARCH.HTML
     with get_db(), get_db().cursor() as cursor:
         # Users Data
         cursor.execute("SELECT * FROM users;")
@@ -171,9 +171,10 @@ def update_data():
 
     # Build the query based on the filters
     filtered_data=search_query_real_time_refresh(filters)
-    print(filters)
     print(filtered_data)
-    return jsonify({'filtered_data': filtered_data})
+    length = len(filtered_data)
+    print("The length is:", len(filtered_data))
+    return jsonify({'filtered_data': filtered_data, 'length': length})
 
 # FITLERED SEARCH ADMIN PAGE -> PASSING DATA FROM FILTERS TO JAVASCRIPT FOR LOADING TABLE COLUMNS
 @app.route('/backchannel_button_data', methods=['POST', 'GET'])

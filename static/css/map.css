@@ -61,6 +61,14 @@ body {
     margin-top: -7%;
 }
 
+#filters-data-update_paragraph {
+    text-align: center;
+}
+
+#filters-data-update_paragraph span{
+    color: rgb(74, 57, 254);
+}
+
 .filters{z-index: 2;}
 
 .mapdiv path {
