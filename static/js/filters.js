@@ -376,10 +376,10 @@ function network_quote(filters) {
     
       if (filters.geography.length > 0 || filters.headcount.length > 0 || filters.function.length > 0) {
             if (totalContacts === 0) {
-              quote.innerHTML = `There are no contacts</span>,`;
+              quote.innerHTML = `There are no <span>contacts</span>,`;
             }
             else if (totalContacts === 1) {
-              quote.innerHTML = `There is 1 contact</span>,`;
+              quote.innerHTML = `There is 1 <span>contact</span>,`;
             }
             else {
               quote.innerHTML = `There are <span>${totalContacts} contacts</span>,`;
