@@ -2,5 +2,103 @@
 
 {% block content%}
 
+<head>
+    <link rel="stylesheet" href="/static/css/user_settings.css">
+</head>
+
+<nav class="navbar_user_settings">
+    <ul class="navbar_user_settings_list">
+        <li class="nav-link">Email Notifications</li>
+        <li class="nav-link">InApp Notifications</li>
+        <li class="nav-link">Sound Notifications</li>
+
+    </ul>
+</nav>
+
+
+
+<div class="category-container" id="email-notifications">
+    <label class="checkbox-container">
+        <input type="checkbox" checked="checked">
+        <span class="checkmark"></span>
+        New Connections
+    </label>
+    <label class="checkbox-container">
+        <input type="checkbox" checked="checked">
+        <span class="checkmark"></span>
+        New Backchannels Set Up
+    </label>
+    <label class="checkbox-container">
+        <input type="checkbox" checked="checked">
+        <span class="checkmark"></span>
+        New Potential Champions
+    </label>
+    <label class="checkbox-container">
+        <input type="checkbox" checked="checked">
+        <span class="checkmark"></span>
+        Credits Low
+    </label>
+    <label class="checkbox-container">
+        <input type="checkbox" checked="checked">
+        <span class="checkmark"></span>
+        Credits Earned
+    </label>
+</div>
+
+<div class="category-container" id="inapp-notifications">
+    <label class="checkbox-container">
+        <input type="checkbox" checked="checked">
+        <span class="checkmark"></span>
+        New Connections
+    </label>
+    <label class="checkbox-container">
+        <input type="checkbox" checked="checked">
+        <span class="checkmark"></span>
+        New Backchannels Set Up
+    </label>
+    <label class="checkbox-container">
+        <input type="checkbox" checked="checked">
+        <span class="checkmark"></span>
+        New Potential Champions
+    </label>
+    <label class="checkbox-container">
+        <input type="checkbox" checked="checked">
+        <span class="checkmark"></span>
+        Credits Low
+    </label>
+    <label class="checkbox-container">
+        <input type="checkbox" checked="checked">
+        <span class="checkmark"></span>
+        Credits Earned
+    </label>
+</div>
+
+<div class="category-container" id="sound-notifications">
+    <label class="checkbox-container">
+        <input type="checkbox">
+        <span class="checkmark"></span>
+        New Connections
+    </label>
+    <label class="checkbox-container">
+        <input type="checkbox">
+        <span class="checkmark"></span>
+        New Backchannels Set Up
+    </label>
+    <label class="checkbox-container">
+        <input type="checkbox">
+        <span class="checkmark"></span>
+        New Potential Champions
+    </label>
+    <label class="checkbox-container">
+        <input type="checkbox">
+        <span class="checkmark"></span>
+        Credits Low
+    </label>
+    <label class="checkbox-container">
+        <input type="checkbox">
+        <span class="checkmark"></span>
+        Credits Earned
+    </label>
+</div>
 
 {% endblock %}
