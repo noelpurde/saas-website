@@ -1,24 +1,47 @@
 /*-------- Notifications*/
 
 .checkbox-container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 11px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  
-  #inapp-notifications {
-    margin-left: 180px;
-    margin-top: -144.3px;
-  }
+  display: flex;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 11px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
-  #sound-notifications {
-    margin-left: 360px;
-    margin-top: -144.3px;
-  }
+#inapp-notifications {
+  margin-left: 180px;
+  margin-top: -142px;
+}
+
+#sound-notifications {
+  margin-left: 360px;
+  margin-top: -143px;
+}
+
+/*-------- Back Button*/
+
+
+.back-button {
+  position: fixed;
+  border-radius: 10px;
+  top: 10px;
+  left: 10px;
+  background-color: #49a1ff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.3s;
+  font-weight: 100;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
