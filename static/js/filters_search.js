@@ -231,7 +231,7 @@ function updateTable(filteredData) {
   });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     fetch('/filter_db_to_js_update')
         .then(response => response.json())
         .then(data => {
@@ -242,17 +242,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     // Filters being added from db filtered if empty
                     if (item.geography.length > 0 && item.geography[0] !== "") {
-                        selectedFilters_geography.add(...item.geography);
+                        item.geography.forEach(value => {
+                            selectedFilters_geography.add(value);
+                        });
                     }
 
                     if (item.headcount.length > 0 && item.headcount[0] !== "") {
-                        selectedFilters_headcount.add(...item.headcount);
+                        item.headcount.forEach(value => {
+                            selectedFilters_headcount.add(value);
+                        });
                     }
 
                     if (item.function.length > 0 && item.function[0] !== "") {
-                        selectedFilters_function.add(...item.function);
+                        item.function.forEach(value => {
+                            selectedFilters_function.add(value);
+                        });
                     }
-                    // To update the filters added from db to admin page "Refresh Update"
+
+                    if (item.geography.length === 0 && item.headcount.length === 0 && item.function.length === 0) {
+                        selectedFilters_geography.clear();
+                        selectedFilters_headcount.clear();
+                        selectedFilters_function.clear();
+                    }
+                    
+                    // Refreshes filters
                     updateFilters_geography();
                     updateFilters_headcount();
                     updateFilters_function();

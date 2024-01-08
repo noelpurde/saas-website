@@ -1,13 +1,13 @@
 # from aiohttp import request
 from flask import Flask, redirect, render_template, request, url_for, jsonify, session, g
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from dotenv import load_dotenv
 from filters_filling import create_filters_tables
 from filtered_search import search_query_real_time_refresh, create_or_replace_table, filter_data_from_database
 import requests, os, json, psycopg2
 
-
+from models.models import db, Users
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
@@ -27,16 +27,21 @@ STATE = os.getenv('PARAMETERS_STATE')
 # Session secret key
 app.secret_key = os.getenv('APP_SECRET_KEY')
 
+# SQLAlchemy
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+
+db.init_app(app)
+
+with app.app_context():
+    # Query all users
+    users = Users.query.all()
+    print(users)
 
 # Add database  -----------------------------------------------------------------------------------------------------------------------------------
-
 connection = psycopg2.connect(DATABASE_URL)
 
-CREATE_USERS_TABLE = (
-    "CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, name TEXT,title TEXT, company TEXT, region TEXT, company_size TEXT, function TEXT, product_bought TEXT, email TEXT);"
-)
 INSERT_USERS_RETURN_ID = (
-    "INSERT INTO users (name, title, company, region, company_size, function, product_bought, email) "
+    "INSERT INTO users (name, title, company, region, company_size, function, product_bought, email)"
     "VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING user_id;"
 )
 
