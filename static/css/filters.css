@@ -201,6 +201,8 @@ span {
 
 .filter-list_headcount {
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
     margin-bottom: 10px;
     gap: 5px;
@@ -314,4 +316,9 @@ span {
 
 .hiddenClass {
     display: none;
+}
+
+.message-container {
+    position: relative;
+    top: 50%;
 }

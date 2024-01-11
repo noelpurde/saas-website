@@ -103,8 +103,23 @@ function updateFilters_headcount() {
         const searchHeadcount = document.querySelector(".search-bar_headcount");
   
         hideOptions.classList.add("hiddenClass");
-        searchHeadcount.classList.add("hiddenClass")
-      }
+        searchHeadcount.classList.add("hiddenClass");
+  
+        const existingMessageContainer = document.querySelector(".filters_headcount .message-container");
+        if (!existingMessageContainer) {
+            // Display the message when only one filter is selected
+            const messageContainer = document.createElement("div");
+            messageContainer.classList.add("message-container");
+            messageContainer.textContent = "Only one filter can be selected at a time";
+  
+            // Center the message container vertically and horizontally
+            messageContainer.style.display = "flex";
+            messageContainer.style.alignItems = "center";
+            messageContainer.style.justifyContent = "center";
+  
+            filterList_headcount.appendChild(messageContainer);
+        }
+    }
       
       if (selectedFilters_headcount.size === 0) {
         const hideOptions = document.querySelector(".filters_headcount .options");
@@ -112,7 +127,12 @@ function updateFilters_headcount() {
   
         hideOptions.classList.remove("hiddenClass");
         searchHeadcount.classList.remove("hiddenClass");
-      }
+  
+        const existingMessageContainer = document.querySelector(".filters_headcount .message-container");
+        if (existingMessageContainer) {
+            filterList_headcount.removeChild(existingMessageContainer);
+        }
+    }
 }
 function addFilter_headcount(option_headcount) {
     if (!selectedFilters_headcount.has(option_headcount)) {
