@@ -98,6 +98,21 @@ function updateFilters_headcount() {
           function: Array.from(selectedFilters_function),
       };
       updateData(filters);
+      if (selectedFilters_headcount.size === 1) {
+        const hideOptions = document.querySelector(".filters_headcount .options");
+        const searchHeadcount = document.querySelector(".search-bar_headcount");
+  
+        hideOptions.classList.add("hiddenClass");
+        searchHeadcount.classList.add("hiddenClass")
+      }
+      
+      if (selectedFilters_headcount.size === 0) {
+        const hideOptions = document.querySelector(".filters_headcount .options");
+        const searchHeadcount = document.querySelector(".search-bar_headcount");
+  
+        hideOptions.classList.remove("hiddenClass");
+        searchHeadcount.classList.remove("hiddenClass");
+      }
 }
 function addFilter_headcount(option_headcount) {
     if (!selectedFilters_headcount.has(option_headcount)) {

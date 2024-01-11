@@ -55,7 +55,7 @@ def create_or_replace_table(filters):
         table_name = 'filters_storage'
 
         # Drop the table if it exists
-        cursor.execute(sql.SQL("DROP TABLE IF EXISTS {}").format(sql.Identifier(table_name)))
+        cursor.execute(sql.SQL("DELETE FROM {}").format(sql.Identifier(table_name)))
 
         # Create the table if not exists
         create_table_query = sql.SQL("""
@@ -94,7 +94,6 @@ def create_or_replace_table(filters):
         if connection:
             cursor.close()
             connection.close()
-print(filter)
 #-------------------------------------------------------------------------------
 # GETTING THE FILTERS FROM THE DATABASE TO THE JAVASCRIPT FILE FUNCTION FOR ROUTE
 
@@ -110,7 +109,9 @@ def filter_data_from_database():
         select_data_query = sql.SQL("""
             SELECT geography, headcount, function FROM {}
         """).format(sql.Identifier(table_name))
-
+        eraseContent = sql.SQL("""
+            DELETE FROM filters_storage
+        """)
         cursor.execute(select_data_query)
         data = cursor.fetchall()
 
@@ -122,7 +123,7 @@ def filter_data_from_database():
                 'headcount': row[1].split(','),
                 'function': row[2].split(',')
             })
-
+        cursor.execute(eraseContent)
         return result
 
     except Exception as e:
@@ -133,3 +134,4 @@ def filter_data_from_database():
         if connection:
             cursor.close()
             connection.close()
+

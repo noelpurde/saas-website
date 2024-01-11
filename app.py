@@ -176,9 +176,9 @@ def update_data():
 
     # Build the query based on the filters
     filtered_data=search_query_real_time_refresh(filters)
-    print(filtered_data)
     length = len(filtered_data)
-    print("The length is:", len(filtered_data))
+    print(filtered_data)
+    # print("The length is:", len(filtered_data))
     return jsonify({'filtered_data': filtered_data, 'length': length})
 
 # FITLERED SEARCH ADMIN PAGE -> PASSING DATA FROM FILTERS TO JAVASCRIPT FOR LOADING TABLE COLUMNS
@@ -186,7 +186,7 @@ def update_data():
 def backchannel_button_data():
 
     filters = request.json
-    print(filters)
+    print("BCH_BTN", filters)
     create_or_replace_table(filters)
     return jsonify({'filtered_data': filters})
     
@@ -198,11 +198,12 @@ def backchannel_button():
         return redirect(url_for('search'))
     else:
         return redirect(url_for('linkedin_signin'))
+    
 # BACKCHANNEL FILTER UPDATE FROM DATABASE TO JAVASCRIPT
 @app.route('/filter_db_to_js_update', methods=['GET'])
 def filter_db_to_js_update():
     data = filter_data_from_database()
-    print(data)
+    print("REQUIRED", data)
     return jsonify(data)  
 
      

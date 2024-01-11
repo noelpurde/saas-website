@@ -311,3 +311,7 @@ span {
     margin-left: 5px;
     cursor: pointer;
 }
+
+.hiddenClass {
+    display: none;
+}

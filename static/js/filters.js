@@ -152,6 +152,26 @@ document.querySelectorAll("path").forEach((path) => {
   path.addEventListener("click", getPathClassName);
 }); 
 
+// DECALRATION OF FILTER SETS AND INICIALIZING THEM AS EMPTY ON PAGE OPEN
+
+let selectedFilters_geography = new Set();
+let selectedFilters_headcount = new Set();
+let selectedFilters_function = new Set();
+
+document.addEventListener('DOMContentLoaded', function () {
+  selectedFilters_geography.clear();
+  selectedFilters_headcount.clear();
+  selectedFilters_function.clear();
+const filters = {
+  geography: Array.from(selectedFilters_geography),
+  headcount: Array.from(selectedFilters_headcount),
+  function: Array.from(selectedFilters_function),
+};
+filter_update_backchannel(filters);
+});
+
+
+
 ///////////////////////////////////// - FILTERS G E O G R A P H Y - ///////////////////////////////////////////////
   
 const filterList_geography = document.querySelector(".filter-list_geography");
@@ -161,8 +181,6 @@ const includeButtons_geography = document.querySelectorAll(".include_geography")
 const excludeButtons_geography = document.querySelectorAll(".exclude_geography");
 const optionElements_geography = document.querySelectorAll(".option_geography");
 
-const selectedFilters_geography = new Set();                                 /*GEOGRAPHY SET*/
-// selectedFilters_geography.add("Albania") 
 
 function updateFilters_geography() {
     filterList_geography.innerHTML = "";
@@ -232,8 +250,6 @@ const includeButtons_headcount = document.querySelectorAll(".include_headcount")
 const excludeButtons_headcount = document.querySelectorAll(".exclude_headcount");
 const optionElements_headcount = document.querySelectorAll(".option_headcount");
 
-const selectedFilters_headcount = new Set();                                        /*HEADCOUNT SET*/
-
 function updateFilters_headcount() {
     filterList_headcount.innerHTML = "";
     selectedFilters_headcount.forEach((filter_headcount) => {
@@ -258,13 +274,30 @@ function updateFilters_headcount() {
     };
     network_quote(filters);
     filter_update_backchannel(filters);
+    if (selectedFilters_headcount.size === 1) {
+      const hideOptions = document.querySelector(".filters_headcount .options");
+      const searchHeadcount = document.querySelector(".search-bar_headcount");
+
+      hideOptions.classList.add("hiddenClass");
+      searchHeadcount.classList.add("hiddenClass")
+    }
+    
+    if (selectedFilters_headcount.size === 0) {
+      const hideOptions = document.querySelector(".filters_headcount .options");
+      const searchHeadcount = document.querySelector(".search-bar_headcount");
+
+      hideOptions.classList.remove("hiddenClass");
+      searchHeadcount.classList.remove("hiddenClass");
+    }
 }
+// Add filters to headcount
 function addFilter_headcount(option_headcount) {
     if (!selectedFilters_headcount.has(option_headcount)) {
         selectedFilters_headcount.add(option_headcount);
         updateFilters_headcount();
     }
 }
+// Include button event listener
 includeButtons_headcount.forEach((includeButton, index) => {
     includeButton.addEventListener("click", () => {
         const optionText = optionElements_headcount[index].querySelector("span").textContent;
@@ -272,6 +305,7 @@ includeButtons_headcount.forEach((includeButton, index) => {
         updateFilters_headcount()
     });
 });
+// Exclude button event listener
 excludeButtons_headcount.forEach((excludeButton, index) => {
     excludeButton.addEventListener("click", () => {
         const optionText = optionElements_headcount[index].querySelector("span").textContent;
@@ -288,8 +322,6 @@ const searchInput_function = document.querySelector(".search-bar_function");
 const includeButtons_function = document.querySelectorAll(".include_function");
 const excludeButtons_function = document.querySelectorAll(".exclude_function");
 const optionElements_function = document.querySelectorAll(".option_function");
-
-const selectedFilters_function = new Set();                                        /*FUNCTION SET*/
 
 function updateFilters_function() {
     filterList_function.innerHTML = "";
@@ -352,7 +384,7 @@ function filter_update_backchannel(backchannel_filters) {
       console.log('Updated data from server:', data);
   })
 
-  console.log(backchannel_filters);
+  console.log("Filters Of Storage: ", backchannel_filters);
 }
 
 function network_quote(filters) {
