@@ -134,3 +134,23 @@ def filter_data_from_database():
         if connection:
             cursor.close()
             connection.close()
+
+def delete_filters_storage():
+    DATABASE_URL = os.getenv('DATABASE_URL')
+
+    try:
+        connection = psycopg2.connect(DATABASE_URL)
+        cursor = connection.cursor()
+        
+        eraseContent = sql.SQL("""
+            DELETE FROM filters_storage
+        """)
+        cursor.execute(eraseContent)
+
+    except Exception as e:
+        print(f"Error: {e}")
+
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
