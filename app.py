@@ -8,6 +8,7 @@ import requests, os, json, psycopg2
 
 from models.models import db, Users
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 
@@ -28,14 +29,9 @@ STATE = os.getenv('PARAMETERS_STATE')
 app.secret_key = os.getenv('APP_SECRET_KEY')
 
 # SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
-
-db.init_app(app)
-
-with app.app_context():
-    # Query all users
-    users = Users.query.all()
-    print(users)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 # Add database  -----------------------------------------------------------------------------------------------------------------------------------
 connection = psycopg2.connect(DATABASE_URL)
