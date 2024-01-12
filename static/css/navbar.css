@@ -80,7 +80,8 @@
     grid-template-columns: 0.5fr 3fr 0.1fr;
     align-items: center;
     justify-content: center;
-
+    position: relative;
+    z-index: 10;
 }
 
 .navbar_admin_list{

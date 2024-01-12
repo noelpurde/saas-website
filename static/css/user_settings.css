@@ -31,7 +31,7 @@
   border-radius: 10px;
   top: 10px;
   left: 10px;
-  background-color: #49a1ff;
+  background-color: rgb(61, 44, 255);
   color: #fff;
   border: none;
   padding: 10px 15px;
@@ -43,5 +43,5 @@
 }
 
 .back-button:hover {
-  background-color: #0056b3;
+  background-color: rgb(14, 0, 167);
 }
