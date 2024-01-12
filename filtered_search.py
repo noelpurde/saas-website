@@ -134,4 +134,3 @@ def filter_data_from_database():
         if connection:
             cursor.close()
             connection.close()
-

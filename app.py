@@ -40,15 +40,8 @@ with app.app_context():
 # Add database  -----------------------------------------------------------------------------------------------------------------------------------
 connection = psycopg2.connect(DATABASE_URL)
 
-INSERT_USERS_RETURN_ID = (
-    "INSERT INTO users (name, title, company, region, company_size, function, product_bought, email)"
-    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING user_id;"
-)
-
 # Database filters jinja template creation
 create_filters_tables()
-
-
 
 # LinkedIn API URLs - Endpoints -------------------------------------------------------------------
 AUTHORIZATION_URL = 'https://www.linkedin.com/oauth/v2/authorization'
@@ -71,10 +64,13 @@ def index():
                  # Filter Function
                 cursor.execute("SELECT * FROM filters_function;")
                 function_data = cursor.fetchall()
-        
+                cursor.execute("SELECT COUNT(*) AS user_count FROM users;")
+                result = cursor.fetchone()
+                champion_number = int(result[0])
+                
 
         # Render the data using Jinja2 template and save it to table.html
-        return render_template("index.html", geography_data=geography_data, headcount_data=headcount_data,function_data=function_data )
+        return render_template("index.html", geography_data=geography_data, headcount_data=headcount_data,function_data=function_data, champion_number = champion_number)
 
 # Invalid URL
 @app.errorhandler(404)
@@ -179,7 +175,7 @@ def update_data():
     length = len(filtered_data)
     print(filtered_data)
     # print("The length is:", len(filtered_data))
-    return jsonify({'filtered_data': filtered_data, 'length': length})
+    return jsonify({'filtered_data': filtered_data, 'length': length, 'champion_number': champion_number})
 
 # FITLERED SEARCH ADMIN PAGE -> PASSING DATA FROM FILTERS TO JAVASCRIPT FOR LOADING TABLE COLUMNS
 @app.route('/backchannel_button_data', methods=['POST', 'GET'])
@@ -206,7 +202,6 @@ def filter_db_to_js_update():
     print("REQUIRED", data)
     return jsonify(data)  
 
-     
 #LINKEDIN ROUTES ----------------------------------------------------------------------------------
 
 @app.route('/linkedin_signin')
@@ -268,26 +263,22 @@ def callback():
     else:
         return redirect(url_for('index'))
 
-@app.route('/database_testing', methods=['POST'])
+@app.route('/add_user', methods=['POST'])
 def database_testing():
-    # Database Users Table Population
-    if request.method == 'POST':
-        data = request.get_json()
-        name = data["name"]
-        title = data["title"]
-        company = data["company"]
-        region = data["region"]
-        company_size = data["company_size"]
-        function = data["function"]
-        product_bought = data["product_bought"]
-        email = data["email"]
-
-        with connection:
-            with connection.cursor() as cursor:
-                cursor.execute(CREATE_USERS_TABLE)
-                cursor.execute(INSERT_USERS_RETURN_ID, (name, title, company, region, company_size, function, product_bought, email))
-
-    return jsonify({"response": "Request Successful"})
+    data = request.get_json()
+    new_user = Users(
+        name=data['name'],
+        title=data['title'],
+        company=data['company'],
+        region=data['region'],
+        company_size=data['company_size'],
+        function=data['function'],
+        product_bought=data['product_bought'],
+        email=data['email']
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({'user_id': new_user.user_id})
 
 
 
