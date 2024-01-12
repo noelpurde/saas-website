@@ -309,3 +309,15 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => console.error('Error:', error));
 });
+
+ fetch('/filter_db_to_js_update', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        // You can include any data you want to send to the server
+        body: JSON.stringify({ message: 'Page is being refreshed!' }),
+    })
+    .catch(error => {
+        console.error('Error sending request to server:', error);
+    });
