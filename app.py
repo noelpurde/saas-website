@@ -1,9 +1,10 @@
+# from aiohttp import request
 from flask import Flask, redirect, render_template, request, url_for, jsonify, session, g
 from datetime import datetime
 from dotenv import load_dotenv
 from filters_filling import create_filters_tables
-from filtered_search import search_query_real_time_refresh, create_or_replace_table, filter_data_from_database,  delete_filters_storage
-import os, psycopg2
+from filtered_search import search_query_real_time_refresh, create_or_replace_table, filter_data_from_database
+import requests, os, json, psycopg2
 from models.models import db, Users, Teams, TeamUsers, Invitations, Introductions, Notifications, Subscriptions, Connections
 from flask_sqlalchemy import SQLAlchemy
 
@@ -202,12 +203,24 @@ def backchannel_button():
 @app.route('/filter_db_to_js_update', methods=['GET'])
 def filter_db_to_js_update():
     data = filter_data_from_database()
+
     print("REQUIRED", data)
     return jsonify(data)  
 
-@app.route('/search_reload_filter_deletion')
-def search_reload_filter_deletion():
-    delete_filters_storage()
+@app.route('/delete_table', methods=['POST'])
+def delete_table():
+
+    try:
+        connection = psycopg2.connect(DATABASE_URL)
+        cursor = connection.cursor()
+        cursor.execute("DELETE FROM filters_storage")
+        connection.commit()  # Commit the changes
+    except Exception as e:
+        print(f"Error during database operation: {e}")
+    finally:
+        cursor.close()
+        connection.close()
+
 #LINKEDIN ROUTES ----------------------------------------------------------------------------------
 
 @app.route('/linkedin_signin')
@@ -269,6 +282,7 @@ def callback():
     else:
         return redirect(url_for('index'))
 
+# ADD USERS TO DATABASE
 @app.route('/add_user', methods=['POST'])
 def database_testing():
     data = request.get_json()
