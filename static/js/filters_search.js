@@ -308,4 +308,21 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
         .catch(error => console.error('Error:', error));
-});
+}); 
+
+window.onload = function () {
+    // Your fetch code here
+    fetch('/delete_table', {
+        method: 'POST',
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log('Table deleted successfully');
+            } else {
+                console.error('Failed to delete table');
+            }
+        })
+        .catch(error => {
+            console.error('Error during fetch:', error);
+        });
+};

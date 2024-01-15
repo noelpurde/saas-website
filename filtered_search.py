@@ -109,9 +109,7 @@ def filter_data_from_database():
         select_data_query = sql.SQL("""
             SELECT geography, headcount, function FROM {}
         """).format(sql.Identifier(table_name))
-        eraseContent = sql.SQL("""
-            DELETE FROM filters_storage
-        """)
+
         cursor.execute(select_data_query)
         data = cursor.fetchall()
 
@@ -123,7 +121,10 @@ def filter_data_from_database():
                 'headcount': row[1].split(','),
                 'function': row[2].split(',')
             })
-        cursor.execute(eraseContent)
+        cursor.execute("DELETE FROM filters_storage")
+        print("FILTERS DELETED")
+        print(cursor.execute("SELECT * FROM filters_storage"))
+
         return result
 
     except Exception as e:
