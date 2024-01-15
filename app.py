@@ -5,10 +5,8 @@ from dotenv import load_dotenv
 from filters_filling import create_filters_tables
 from filtered_search import search_query_real_time_refresh, create_or_replace_table, filter_data_from_database
 import requests, os, json, psycopg2
-
-from models.models import db, Users
+from models.models import db, Users, Teams, TeamUsers, Invitations, Introductions, Notifications, Subscriptions, Connections
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 
 app = Flask(__name__)
 
@@ -19,19 +17,29 @@ load_dotenv()
 # Database url
 DATABASE_URL = os.getenv('DATABASE_URL')
 
-# Linkedin Secret Stuff
+# LinkedIn Secret Stuff
 CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
-REDIRECT_URI =os.getenv('REDIRECT_URI')
+REDIRECT_URI = os.getenv('REDIRECT_URI')
 STATE = os.getenv('PARAMETERS_STATE')
 
 # Session secret key
 app.secret_key = os.getenv('APP_SECRET_KEY')
 
 # SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+
+db.init_app(app)
+
+# Create tables
+with app.app_context():
+    db.create_all()
+
+
+with app.app_context():
+    # Query all users
+    users = Users.query.all()
+    print(users)
 
 # Add database  -----------------------------------------------------------------------------------------------------------------------------------
 connection = psycopg2.connect(DATABASE_URL)
@@ -171,7 +179,7 @@ def update_data():
     length = len(filtered_data)
     print(filtered_data)
     # print("The length is:", len(filtered_data))
-    return jsonify({'filtered_data': filtered_data, 'length': length, 'champion_number': champion_number})
+    return jsonify({'filtered_data': filtered_data, 'length': length})
 
 # FITLERED SEARCH ADMIN PAGE -> PASSING DATA FROM FILTERS TO JAVASCRIPT FOR LOADING TABLE COLUMNS
 @app.route('/backchannel_button_data', methods=['POST', 'GET'])
@@ -195,8 +203,23 @@ def backchannel_button():
 @app.route('/filter_db_to_js_update', methods=['GET'])
 def filter_db_to_js_update():
     data = filter_data_from_database()
+
     print("REQUIRED", data)
     return jsonify(data)  
+
+@app.route('/delete_table', methods=['POST'])
+def delete_table():
+
+    try:
+        connection = psycopg2.connect(DATABASE_URL)
+        cursor = connection.cursor()
+        cursor.execute("DELETE FROM filters_storage")
+        connection.commit()  # Commit the changes
+    except Exception as e:
+        print(f"Error during database operation: {e}")
+    finally:
+        cursor.close()
+        connection.close()
 
 #LINKEDIN ROUTES ----------------------------------------------------------------------------------
 
@@ -259,6 +282,7 @@ def callback():
     else:
         return redirect(url_for('index'))
 
+# ADD USERS TO DATABASE
 @app.route('/add_user', methods=['POST'])
 def database_testing():
     data = request.get_json()
