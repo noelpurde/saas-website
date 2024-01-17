@@ -17,6 +17,9 @@ load_dotenv()
 # Database url
 DATABASE_URL = os.getenv('DATABASE_URL')
 
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://")
+
 # LinkedIn Secret Stuff
 CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
