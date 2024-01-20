@@ -1,15 +1,10 @@
-.search_filters{
-    padding-top: 10%;
-}
-
 .three_filters{
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     height: 600px;
     width: 340px;
-    
     transform: scale(0.8);
 }
 button {
@@ -85,7 +80,7 @@ span {
 
 .search-bar_geography {
     width: 300px;
-    height: 30px;
+    height: 15px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -169,7 +164,7 @@ span {
 
 .search-bar_headcount {
     width: 300px;
-    height: 30px;
+    height: 15px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -253,7 +248,7 @@ span {
 
 .search-bar_function {
     width: 300px;
-    height: 30px;
+    height: 15px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;

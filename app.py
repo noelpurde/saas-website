@@ -3,7 +3,7 @@ from flask import Flask, redirect, render_template, request, url_for, jsonify, s
 from datetime import datetime
 from dotenv import load_dotenv
 from filters_filling import create_filters_tables
-from filtered_search import search_query_real_time_refresh, create_or_replace_table, filter_data_from_database
+from filtered_search import search_query_real_time_refresh, create_or_replace_table, filter_data_from_database, add_to_list
 import requests, os, json, psycopg2
 from models.models import db, Users, Teams, TeamUsers, Invitations, Introductions, Notifications, Subscriptions, Connections
 from flask_sqlalchemy import SQLAlchemy
@@ -39,7 +39,7 @@ with app.app_context():
 with app.app_context():
     # Query all users
     users = Users.query.all()
-    print(users)
+    print("Users: ", users)
 
 # Add database  -----------------------------------------------------------------------------------------------------------------------------------
 connection = psycopg2.connect(DATABASE_URL)
@@ -177,7 +177,7 @@ def update_data():
     # Build the query based on the filters
     filtered_data=search_query_real_time_refresh(filters)
     length = len(filtered_data)
-    print(filtered_data)
+    print("[/updated_data]:Filtered Data: ", filtered_data)
     # print("The length is:", len(filtered_data))
     return jsonify({'filtered_data': filtered_data, 'length': length})
 
@@ -186,13 +186,14 @@ def update_data():
 def backchannel_button_data():
 
     filters = request.json
-    print("BCH_BTN", filters)
+    print("BCH_BTN_DATA: ", filters)
     create_or_replace_table(filters)
     return jsonify({'filtered_data': filters})
     
 # BACKCHANNEL BUTTON FILTER 'GET' METHOD
 @app.route('/backchannel_button')
 def backchannel_button():
+
     if 'linkedin_token' in session:
         # Access the filters from the user's session
         return redirect(url_for('search'))
@@ -202,11 +203,11 @@ def backchannel_button():
 # BACKCHANNEL FILTER UPDATE FROM DATABASE TO JAVASCRIPT
 @app.route('/filter_db_to_js_update', methods=['GET'])
 def filter_db_to_js_update():
-    data = filter_data_from_database()
 
-    print("REQUIRED", data)
+    data = filter_data_from_database()
     return jsonify(data)  
 
+# Deletes the filters_storage filters after pressing Start Backchanneling
 @app.route('/delete_table', methods=['POST'])
 def delete_table():
 
@@ -220,6 +221,19 @@ def delete_table():
     finally:
         cursor.close()
         connection.close()
+    return jsonify("Empty Text")
+
+# Saves filters from search to lists
+@app.route('/save_to_list', methods=["POST"])
+def save_to_list_method():
+    if request.method == 'POST':
+        filters = request.json
+        print("[/save_to_list]:Saved Filters", filters)
+        add_to_list(filters, "1")
+        response_data = {"message": "Filters saved successfully"}
+        return jsonify(response_data)
+    else:
+        return jsonify({"message": "Unsupported method"})
 
 #LINKEDIN ROUTES ----------------------------------------------------------------------------------
 
@@ -235,7 +249,7 @@ def linkedin_signin():
         'client_id': CLIENT_ID,
         'redirect_uri': REDIRECT_URI,
         'state': STATE,
-        'scope': 'profile w_member_social',  # Update with desired permissions
+        'scope': 'profile',
     }
     auth_url = f"{AUTHORIZATION_URL}?{'&'.join([f'{k}={v}' for k, v in params.items()])}"
 
@@ -265,7 +279,7 @@ def callback():
         user_info_response = requests.get(USER_INFO_URL, headers=headers)
         
         user_info = user_info_response.json()
-
+        print("USER_INFO-------------------------------------------------------------------------------", user_info)
         error = request.args.get('error')
         error_description = request.args.get('error_description')
     

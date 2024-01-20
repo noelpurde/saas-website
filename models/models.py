@@ -133,3 +133,21 @@ class Connections(db.Model):
 
     def __repr__(self):
         return f"Connection ID: {self.connection_id}, User ID: {self.user_id}, Connection User ID: {self.connection_user_id}"
+    
+# ----------------------------UTILLITY-----------------------------
+
+class Lists(db.Model):
+    __tablename__ = "lists"
+
+    list_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    geography = db.Column(db.String)
+    headcount = db.Column(db.String)
+    function = db.Column(db.String)
+    created_at = db.Column = (db.DateTime)
+
+    user = db.relationship('Users', foreign_keys=[user_id])
+
+    def __repr__(self):
+        return f"List_ID: {self.list_id}, User_ID: {self.user_id}, Geography: {self.geography}, Headcount: {self.headcount}, Function: {self.function}" 
+

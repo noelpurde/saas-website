@@ -1,15 +1,52 @@
-.backchanneling_button{
+/* BOOTSTRAP DEFAULT MARGIN/PADDING PARAMETERS */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl,
+blockquote {
+  margin: 0;
+  padding: 0;
+}
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+input,
+button,
+textarea,
+select {
+  margin: 0;
+}
+
+
+.backchanneling_button {
     border: none; 
     border-radius: 100px; 
     background-color: rgb(74, 57, 254); 
     color: white;
     padding: 12px 0px;
     align-items: center;
-    width: 180px;
-    height: 50px;
+    width: 11rem;
+    height: 3rem;
+    /*w180 h50*/
 
 }
-.nav-link{
+/* ELEMENTS ARE NOT SELECTABLE */
+.nav-link, 
+.image_anchor img,
+.image_anchor p {
     text-decoration: none;
     -webkit-user-drag: none;
     user-select: none;
@@ -18,44 +55,34 @@
     -ms-user-select: none;
 }
 /*------------------------------------------------------------------------------------------------------- NORMAL NAVBAR */
-.navbar_normal{
-    background-color: #f4f4f4; 
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    padding-top: 10px;
-}
 
-.navbar_normal_list{
-    display: flex; 
-    flex-direction: row;
-    align-items: center; 
-    justify-content: center;
-}
-
-.navbar_button_group{
+.navbar_normal {
     display: flex;
-    flex-direction: row;
-    margin-left: auto;
-    margin-right: 50px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 25%;
+    margin-top: 1vh;
 }
-
-.navbar_normal_list .ul {
-    list-style: none;
-  }
   
-.navbar_normal_list li {
-    display: inline-block;
-    margin-right: 50px;
+  .navbar_normal_list {
+    list-style-type: none;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
 }
 
-.navbar_normal_list a{
+ /* HOVER */
+.navbar_normal_list a {
     text-decoration: none;
     color: black;
     opacity: 0.7;
     border-bottom: 2px solid transparent;
 }
 
-.navbar_normal_list li a:hover{
+.navbar_normal_list li a:hover {
     color: purple;
     opacity: 1;
     border-bottom: 2px solid purple;
@@ -63,7 +90,7 @@
     border-bottom-right-radius: 5px; */
 }
 
-.linkedin_signin{
+.linkedin_signin {
     border: none;
     border-radius: 30px;
     background-color: #f4f4f4;
@@ -72,23 +99,21 @@
 
 /*------------------------------------------------------------------------------------------------------- ADMIN NAVBAR */
 
-.navbar_admin{
+.navbar_admin {
     background-color: rgb(107, 74, 253);
-    height: 75px;
-    padding-top: 10px;
-    display: grid;
-    grid-template-columns: 0.5fr 3fr 0.1fr;
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 10;
+    gap: 16%;   
+    height: 4rem;
 }
 
-.navbar_admin_list{
+.navbar_admin_list {
     display: flex; 
     flex-direction: row;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
+    gap: 120px;
 }
 
 .navbar_admin_list .ul {
@@ -97,86 +122,61 @@
   
 .navbar_admin_list li {
     display: inline-block;
-    margin-right: 100px;
 }
-
-.navbar_admin_list a{
+.navbar_admin_list a {
     text-decoration: none;
     color: white;
     border-bottom: 2px solid transparent;
 }
-
 .navbar_admin_list li a:hover,
 .navbar_admin_list li a:active {
     color: white;
     border-bottom: 2px solid white;     
-    /* border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px; */
 }
-
 .navbar_admin_list li a:visited{
     color: white;
     border-bottom: 2px solid white;
 }
-/*-----------ADMIN CREDITS*/
-.credits_container{
 
-}
+/*-----------ADMIN CREDITS/*-----------*/
 
-.admin_credits{
-    display: flex;
+.admin_credits {
+    display: inline-flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-left: -10px;
-    width: max-content;
-    height: 27px;
-    margin-bottom: 1px;
+    gap: .5rem;
 }
 
-.admin_credits img{
-    height: 20px; 
-    width: 20px;
+.admin_credits img {
+    height: 1rem; 
+    width: 1rem;
     background: transparent;
     color: white;
 }
 
-.admin_credits p{
-    margin-top: 12px;
-    margin-left: 5px
-}
 
 /*-----------ADMIN NAVBAR PROFILE IN THE END*/
-.admin_profile_name{
-    border-radius:5px;
-    margin-bottom: 18px;
-    background: transparent;
-    margin-left: auto;
-    margin-right: 50px;
-    width: max-content;
-    height: 35px;    
-
-    user-select: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
+.admin_profile_name {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    
+    padding-right: 2rem;
 }
-.image_anchor{
-    border: none;
+.image_anchor {
+    border: none; 
     background: transparent;
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
-    text-decoration: none;
+    gap: 1rem;
+    text-decoration: none; 
 }
 .image_anchor img{
-    height: 40px; 
-    width: 40px;
+    height: 1.5rem; 
+    width: 1.5rem;
     background: transparent;
-    padding: 10px;
-    margin-bottom: 14px;
     color: white;
 }
 .image_anchor p{
@@ -213,7 +213,7 @@
 
 
 /*------------------------------- VISIBILITY */
-.admin_visibility{
-    opacity: 0;
-    pointer-events: none;
+.admin_visibility {
+    /* opacity: 0;
+    pointer-events: none; */
 }

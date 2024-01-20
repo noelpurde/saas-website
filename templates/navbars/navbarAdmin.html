@@ -2,9 +2,6 @@
 filename = 'css/navbar.css') }}">
 
 <nav class="navbar_admin">
-
-    <div></div>
-
       <ul class="navbar_admin_list">
         <li><a class="nav-link" href="{{ url_for('search') }}">Search</a></li>
         <li><a class="nav-link" href="{{ url_for('feed') }}">Feed</a></li>
@@ -23,9 +20,8 @@ filename = 'css/navbar.css') }}">
 
       <div class="admin_profile_name">
         <a class="image_anchor" href="{{ url_for('user', name='User') }}">
-          <img src="../static/images/user_icon.png" alt="">
+          <img src="../static/images/user_icon.png" alt="profile_picture">
           <p>John Smith</p>
         </a>
       </div>
-
 </nav>
