@@ -11,99 +11,97 @@
         <!--BIG CONTAINER FIRST LOOK LANDING PAGE-->
     <div class="content-filter-map-subcontainer">
             <!--WIN MORE DEALS FASTER text-->
-        <div class="above-map-paragrap">
+        <div class="above-map-paragraph">
             <p style="text-align: center;"><span style="color: rgb(74, 57, 254); font-weight: bolder;">Win more deals faster</span> by using your personal network to find verified <span style="color: rgb(74, 57, 254); font-weight: bolder;">Champions👑</span> </p>
         </div>
             <!--FILTER AND MAP HORISONTAL LAYOUT-->
         <div id="filter_map">
                 <!------FILTERS------->
-            <div class="search_filters">
-                    <div class="three_filters">
-                        <!--Filters for G E O G R A P H Y-->
-                            <div class="filters_geography">
-                                <div class="filternameOutterDiv"><div class="filternameInnerDiv"><p class="filterNameParagraph">Geography</p></div>
-                                </div>
-                                    <div class="filter-list_geography">
-                                        <!-- Filter options will be added here -->
+            <div class="three_filters">
+                <!--Filters for G E O G R A P H Y-->
+                    <div class="filters_geography">
+                        <div class="filternameOutterDiv"><div class="filternameInnerDiv"><p class="filterNameParagraph">Geography</p></div>
+                        </div>
+                            <div class="filter-list_geography">
+                                <!-- Filter options will be added here -->
+                            </div>
+                        <div class="scrollable-options">
+                            <input type="text" class="search-bar_geography" placeholder="Search...">
+                            <div class="options">
+
+                                {% for geography in geography_data %}
+                                <div class="option_geography">
+                                    <span tabindex="-1">{{ geography[0] }}</span>
+                                    <div class="button_group_geography">
+                                        <button class="include_geography" tabindex="-1">Include</button>
+                                        <button class="middlepartButton" tabindex="-1" style="margin: 0; padding: 0;">|</button>
+                                        <button class="exclude_geography" tabindex="-1">Exclude</button>
                                     </div>
-                                <div class="scrollable-options">
-                                    <input type="text" class="search-bar_geography" placeholder="Search...">
-                                    <div class="options">
-    
-                                        {% for geography in geography_data %}
-                                        <div class="option_geography">
-                                            <span tabindex="-1">{{ geography[0] }}</span>
-                                            <div class="button_group_geography">
-                                                <button class="include_geography" tabindex="-1">Include</button>
-                                                <button class="middlepartButton" tabindex="-1" style="margin: 0; padding: 0;">|</button>
-                                                <button class="exclude_geography" tabindex="-1">Exclude</button>
-                                            </div>
+                                </div>
+                            {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                <!--Filters for COMPANY H E A D C O U N T -->
+                        <div class="filters_headcount">
+                            <div class="filternameOutterDiv"><div class="filternameInnerDiv"><p class="filterNameParagraph">Headcount</p></div></div>
+                                <div class="filter-list_headcount">
+                                    <!-- Filter options will be added here -->
+                                </div>
+                            <div class="scrollable-options">
+                                <input type="text" class="search-bar_headcount" placeholder="Search...">
+                                <div class="options">
+
+                                    {% for headcount in headcount_data %}
+                                    <div class="option_headcount">
+                                        <span tabindex="-1">{{ headcount[0] }}</span>
+                                        <div class="button-group_headcount">        
+                                            <button class="include_headcount" tabindex="-1">Include</button>
+                                            <button class="middlepartButton" tabindex="-1" style="margin: 0; padding: 0;">|</button>
+                                            <button class="exclude_headcount" tabindex="-1">Exclude</button>
                                         </div>
+                                    </div>
                                     {% endfor %}
-    
-                                    </div>
+
                                 </div>
                             </div>
-                        <!--Filters for COMPANY H E A D C O U N T -->
-                                <div class="filters_headcount">
-                                    <div class="filternameOutterDiv"><div class="filternameInnerDiv"><p class="filterNameParagraph">Headcount</p></div></div>
-                                        <div class="filter-list_headcount">
-                                            <!-- Filter options will be added here -->
-                                        </div>
-                                    <div class="scrollable-options">
-                                        <input type="text" class="search-bar_headcount" placeholder="Search...">
-                                        <div class="options">
-        
-                                            {% for headcount in headcount_data %}
-                                            <div class="option_headcount">
-                                                <span tabindex="-1">{{ headcount[0] }}</span>
-                                                <div class="button-group_headcount">        
-                                                    <button class="include_headcount" tabindex="-1">Include</button>
-                                                    <button class="middlepartButton" tabindex="-1" style="margin: 0; padding: 0;">|</button>
-                                                    <button class="exclude_headcount" tabindex="-1">Exclude</button>
-                                                </div>
-                                            </div>
-                                            {% endfor %}
-        
-                                        </div>
-                                    </div>
-                                </div>
-                        
-                        <!--Filters for F U N C T I O N -->
-                            <div class="filters_function">
-                                <div class="filternameOutterDiv"><div class="filternameInnerDiv"><p class="filterNameParagraph">Function</p></div></div>
-                                    <div class="filter-list_function">
-                                        <!-- Filter options will be added here -->
-                                    </div>
-                                <div class="scrollable-options">
-                                    <input type="text" class="search-bar_function" placeholder="Search...">
-                                    <div class="options">
-    
-                                        {% for function in function_data %}
-                                        <div class="option_function">
-                                            <span tabindex="-1">{{ function[0] }}</span>
-                                            <div class="button_group_function">        
-                                                <button class="include_function" tabindex="-1">Include</button>
-                                                <button class="middlepartButton" tabindex="-1" style="margin: 0; padding: 0;">|</button>
-                                                <button class="exclude_function" tabindex="-1">Exclude</button>
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-    
-                                    </div>
-                                </div>
+                        </div>
+                
+                <!--Filters for F U N C T I O N -->
+                    <div class="filters_function">
+                        <div class="filternameOutterDiv"><div class="filternameInnerDiv"><p class="filterNameParagraph">Function</p></div></div>
+                            <div class="filter-list_function">
+                                <!-- Filter options will be added here -->
                             </div>
-                        </div> <!-- Three FIlters -->
-            </div>
+                        <div class="scrollable-options">
+                            <input type="text" class="search-bar_function" placeholder="Search...">
+                            <div class="options">
+
+                                {% for function in function_data %}
+                                <div class="option_function">
+                                    <span tabindex="-1">{{ function[0] }}</span>
+                                    <div class="button_group_function">        
+                                        <button class="include_function" tabindex="-1">Include</button>
+                                        <button class="middlepartButton" tabindex="-1" style="margin: 0; padding: 0;">|</button>
+                                        <button class="exclude_function" tabindex="-1">Exclude</button>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- Three FIlters -->
                 <!------MAP------->
             <div class="map-container">
                 {% include 'map.html' %}
             </div>
-        </div><!--SUBCONTAINER-->
+        </div><!--filter_map / SUBCONTAINER-->
         
             <!--DATA FROM DATABASE FILTERED SEARCH NUMBERS-->
         <div class="filters-data-update">
-            <p id="filters-data-update_paragraph">Select filters to get started champions</p>
+            <p id="filters-data-update_paragraph">Select filters to get started champions !</p>
 
             <div style="display: flex; justify-content: center; align-items: center;">
                 <a href="{{ url_for('backchannel_button') }}">
@@ -111,7 +109,7 @@
                 </a>
             </div>
 
-            <br><br><br><br>
+            <br><br>
             <div data-aos="fade-right">
             <h2 style="text-align: center;">
                 <span>{{ champion_number }}</span> Champions <br>
@@ -125,40 +123,40 @@
         </div>
     </div>
 
-<div class="all-testimonials" data-aos="fade-left">
-    <div class="testimonials">
-        <div class="inner-testimonials">
-            <h1>Testimonials</h1>
-            <div class="border-testimonials"></div>
-    
-            <div class="row-testimonials">
-                <div class="col-testimonials">
-                    <div class="testimonial">
-                        <img src="/static/images/person1.jfif" alt=""><br><br>
-                        <div class="name">Scott Doe</div>
-                        <p>"I couldn't be happier with the service I received from Backchannel.com. From the moment I contacted them, they were responsive, professional, and attentive to my needs. They exceeded my expectations and delivered a product that truly impressed me. I highly recommend their services to anyone looking for top-notch quality and customer care."</p>
+    <div class="all-testimonials" data-aos="fade-left">
+        <div class="testimonials">
+            <div class="inner-testimonials">
+                <h1>Testimonials</h1>
+                <div class="border-testimonials"></div>
+        
+                <div class="row-testimonials">
+                    <div class="col-testimonials">
+                        <div class="testimonial">
+                            <img src="/static/images/person1.jfif" alt=""><br><br>
+                            <div class="name">Scott Doe</div>
+                            <p>"I couldn't be happier with the service I received from Backchannel.com. From the moment I contacted them, they were responsive, professional, and attentive to my needs. They exceeded my expectations and delivered a product that truly impressed me. I highly recommend their services to anyone looking for top-notch quality and customer care."</p>
+                        </div>
                     </div>
-                </div>
-    
-                <div class="col-testimonials">
-                    <div class="testimonial">
-                        <img src="/static/images/person2.jfif" alt=""><br><br>
-                        <div class="name">Chan Tai Man</div>
-                        <p>"I'm extremely pleased with the exceptional service provided by Backchannel.com. Their professionalism and dedication to meeting my requirements surpassed my expectations. I wholeheartedly recommend Backchannel.com to anyone seeking to link with other people on the same expertiese."</p>
+        
+                    <div class="col-testimonials">
+                        <div class="testimonial">
+                            <img src="/static/images/person2.jfif" alt=""><br><br>
+                            <div class="name">Chan Tai Man</div>
+                            <p>"I'm extremely pleased with the exceptional service provided by Backchannel.com. Their professionalism and dedication to meeting my requirements surpassed my expectations. I wholeheartedly recommend Backchannel.com to anyone seeking to link with other people on the same expertiese."</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="testimonial">
-                        <img src="/static/images/person3.jfif" alt=""><br><br>
-                        <div class="name">Zhang Chen</div>
-                        <p>"Choosing Backchannel.com was a decision I won't regret. From the moment I reached out, their responsiveness and attention to detail stood out. They not only met but exceeded my expectations, delivering a service that truly impressed me. I highly recommend Backchannel.com for their high quality service."</p>
+                    <div class="col">
+                        <div class="testimonial">
+                            <img src="/static/images/person3.jfif" alt=""><br><br>
+                            <div class="name">Zhang Chen</div>
+                            <p>"Choosing Backchannel.com was a decision I won't regret. From the moment I reached out, their responsiveness and attention to detail stood out. They not only met but exceeded my expectations, delivering a service that truly impressed me. I highly recommend Backchannel.com for their high quality service."</p>
+                        </div>
                     </div>
                 </div>
             </div>
+        
         </div>
-    
-    </div>
-    </div>
+        </div>
 
     <br><br>
 

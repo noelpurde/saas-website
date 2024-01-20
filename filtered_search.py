@@ -2,6 +2,10 @@ import os, json, sql
 from dotenv import load_dotenv
 from psycopg2 import sql
 import psycopg2
+from models.models import db, Users, Teams, TeamUsers, Invitations, Introductions, Notifications, Subscriptions, Connections, Lists
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+
 
 load_dotenv()
 
@@ -135,3 +139,26 @@ def filter_data_from_database():
         if connection:
             cursor.close()
             connection.close()
+
+# FUNCTION TO ADD FILTERS TO LIST "SAVE TO LIST" BUTTON IN SEARCH
+            
+def add_to_list(filters, user_id):
+    try:
+        # Create a new Lists instance
+        new_list = Lists(
+            user_id=user_id,
+            geography=",".join(map(str, filters.get('geography', []))),
+            headcount=",".join(map(str, filters.get('headcount', []))),
+            function=",".join(map(str, filters.get('function', []))),
+            created_at=datetime.utcnow()
+        )
+
+        # Add the new_list to the database
+        db.session.add(new_list)
+        db.session.commit()
+
+        print("List added successfully.")
+
+    except Exception as e:
+        print(f"Error: {e}")
+        db.session.rollback()

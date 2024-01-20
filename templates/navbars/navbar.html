@@ -2,16 +2,13 @@
 filename = 'css/navbar.css') }}">
 
 <nav class="navbar_normal">
-    <div></div>
 
-    <div class="navbar_normal_list">
-      <ul>
-        <li><a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a></li>
-        <li><a class="nav-link" href="#">Features</a></li>
-        <li><a class="nav-link" href="#pricing">Pricing</a></li>
-        <li><a class="nav-link" href="#">Resources</a></li>
-      </ul>
-    </div>
+    <ul class="navbar_normal_list">
+      <li><a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a></li>
+      <li><a class="nav-link" href="#">Features</a></li>
+      <li><a class="nav-link" href="#pricing">Pricing</a></li>
+      <li><a class="nav-link" href="#">Resources</a></li>
+    </ul>
 
     <div class="navbar_button_group">
       <a href="{{ url_for('linkedin_signin') }}"><button class="backchanneling_button" type="button">Start Backchanneling</button></a>      

@@ -33,6 +33,7 @@ function updateFilters_geography() {
       function: Array.from(selectedFilters_function),
   };
   updateData(filters);
+  save_to_list_button(filters);
 }
 function addFilter_geography(option_geography) {
     if (!selectedFilters_geography.has(option_geography)) {
@@ -98,6 +99,8 @@ function updateFilters_headcount() {
           function: Array.from(selectedFilters_function),
       };
       updateData(filters);
+      save_to_list_button(filters);
+
       if (selectedFilters_headcount.size === 1) {
         const hideOptions = document.querySelector(".filters_headcount .options");
         const searchHeadcount = document.querySelector(".search-bar_headcount");
@@ -187,6 +190,7 @@ function updateFilters_function() {
           function: Array.from(selectedFilters_function),
       };
       updateData(filters);
+      save_to_list_button(filters);
 }
 function addFilter_function(option_function) {
     if (!selectedFilters_function.has(option_function)) {
@@ -310,6 +314,32 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error('Error:', error));
 }); 
 
+function save_to_list_button(filters) {
+    fetch('/save_to_list', {
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(filters)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Updated data from server:', data);
+    })
+    .catch(error => {
+        console.error('Error updating data:', error);
+    });
+}
+
+
+
+
+
+
+
+
+
+// Function to delete the filters_storage filters after pressing Start Backchanneling
 window.onload = function () {
     // Your fetch code here
     fetch('/delete_table', {

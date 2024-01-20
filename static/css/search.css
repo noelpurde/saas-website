@@ -22,11 +22,11 @@ body{
 
 /*======== FILTERS ==========*/
 
-.search_filters{
+.three_filters{
     position:relative; 
     margin-left: -5%;
     margin-right: 8%;
-    margin-top: -8%;
+    margin-top: 4%;
 }
 
 /*======== TABLE ==========*/
@@ -63,15 +63,15 @@ th, td {
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #ffffff;
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #ffffff;
 }
 
 tr:hover {
-    background-color: #ddd;
+    background-color: #f2f2f2;
 }
 
 .hidden{

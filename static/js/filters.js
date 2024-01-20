@@ -400,7 +400,7 @@ function filter_update_backchannel(backchannel_filters) {
     },
     body: JSON.stringify(backchannel_filters),
   })
-    .then(response => response.json())
+  .then(response => response.json())
   .then(data => {
       console.log('Updated data from server:', data);
   })
@@ -425,7 +425,7 @@ function network_quote(filters) {
       const functions = filters.function.join(', ');
     
       const quote = document.querySelector("#filters-data-update_paragraph");
-      quote.innerHTML = "Select filters to get started champions";
+      quote.innerHTML = "Select filters to get started champions !";
     
       if (filters.geography.length > 0 || filters.headcount.length > 0 || filters.function.length > 0) {
             if (totalContacts === 0) {
