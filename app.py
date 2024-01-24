@@ -3,7 +3,7 @@ from flask import Flask, redirect, render_template, request, url_for, jsonify, s
 from datetime import datetime
 from dotenv import load_dotenv
 from filters_filling import create_filters_tables
-from filtered_search import search_query_real_time_refresh, create_or_replace_table, filter_data_from_database, add_to_list
+from filtered_search import search_query_real_time_refresh, create_or_replace_table, filter_data_from_database, add_to_list, geography_filters_data_selection, headcount_filters_data_selection, function_filters_data_selection
 import requests, os, json, psycopg2
 from models.models import db, Users, Teams, TeamUsers, Invitations, Introductions, Notifications, Subscriptions, Connections
 from flask_sqlalchemy import SQLAlchemy
@@ -60,14 +60,15 @@ def index():
         with connection:
             with connection.cursor() as cursor:
                 # Filter Geography
-                cursor.execute("SELECT * FROM filters_geography;")
-                geography_data = cursor.fetchall()
+                geography_data = geography_filters_data_selection()
+
                  # Filter Company Headcount
-                cursor.execute("SELECT * FROM filters_headcount;")
-                headcount_data = cursor.fetchall()
+                headcount_data = headcount_filters_data_selection()
+
                  # Filter Function
-                cursor.execute("SELECT * FROM filters_function;")
-                function_data = cursor.fetchall()
+                function_data = function_filters_data_selection()
+
+
                 cursor.execute("SELECT COUNT(*) AS user_count FROM users;")
                 result = cursor.fetchone()
                 champion_number = int(result[0])
@@ -102,14 +103,13 @@ def search():
         cursor.execute("SELECT * FROM users;")
         users_data = cursor.fetchall()
         # Filter Geography
-        cursor.execute("SELECT * FROM filters_geography;")
-        geography_data = cursor.fetchall()
+        geography_data = geography_filters_data_selection()
+
         # Filter Company Headcount
-        cursor.execute("SELECT * FROM filters_headcount;")
-        headcount_data = cursor.fetchall()
+        headcount_data = headcount_filters_data_selection()
+
         # Filter Function
-        cursor.execute("SELECT * FROM filters_function;")
-        function_data = cursor.fetchall()
+        function_data = function_filters_data_selection()
 
     return render_template("admin_routes/search.html", users_data=users_data, geography_data=geography_data, headcount_data=headcount_data, function_data=function_data)
 
@@ -279,18 +279,21 @@ def callback():
         user_info_response = requests.get(USER_INFO_URL, headers=headers)
         
         user_info = user_info_response.json()
-        print("USER_INFO-------------------------------------------------------------------------------", user_info)
-        error = request.args.get('error')
-        error_description = request.args.get('error_description')
-    
-        error_params={
-            'error_name': error,
-            'error_desc': error_description,
-            'state': STATE,
-        }
-        error_url =  f"{REDIRECT_URI}?{'&'.join([f'{k}={v}' for k, v in error_params.items()])}"
+        print(user_info)
+        linkedin_user_id = user_info.get('id')  # Assuming 'id' is the LinkedIn user ID field
 
+        # Check if the user already exists in the database
+        user = Users.query.filter_by(linkedin_user_id=linkedin_user_id).first()
 
+        if not user:
+            # User doesn't exist, create a new user record
+            user = Users(linkedin_user_id=linkedin_user_id, name=user_info.get('localizedFirstName'),
+                          email=user_info.get('email'))
+            db.session.add(user)
+            db.session.commit()
+
+        # Store user information in the session for future use (if needed)
+        session['user_id'] = user.user_id
 
         return redirect(url_for('search'))
     else:
@@ -302,6 +305,7 @@ def database_testing():
     data = request.get_json()
     new_user = Users(
         name=data['name'],
+        linkedin_id=data['linkedin_id'],
         title=data['title'],
         company=data['company'],
         region=data['region'],
@@ -313,8 +317,6 @@ def database_testing():
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'user_id': new_user.user_id})
-
-
 
 if __name__ == '__main__':
     debug=True

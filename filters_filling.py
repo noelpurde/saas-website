@@ -16,7 +16,7 @@ def create_filters_tables():
 #-------------------- GEOGRAPHY FILTERS TABLE --------------------
     cur.execute('''
         CREATE TABLE IF NOT EXISTS filters_geography (
-            geography_name TEXT
+            region TEXT
         );
     ''')
 
@@ -38,17 +38,17 @@ def create_filters_tables():
 
     # Loop through geography_data and insert only if the value does not already exist
     for geography in geography_data:
-        cur.execute('SELECT * FROM filters_geography WHERE geography_name = %s', (geography,))
+        cur.execute('SELECT * FROM filters_geography WHERE region = %s', (geography,))
         existing_geography = cur.fetchone()
         if not existing_geography:
-            cur.execute('INSERT INTO filters_geography (geography_name) VALUES (%s)', (geography,))
+            cur.execute('INSERT INTO filters_geography (region) VALUES (%s)', (geography,))
 
 
 #------------------COMPANY HEADCOUNT FILTERS TABLE ---------------
 
     cur.execute('''
         CREATE TABLE IF NOT EXISTS filters_headcount (
-            headcount_name TEXT
+            company_size TEXT
         )
     ''')
 
@@ -66,17 +66,17 @@ def create_filters_tables():
 
     # Loop through headcount_data and insert only if the value does not already exist
     for headcount in headcount_data:
-        cur.execute('SELECT * FROM filters_headcount WHERE headcount_name = %s', (headcount,))
+        cur.execute('SELECT * FROM filters_headcount WHERE company_size = %s', (headcount,))
         existing_headcount = cur.fetchone()
         if not existing_headcount:
-            cur.execute('INSERT INTO filters_headcount (headcount_name) VALUES (%s)', (headcount,))
+            cur.execute('INSERT INTO filters_headcount (company_size) VALUES (%s)', (headcount,))
 
 
 #-------------------- FUNCTION FILTERS TABLE ---------------------
 
     cur.execute('''
         CREATE TABLE IF NOT EXISTS filters_function (
-           function_name TEXT
+           function TEXT
         )
     ''')
 
@@ -110,11 +110,12 @@ def create_filters_tables():
     ]
 
     for function in function_data:
-        cur.execute('SELECT * FROM filters_function WHERE function_name = %s', (function,))
+        cur.execute('SELECT * FROM filters_function WHERE function = %s', (function,))
         existing_function = cur.fetchone()
         if not existing_function:
-            cur.execute('INSERT INTO filters_function (function_name) VALUES (%s)', (function,))
+            cur.execute('INSERT INTO filters_function (function) VALUES (%s)', (function,))
 
     conn.commit()
     conn.close()
+
 
