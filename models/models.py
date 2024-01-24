@@ -6,15 +6,20 @@ class Users(db.Model):
     __tablename__ = 'users'
 
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    linkedin_user_id = db.Column(db.String, unique=True)
     name = db.Column(db.String)
     title = db.Column(db.String)
     company = db.Column(db.String)
-    region = db.Column(db.String)
-    company_size = db.Column(db.String)
-    function = db.Column(db.String)
+    region = db.Column(db.String, db.ForeignKey('filters_geography.region'))
+    company_size = db.Column(db.String, db.ForeignKey('filters_headcount.company_size'))
+    function = db.Column(db.String, db.ForeignKey('filters_function.function'))
     product_bought = db.Column(db.String)
     email = db.Column(db.String, unique=True)
 
+    geography = db.relationship('Geography', foreign_keys=[region])
+    headcount = db.relationship('Headcount', foreign_keys=[company_size])
+    function_rel = db.relationship('Function', foreign_keys=[function])
+    
     def __repr__(self):
         return f"User ID: {self.user_id}, Name: {self.name}, Email: {self.email}"
 # TEAMS
@@ -144,10 +149,27 @@ class Lists(db.Model):
     geography = db.Column(db.String)
     headcount = db.Column(db.String)
     function = db.Column(db.String)
-    created_at = db.Column = (db.DateTime)
+    created_at = db.Column(db.DateTime)
 
     user = db.relationship('Users', foreign_keys=[user_id])
 
     def __repr__(self):
         return f"List_ID: {self.list_id}, User_ID: {self.user_id}, Geography: {self.geography}, Headcount: {self.headcount}, Function: {self.function}" 
 
+
+# ------------------ FILTERS CREATED AND POPULATED --------------------
+
+class Geography(db.Model):
+    __tablename__="filters_geography"
+
+    region = db.Column(db.String, primary_key=True)
+
+class Headcount(db.Model):
+    __tablename__="filters_headcount"
+
+    company_size = db.Column(db.String, primary_key=True)
+
+class Function(db.Model):
+    __tablename__="filters_function"
+    
+    function = db.Column(db.String, primary_key=True)

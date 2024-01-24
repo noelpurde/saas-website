@@ -162,3 +162,151 @@ def add_to_list(filters, user_id):
     except Exception as e:
         print(f"Error: {e}")
         db.session.rollback()
+
+
+# FILTERS SELECTED AND GREY NUMBER TEXT + 
+                                                            ### GEOGRAPHY ###
+def geography_filters_data_selection():
+    DATABASE_URL = os.getenv('DATABASE_URL')
+
+    try:
+        connection = psycopg2.connect(DATABASE_URL)
+        cursor = connection.cursor()
+
+        select_data_query = sql.SQL("""
+            SELECT filters_geography.region, COUNT(users.user_id) as user_count
+            FROM filters_geography
+            LEFT JOIN users ON users.region = filters_geography.region
+            GROUP BY filters_geography.region
+            ORDER BY
+            CASE filters_geography.region
+                WHEN 'Oceania' THEN 1
+                WHEN 'EMEA' THEN 2
+                WHEN 'DACH' THEN 3
+                WHEN 'North America' THEN 4
+                WHEN 'Benelux' THEN 5
+                WHEN 'APJ' THEN 6
+                WHEN 'APAC' THEN 7
+                WHEN 'Asia' THEN 8
+                WHEN 'Nordics' THEN 9
+                WHEN 'MENA' THEN 10
+                WHEN 'Europe' THEN 11
+                WHEN 'Africa' THEN 12
+                WHEN 'South America' THEN 13
+                ELSE 14 -- For any other regions not in the specified order
+            END;
+        """)
+
+        cursor.execute(select_data_query)
+        data = cursor.fetchall()
+       
+        return data
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return []
+
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+                                                            ### HEADCOUNT ###
+def headcount_filters_data_selection():
+    DATABASE_URL = os.getenv('DATABASE_URL')
+
+    try:
+        connection = psycopg2.connect(DATABASE_URL)
+        cursor = connection.cursor()
+
+        select_data_query = sql.SQL("""
+            SELECT filters_headcount.company_size, COUNT(users.user_id) as user_count
+            FROM filters_headcount
+            LEFT JOIN users ON users.company_size = filters_headcount.company_size
+            GROUP BY filters_headcount.company_size
+            ORDER BY
+            CASE filters_headcount.company_size
+                WHEN 'Self-employed' THEN 1
+                WHEN '1-10' THEN 2
+                WHEN '11-50' THEN 3
+                WHEN '51-200' THEN 4
+                WHEN '201-500' THEN 5
+                WHEN '501-1,000' THEN 6
+                WHEN '1,001-5,000' THEN 7
+                WHEN '5,001-10,000' THEN 8
+                WHEN '10,001+' THEN 9
+                ELSE 10 -- For any other sizes not in the specified order
+            END;
+        """)
+
+        cursor.execute(select_data_query)
+        data = cursor.fetchall()
+
+        return data
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return []
+
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+                                                            ### FUNCTION ###
+def function_filters_data_selection():
+    DATABASE_URL = os.getenv('DATABASE_URL')
+
+    try:
+        connection = psycopg2.connect(DATABASE_URL)
+        cursor = connection.cursor()
+
+        select_data_query = sql.SQL("""
+            SELECT filters_function.function, COUNT(users.user_id) as user_count
+            FROM filters_function
+            LEFT JOIN users ON users.function = filters_function.function
+            GROUP BY filters_function.function
+            ORDER BY
+            CASE filters_function.function
+                WHEN 'Accounting' THEN 1
+                WHEN 'Administrative' THEN 2
+                WHEN 'Arts and Design' THEN 3
+                WHEN 'Business Development' THEN 4
+                WHEN 'Community and Social Services' THEN 5
+                WHEN 'Consulting' THEN 6
+                WHEN 'Customer Success and Support' THEN 7
+                WHEN 'Education' THEN 8
+                WHEN 'Engineering' THEN 9
+                WHEN 'Entrepreneurship' THEN 10
+                WHEN 'Finance' THEN 11
+                WHEN 'Healthcare Services' THEN 12
+                WHEN 'Human Resources' THEN 13
+                WHEN 'Information Technology' THEN 14
+                WHEN 'Legal' THEN 15
+                WHEN 'Marketing' THEN 16
+                WHEN 'Media and Communication' THEN 17
+                WHEN 'Military and Protective Services' THEN 18
+                WHEN 'Operations' THEN 19
+                WHEN 'Product Management' THEN 20
+                WHEN 'Program and Project Management' THEN 21
+                WHEN 'Purchasing' THEN 22
+                WHEN 'Quality Assurance' THEN 23
+                WHEN 'Real Estate' THEN 24
+                WHEN 'Research' THEN 25
+                WHEN 'Sales' THEN 26
+                ELSE 27 -- For any other functions not in the specified order
+            END;
+        """)
+
+        cursor.execute(select_data_query)
+        data = cursor.fetchall()
+
+       
+        return data
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return []
+
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()

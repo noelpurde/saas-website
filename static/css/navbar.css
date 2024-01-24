@@ -89,6 +89,10 @@ select {
     /* border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px; */
 }
+.navbar_button_group {
+    display: flex;
+    flex-wrap: nowrap;
+}
 
 .linkedin_signin {
     border: none;
