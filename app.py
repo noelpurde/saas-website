@@ -53,26 +53,30 @@ TOKEN_URL = 'https://www.linkedin.com/oauth/v2/accessToken'
 USER_INFO_URL = 'https://api.linkedin.com/v2/me'
 
 # Routes  -----------------------------------------------------------------------------------------------------------------------------------------
+def get_db():
+    if 'db' not in g:
+        g.db = psycopg2.connect(DATABASE_URL)
+    return g.db
 
 @app.route('/')
 def index():
      # MAIN SCREEN MAP FILTERS
-        with connection:
-            with connection.cursor() as cursor:
-                # Filter Geography
-                geography_data = geography_filters_data_selection()
+        with get_db(), get_db().cursor() as cursor:
 
-                 # Filter Company Headcount
-                headcount_data = headcount_filters_data_selection()
+            # Filter Geography
+            geography_data = geography_filters_data_selection()
 
-                 # Filter Function
-                function_data = function_filters_data_selection()
+                # Filter Company Headcount
+            headcount_data = headcount_filters_data_selection()
+
+                # Filter Function
+            function_data = function_filters_data_selection()
 
 
-                cursor.execute("SELECT COUNT(*) AS user_count FROM users;")
-                result = cursor.fetchone()
-                champion_number = int(result[0])
-                
+            cursor.execute("SELECT COUNT(*) AS user_count FROM users;")
+            result = cursor.fetchone()
+            champion_number = int(result[0])
+            
 
         # Render the data using Jinja2 template and save it to table.html
         return render_template("index.html", geography_data=geography_data, headcount_data=headcount_data,function_data=function_data, champion_number = champion_number)
@@ -89,11 +93,6 @@ def page_not_found(e):
 def privacypolicy():
     return render_template("privacypolicy.html")
 #ADMIN PURPLE NAVBAR ROUTES -----------------------------------------------------------------------
-
-def get_db():
-    if 'db' not in g:
-        g.db = psycopg2.connect(DATABASE_URL)
-    return g.db
 
 @app.route('/search', methods=['GET'])
 def search():
