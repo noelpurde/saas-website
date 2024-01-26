@@ -6,6 +6,8 @@
     height: 600px;
     width: 340px;
     transform: scale(0.8);
+    margin: 0px;
+    padding: 0px;
 }
 button {
     background-color: white;
@@ -64,8 +66,7 @@ span {
     overflow-y: scroll;
     overflow-x: hidden;
     position: relative;
-    left: -50px;
-    top: -50px;
+
 
     display: flex;
     align-items: center;
@@ -149,8 +150,6 @@ span {
     justify-content: top;
     flex-direction: column;
     position: relative;
-    left: -50px;    
-    top: -50px;
 
     background-color: white;
     border: 1px solid #959595;
@@ -232,9 +231,7 @@ span {
     align-items: center;
     justify-content: top;
     flex-direction: column;
-    position: relative;
-    left: -50px;
-    top: -50px;    
+    position: relative; 
 
     background-color: white;
     border: 1px solid #959595;

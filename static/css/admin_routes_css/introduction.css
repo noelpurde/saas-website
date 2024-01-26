@@ -1,0 +1,95 @@
+/* PAGE CONTAINER */
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    gap: 10rem;
+}
+
+/* BIG BOLD SPAN */
+.introductions-title,
+.introductions-name {
+    justify-self: flex-start;
+    font-family: 'Arial Black', 'Helvetica Neue Bold', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* small little span */
+.introductions-function,
+.introductions-current-highlighted,
+.introductions-others {
+    font-size: 12px;
+}
+
+.introductions-current-highlighted {
+    color: purple;
+    text-decoration: underline;
+}
+
+/* LEFT SIDE */
+.introcutions-asked {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+/* MODULE CONTAINER FOR JINJA ROWS  */
+.introductions-row-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Adjusted alignment */
+    gap: 12rem; /* Adjusted gap */
+    margin-top: 2rem;
+}
+
+/* LEFT SIDE INNER ROW JINJA */
+.introductions-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* IMAGE NAME FUNCTION CONTAINER */
+.introductions-user-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.introductions-name-function {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.introductions-pfp {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* LIST MODULE ["John Smith, +12 Others"] */ 
+.introductions-list {
+    display: flex;
+    justify-content: center;
+    align-self: flex-end;
+}
+
+/* RIGHT SIDE */
+.you-introduced {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.introductions-message-button { 
+    border-radius: 30%;
+    font-size: 12px;
+    padding: 5px;
+}

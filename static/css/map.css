@@ -23,7 +23,10 @@
     --oceania_width: 1;
     --oceania_fill: white;
 }
-
+svg {
+    margin: 0px;
+    padding: 0px;
+}
 .mapdiv path {
     fill: white;
     stroke: black;
