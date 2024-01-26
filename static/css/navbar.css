@@ -145,7 +145,8 @@ select {
 /*-----------ADMIN CREDITS/*-----------*/
 
 .admin_credits {
-    display: inline-flex;
+    display: flex;
+    flex-wrap: nowrap;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -162,10 +163,10 @@ select {
 
 /*-----------ADMIN NAVBAR PROFILE IN THE END*/
 .admin_profile_name {
-    display: inline-flex;
+    display: flex;
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-    
     padding-right: 2rem;
 }
 .image_anchor {
