@@ -2,12 +2,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
 }
 
 .imoort-export-addUser-row {
     display: flex;
-    width: 100vh;
     justify-content: flex-end;
     align-items: center;
 }
@@ -17,6 +16,7 @@
     font-size: 13px;
     margin: 5px;
     padding: 5px;
+    border: transparent;
     /*ROUNDNESS*/
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -24,10 +24,15 @@
     border-bottom-right-radius: 20px;
 }
 
+.team-table {
+    border-spacing: 2rem;
+    border-collapse: separate;
+}
+
 .team-table-content th, .team-table-content td {
-    width: 150px;
+    width: 100px;
     text-align: left;
-    padding: 20px;
+    padding: 10px;
     border: none;
     font-size: 13px;
 
@@ -37,3 +42,5 @@
     -webkit-user-select: none;
     -o-user-select: none;
 }
+
+.team-table > team-button  

@@ -1,9 +1,23 @@
 /*-------- Notifications*/
 
+.notifications-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6rem;
+}
+
+.notification-box-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
 .checkbox-container {
     display: flex;
     position: relative;
-    padding-left: 35px;
     margin-bottom: 12px;
     cursor: pointer;
     font-size: 11px;
@@ -13,12 +27,3 @@
     user-select: none;
   }
   
-  #inapp-notifications {
-    margin-left: 180px;
-    margin-top: -142px;
-  }
-  
-  #sound-notifications {
-    margin-left: 360px;
-    margin-top: -143px;
-  }
