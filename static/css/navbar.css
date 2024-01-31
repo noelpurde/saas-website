@@ -154,8 +154,8 @@ select {
 }
 
 .admin_credits img {
-    height: 1rem; 
-    width: 1rem;
+    height: .65rem; 
+    width: .65rem;
     background: transparent;
     color: white;
 }
