@@ -23,54 +23,10 @@
     --oceania_width: 1;
     --oceania_fill: white;
 }
-body {
-    background-color: #f4f4f4;
+svg {
+    margin: 0px;
+    padding: 0px;
 }
-
-.content-filter-map-subcontainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    margin-top: -1%;
-}
-
-#filter_map{
-    max-height: 415px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 13%;
-}
-
-.map-container{
-    transform: scale(0.5);
-    /* margin: -500px; */
-    position: relative;
-    padding: -50%;
-    margin: -35rem;
-}
-
-.filters-data-update {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
-    margin-top: -7%;
-}
-
-#filters-data-update_paragraph {
-    text-align: center;
-}
-
-#filters-data-update_paragraph span{
-    color: rgb(74, 57, 254);
-}
-
-.filters{z-index: 2;}
-
 .mapdiv path {
     fill: white;
     stroke: black;

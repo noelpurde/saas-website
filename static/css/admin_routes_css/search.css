@@ -13,23 +13,29 @@ body{
 
 .search_container{
     display: flex;
-    flex-direction:row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
     position: relative;
-    z-index: 9;
 }
+/*======== FILTERS BUTTON CONTAINER ==========*/
 
-/*======== FILTERS ==========*/
-
-.search_filters{
-    position:relative; 
-    margin-left: -5%;
-    margin-right: 8%;
-    margin-top: -8%;
+.filters-button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: -21rem;
+    margin-top:  1.25rem;
 }
 
 /*======== TABLE ==========*/
+
+.table_div {
+  margin: 0px;  
+  padding: 0px;
+  margin-left: -21rem;
+}
+
 .search_table th, .search_table td {
     width: 150px;
     text-align: center;
@@ -38,7 +44,8 @@ body{
   .search_table {
     table-layout: fixed;
     width: 800px;
-    margin-left: -40%;
+    margin: 0px;
+    padding: 0px;
 
     user-select: none;
     -moz-user-select: none;
@@ -63,15 +70,15 @@ th, td {
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #ffffff;
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #ffffff;
 }
 
 tr:hover {
-    background-color: #ddd;
+    background-color: #f2f2f2;
 }
 
 .hidden{
@@ -86,10 +93,9 @@ tr:hover {
     border-radius: 10px; 
     cursor: pointer; 
     font-size: 14px;
-    margin-bottom: -20px;
+    margin-bottom: -30px;
     margin-left: 20px;
     position: relative;
-    z-index: 10;
   }
   
   .save-to-list:hover {

@@ -1,6 +1,46 @@
 {% extends 'base_admin.html' %}
 
 {% block content%}
+<div class="container">
 
+    <div class="introcutions-asked">
+        <span class="introductions-title">Introduction Asked</span>
+        <div class="introductions-row-container">
+            <!--LOOP1 START-->
+            <div class="introductions-row">
+                <div class="introductions-user-details">
+                    <img class="introductions-pfp" src="../../static/images/person.jpeg" alt="pfp">
+                    <div class="introductions-name-function">
+                        <span class="introductions-name">Garry Tan</span>
+                        <span class="introductions-function">Director of Sales Microsoft</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="introductions-list">
+                <a href="" class="introductions-current-highlighted" >John Smith
+                </a>
+                <span class="introductions-others">, +12 others</span>
+            </div>
+            <!--LOOP END-->
+        </div>
+    </div><!--introductions-asked end-->
+
+    <div class="you-introduced">
+        <span class="introductions-title">You Introduced</span>
+        <div class="introductions-row-container">
+            <!--LOOP1 START-->
+            <div class="introductions-list">
+                <a href="" class="introductions-current-highlighted" >John Smith
+                </a>
+                <span class="introductions-others">, +12 others</span>
+            </div>
+
+            <button class="introductions-message-button">Message</button>
+             <!--LOOP END-->
+        </div>
+    </div>
+
+</div><!--container end-->
 
 {% endblock %}

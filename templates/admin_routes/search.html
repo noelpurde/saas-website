@@ -2,10 +2,11 @@
 
 {% block content%}
 
-<button class="save-to-list">Save to Lists</button>
-
     <div class="search_container">
-        <div class="search_filters">
+        <div class="filters-button-container">
+            <a href="{{ url_for('save_to_list_method') }}"></a>
+            <button class="save-to-list" >Save to Lists</button>
+            </a>
             <div class="three_filters">
                 <!--Filters for G E O G R A P H Y-->
                     <div class="filters_geography">
@@ -82,10 +83,10 @@
                         </div>
                     </div>
                 </div> <!-- Three FIlters -->
-            </div> <!-- Seach Filters -->
+        </div> <!-- Filters Button Container -->
 
-<!--------------------------------------------------------------------------------->
-        <div style="margin-left: 300px;">
+<!--------------------------------TABELA--------------------------------->
+        <div class="table_div" style="margin-left: 300px;">
             <table class="search_table">
                     <tr>
                         <th>Name</th>
