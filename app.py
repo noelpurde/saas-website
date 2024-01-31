@@ -15,7 +15,9 @@ app = Flask(__name__)
 load_dotenv()
 
 # Database url
-DATABASE_URL = os.getenv('DATABASE_URL')
+DATABASE_URL = os.getenv("DATABASE_URL")  # or other relevant config var
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 # LinkedIn Secret Stuff
 CLIENT_ID = os.getenv('CLIENT_ID')
