@@ -250,7 +250,7 @@ def linkedin_signin():
         'client_id': CLIENT_ID,
         'redirect_uri': REDIRECT_URI,
         'state': STATE,
-        'scope': 'openid',
+        'scope': 'profile',
     }
     auth_url = f"{AUTHORIZATION_URL}?{'&'.join([f'{k}={v}' for k, v in params.items()])}"
 
