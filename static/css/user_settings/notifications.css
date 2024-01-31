@@ -1,0 +1,24 @@
+/*-------- Notifications*/
+
+.checkbox-container {
+    display: flex;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 11px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  #inapp-notifications {
+    margin-left: 180px;
+    margin-top: -142px;
+  }
+  
+  #sound-notifications {
+    margin-left: 360px;
+    margin-top: -143px;
+  }

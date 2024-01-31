@@ -7,5 +7,38 @@
 </head>
 
 <button class="back-button" onclick = "window.history.back()"> &#x1F878; </button>
+{% include 'navbars/navbarProfile.html' %}
+
+<div class="team-container">
+    <div class="imoort-export-addUser-row">
+        <button class="team-button">Import</button>
+        <button class="team-button">Export</button>
+        <button class="team-button">+ Add Users</button>
+    </div>
+    <div class="team-table-content">
+        <table class="team-table">
+            <tr>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Role</th>
+                <th>Type</th>
+                <th>Department</th>
+            </tr>
+            <!--START LOOP-->
+            <tr>
+                <td>adsads</td>
+                <td>adsads</td>
+                <td>adsads</td>
+                <td>adsads</td>
+                <td>adsads</td>
+                <td>adsads</td>
+            </tr>
+            <!--END LOOP-->
+        </table>
+    </div>
+</div>
+
+
 
 {% endblock %}

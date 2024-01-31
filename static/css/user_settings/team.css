@@ -1,0 +1,39 @@
+.team-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.imoort-export-addUser-row {
+    display: flex;
+    width: 100vh;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.team-button {
+    width: 85px;
+    font-size: 13px;
+    margin: 5px;
+    padding: 5px;
+    /*ROUNDNESS*/
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.team-table-content th, .team-table-content td {
+    width: 150px;
+    text-align: left;
+    padding: 20px;
+    border: none;
+    font-size: 13px;
+
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
