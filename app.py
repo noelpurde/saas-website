@@ -272,7 +272,7 @@ def callback():
         response = requests.post(TOKEN_URL, data=token_data)
         print("TOKEN RESPONSE:-----------------------------------------", response.json())
         access_token = response.json().get('access_token')
-        print("ACCESS TOKEN":-----------------------------------------",access_token)
+        print("ACCESS TOKEN:-----------------------------------------",access_token)
         headers = {
             'Authorization': f'Bearer {access_token}',
         }        
