@@ -258,27 +258,27 @@ def linkedin_signin():
 
 @app.route('/callback')
 def callback():
-    # Callback handling from LinkedIn
     code = request.args.get('code')
     if code:
-        # The authorization code for an access token exchangex
         token_data = {
             'grant_type': 'authorization_code',
             'code': code,
             'client_id': CLIENT_ID,
             'client_secret': CLIENT_SECRET,
             'redirect_uri': REDIRECT_URI,
-
         }
-        response = requests.post(TOKEN_URL, data=token_data)
-        access_token = response.json().get('access_token')
 
-        # Using access token to get user info
+        # Print or log the token response for debugging
+        response = requests.post(TOKEN_URL, data=token_data)
+        print("TOKEN RESPONSE:-----------------------------------------", response.json())
+        access_token = response.json().get('access_token')
+        print("ACCESS TOKEN":-----------------------------------------",access_token)
         headers = {
             'Authorization': f'Bearer {access_token}',
         }        
         user_info_response = requests.get(USER_INFO_URL, headers=headers)
-        
+
+        # Print or log the user info response for debugging
         user_info = user_info_response.json()
         print("USER INFO-------------------------------------------------------", user_info)
         linkedin_user_id = user_info.get('id')  # Assuming 'id' is the LinkedIn user ID field
