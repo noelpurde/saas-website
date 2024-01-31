@@ -50,29 +50,33 @@ create_filters_tables()
 # LinkedIn API URLs - Endpoints -------------------------------------------------------------------
 AUTHORIZATION_URL = 'https://www.linkedin.com/oauth/v2/authorization'
 TOKEN_URL = 'https://www.linkedin.com/oauth/v2/accessToken'
-USER_INFO_URL = 'https://api.linkedin.com/v2/me'
+USER_INFO_URL = 'https://api.linkedin.com/v2/userinfo'
 
 # Routes  -----------------------------------------------------------------------------------------------------------------------------------------
+def get_db():
+    if 'db' not in g:
+        g.db = psycopg2.connect(DATABASE_URL)
+    return g.db
 
 @app.route('/')
 def index():
      # MAIN SCREEN MAP FILTERS
-        with connection:
-            with connection.cursor() as cursor:
-                # Filter Geography
-                geography_data = geography_filters_data_selection()
+        with get_db(), get_db().cursor() as cursor:
 
-                 # Filter Company Headcount
-                headcount_data = headcount_filters_data_selection()
+            # Filter Geography
+            geography_data = geography_filters_data_selection()
 
-                 # Filter Function
-                function_data = function_filters_data_selection()
+                # Filter Company Headcount
+            headcount_data = headcount_filters_data_selection()
+
+                # Filter Function
+            function_data = function_filters_data_selection()
 
 
-                cursor.execute("SELECT COUNT(*) AS user_count FROM users;")
-                result = cursor.fetchone()
-                champion_number = int(result[0])
-                
+            cursor.execute("SELECT COUNT(*) AS user_count FROM users;")
+            result = cursor.fetchone()
+            champion_number = int(result[0])
+            
 
         # Render the data using Jinja2 template and save it to table.html
         return render_template("index.html", geography_data=geography_data, headcount_data=headcount_data,function_data=function_data, champion_number = champion_number)
@@ -89,11 +93,6 @@ def page_not_found(e):
 def privacypolicy():
     return render_template("privacypolicy.html")
 #ADMIN PURPLE NAVBAR ROUTES -----------------------------------------------------------------------
-
-def get_db():
-    if 'db' not in g:
-        g.db = psycopg2.connect(DATABASE_URL)
-    return g.db
 
 @app.route('/search', methods=['GET'])
 def search():
@@ -140,31 +139,31 @@ def user(name):
 
 #USER SETTINGS ROUTES -----------------------------------------------------------------------------
 
-@app.route('/user-settings/integrations')
+@app.route('/admin/integrations')
 def integrations():
     return render_template('user_settings/integrations.html')
 
-@app.route('/user-settings/team')
+@app.route('/admin/team')
 def team():
     return render_template('user_settings/team.html')
 
-@app.route('/user-settings/notifications')
+@app.route('/admin/notifications')
 def notifications():
     return render_template('user_settings/notifications.html')
 
-@app.route('/user-settings/ team_settings')
+@app.route('/admin/ team_settings')
 def team_settings():
     return render_template('user_settings/team_settings.html')
 
-@app.route('/user-settings/profile_settings')
+@app.route('/admin/profile_settings')
 def profile_settings():
     return render_template('user_settings/profile_settings.html')
 
-@app.route('/user-settings/reports')
+@app.route('/admin/reports')
 def reports():
     return render_template('user_settings/reports.html')
 
-@app.route('/user-settings/billing')
+@app.route('/admin/billing')
 def billing():
     return render_template('user_settings/billing.html')
 
@@ -279,7 +278,7 @@ def callback():
         user_info_response = requests.get(USER_INFO_URL, headers=headers)
         
         user_info = user_info_response.json()
-        print(user_info)
+        print("USER INFO-------------------------------------------------------", user_info)
         linkedin_user_id = user_info.get('id')  # Assuming 'id' is the LinkedIn user ID field
 
         # Check if the user already exists in the database

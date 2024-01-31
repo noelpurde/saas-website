@@ -236,7 +236,7 @@ function updateData(filters) {
 
 function updateTable(filteredData) {
   // Updating HTML table with the new filtered data dynamically
-  const tableBody = document.querySelector('.search_table tbody');
+  const tableBody = document.querySelector('.search-table-content tbody');
   tableBody.innerHTML = '';  // Clear existing rows
 
   // Add the static header row

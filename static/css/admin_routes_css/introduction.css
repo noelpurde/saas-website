@@ -1,17 +1,28 @@
 /* PAGE CONTAINER */
 .container {
     display: flex;
-    justify-content: space-around;
-    align-items: stretch;
-    gap: 10rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 3rem;
+    }
+
+.two-introduction-titles {
+    display: inline-flex;
+    white-space: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 100%;
+    text-decoration: underline;
 }
 
 /* BIG BOLD SPAN */
 .introductions-title,
 .introductions-name {
+    white-space: nowrap;
     justify-self: flex-start;
     font-family: 'Arial Black', 'Helvetica Neue Bold', sans-serif;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -19,6 +30,7 @@
 .introductions-function,
 .introductions-current-highlighted,
 .introductions-others {
+    white-space: nowrap;
     font-size: 12px;
 }
 
@@ -26,32 +38,39 @@
     color: purple;
     text-decoration: underline;
 }
-
-/* LEFT SIDE */
-.introcutions-asked {
+/* CONTAINER FOR ROW MODULE */
+.introductions-rows {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 2rem;
+}
+
+/* ROW MODULE   [ introduction-asked ] + [ you introduced ] */
+.introductions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 15rem;
+}
+
+/* LEFT SIDE */
+.introductions-asked {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 5rem;
+}
+
+/* RIGHT SIDE */
+.you-introduced {
+    display: flex;
+    justify-content: space-between;
     align-items: flex-end;
 }
 
-/* MODULE CONTAINER FOR JINJA ROWS  */
-.introductions-row-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Adjusted alignment */
-    gap: 12rem; /* Adjusted gap */
-    margin-top: 2rem;
-}
-
-/* LEFT SIDE INNER ROW JINJA */
-.introductions-row {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-/* IMAGE NAME FUNCTION CONTAINER */
+/* IMAGE NAME FUNCTION CONTAINER  inside [ introductions-asked ] */
 .introductions-user-details {
     display: flex;
     justify-content: space-between;
@@ -59,6 +78,7 @@
     gap: 0.5rem;
 }
 
+/* CONTAINS THE NAME AND THE FUNCTION OF THE USER inside [ introductions-user-details ] */
 .introductions-name-function {
     display: flex;
     flex-direction: column;
@@ -76,20 +96,25 @@
 /* LIST MODULE ["John Smith, +12 Others"] */ 
 .introductions-list {
     display: flex;
+    flex-wrap: nowrap;
     justify-content: center;
     align-self: flex-end;
 }
 
-/* RIGHT SIDE */
-.you-introduced {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
 .introductions-message-button { 
-    border-radius: 30%;
-    font-size: 12px;
-    padding: 5px;
+    display: inline-block;
+  padding: 6px 12px;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: rgb(107, 74, 253);
+  color: #fff;
+  transition: background-color 0.3s ease;
 }

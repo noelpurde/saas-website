@@ -21,6 +21,7 @@ body {
     align-self: flex-start;
     margin: 0px;
     padding: 0px;
+    margin-left: -6rem;
 }
 
 .map-container{
@@ -28,7 +29,7 @@ body {
     transform: scale(0.5);
     /* margin: -500px; */
     padding: -50%;
-    margin: -35rem;
+    margin: -37rem;
     
 }
 

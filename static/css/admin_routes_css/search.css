@@ -1,7 +1,7 @@
 
 body{
     overflow-x: hidden;
-
+    background-color: rgb(245, 245, 245);
     user-select: none;
     -moz-user-select: none;
     -khtml-user-select: none;
@@ -11,7 +11,8 @@ body{
 
 /*======== SEARCH ==========*/
 
-.search_container{
+.search-container{
+    background-color: rgb(245, 245, 245);
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -24,24 +25,34 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-right: -21rem;
+    margin-right: -20rem;
     margin-top:  1.25rem;
+    margin-left: -1rem;
 }
 
 /*======== TABLE ==========*/
 
-.table_div {
+.search-table-div {
   margin: 0px;  
   padding: 0px;
   margin-left: -21rem;
 }
 
-.search_table th, .search_table td {
+.search-table-content th, .search-table-content td {
     width: 150px;
     text-align: center;
+    padding: 20px;
+    border: none;
+    font-size: 13px;
+
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
   }
   
-  .search_table {
+  .search-table-content {
     table-layout: fixed;
     width: 800px;
     margin: 0px;
@@ -53,32 +64,17 @@ body{
     -webkit-user-select: none;
     -o-user-select: none;
   }
-  
 
-th, td {
-    width: 300px;
-    padding: 20px;
-    text-align: center;
-    border: none;
-    font-size: 13px;
-
-    user-select: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
+.search-table-content th {
+  background-color: rgb(245, 245, 245);
 }
 
-th {
-    background-color: #ffffff;
+.search-table-content tr:nth-child(even) {
+  background-color: rgb(245, 245, 245);
 }
 
-tr:nth-child(even) {
-    background-color: #ffffff;
-}
-
-tr:hover {
-    background-color: #f2f2f2;
+.search-table-content tr:hover {
+    background-color: rgb(216, 216, 216);
 }
 
 .hidden{
