@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
+
 # USERS
 class Users(db.Model):
     __tablename__ = 'users'
@@ -8,13 +9,14 @@ class Users(db.Model):
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     linkedin_user_id = db.Column(db.String, unique=True)
     name = db.Column(db.String)
+    email = db.Column(db.String, unique=True)
+    profile_picture = db.Column(db.String)
     title = db.Column(db.String)
     company = db.Column(db.String)
     region = db.Column(db.String, db.ForeignKey('filters_geography.region'))
     company_size = db.Column(db.String, db.ForeignKey('filters_headcount.company_size'))
     function = db.Column(db.String, db.ForeignKey('filters_function.function'))
     product_bought = db.Column(db.String)
-    email = db.Column(db.String, unique=True)
 
     geography = db.relationship('Geography', foreign_keys=[region])
     headcount = db.relationship('Headcount', foreign_keys=[company_size])

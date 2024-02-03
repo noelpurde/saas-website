@@ -250,7 +250,7 @@ def linkedin_signin():
         'client_id': CLIENT_ID,
         'redirect_uri': REDIRECT_URI,
         'state': STATE,
-        'scope': 'openid',
+        'scope': 'openid profile w_member_social email',
     }
     auth_url = f"{AUTHORIZATION_URL}?{'&'.join([f'{k}={v}' for k, v in params.items()])}"
 
@@ -281,25 +281,35 @@ def callback():
         # Print or log the user info response for debugging
         user_info = user_info_response.json()
         print("USER INFO-------------------------------------------------------", user_info)
-        linkedin_user_id = user_info.get('id')  # Assuming 'id' is the LinkedIn user ID field
+        linkedin_user_id = user_info.get('sub')  # Using 'sub' as the LinkedIn user ID field
 
         # Check if the user already exists in the database
         user = Users.query.filter_by(linkedin_user_id=linkedin_user_id).first()
 
         if not user:
             # User doesn't exist, create a new user record
-            user = Users(linkedin_user_id=linkedin_user_id, name=user_info.get('localizedFirstName'),
-                          email=user_info.get('email'))
-            db.session.add(user)
+            new_user = Users(
+                linkedin_user_id=linkedin_user_id,
+                name=user_info.get('given_name'),
+                email=user_info.get('email'),
+                profile_picture=user_info.get('picture')
+            )
+            db.session.add(new_user)
+            db.session.commit()
+        else:
+            # User exists, update user details
+            user.name = user_info.get('given_name')
+            user.email = user_info.get('email')
+            user.profile_picture = user_info.get('picture')
             db.session.commit()
 
         # Store user information in the session for future use (if needed)
-        session['user_id'] = user.user_id
+        session['user_id'] = user.user_id if user else new_user.user_id
 
         return redirect(url_for('search'))
     else:
         return redirect(url_for('index'))
-
+    
 # ADD USERS TO DATABASE
 @app.route('/add_user', methods=['POST'])
 def database_testing():
