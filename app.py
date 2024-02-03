@@ -298,13 +298,16 @@ def callback():
             db.session.commit()
         else:
             # User exists, update user details
-            user.name = user_info.get('given_name')
+            user.name = user_info.get('name')
             user.email = user_info.get('email')
             user.profile_picture = user_info.get('picture')
             db.session.commit()
 
         # Store user information in the session for future use (if needed)
         session['user_id'] = user.user_id if user else new_user.user_id
+        session['user_name'] = user.name if user else new_user.name
+        session['user_email'] = user.email if user else new_user.email
+        session['user_profile_picture'] = user.profile_picture if user else new_user.profile_picture
 
         return redirect(url_for('search'))
     else:
