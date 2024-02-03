@@ -176,13 +176,15 @@ select {
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    text-decoration: none; 
+    text-decoration: none;
+    margin-right: 1rem;
 }
 .image_anchor img{
-    height: 1.5rem; 
-    width: 1.5rem;
+    height: 1.7rem; 
+    width: 1.7rem;
     background: transparent;
     color: white;
+    border-radius: 50%;
 }
 .image_anchor p{
     color: white;   
