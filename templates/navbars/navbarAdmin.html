@@ -18,10 +18,9 @@ filename = 'css/navbar.css') }}">
         </li>
       </ul>
 
-      <div class="admin_profile_name">
-        <a class="image_anchor" href="{{ url_for('user', name='User') }}">
-          <img src="../static/images/user_icon.png" alt="profile_picture">
-          <p>John Smith</p>
-        </a>
-      </div>
+      <a class="image_anchor" href="{{ url_for('user', name='User') }}">
+        <img src="{{ session['user_profile_picture'] }}" alt="profile_picture" class="profile-picture">
+        <p>{{ session['user_name'] }}</p>
+    </a>
+    
 </nav>
