@@ -5,7 +5,7 @@ db = SQLAlchemy()
 class Users(db.Model):
     __tablename__ = 'users'
 
-     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     linkedin_user_id = db.Column(db.String, unique=True)
     name = db.Column(db.String)
     email = db.Column(db.String, unique=True)
