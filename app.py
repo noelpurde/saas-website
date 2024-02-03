@@ -290,7 +290,7 @@ def callback():
             # User doesn't exist, create a new user record
             new_user = Users(
                 linkedin_user_id=linkedin_user_id,
-                name=user_info.get('given_name'),
+                name=user_info.get('name'),
                 email=user_info.get('email'),
                 profile_picture=user_info.get('picture')
             )
