@@ -2,5 +2,26 @@
 
 {% block content%}
 
+<div class="lists-container">
+    <div class="lists-table-div">
+        <table class="lists-table-content">
+            <tr>
+                <th>Name</th>
+                <th>New Results</th>
+                <th>Created On</th>
+                <th>Criteria</th>
+                <th>Alerts</th>
+            </tr>
+            {% for list_item in lists_data %}
+            <tr>
+                <td>{{ list_item[1] }}</td>
+                <td class="lists-new-result-text">{{ list_item[2] }}</td>
+                <td>{{ list_item[3] }}</td>
+                <td>{{ list_item[4] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
 
 {% endblock %}

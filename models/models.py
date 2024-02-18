@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
+
 # USERS
 class Users(db.Model):
     __tablename__ = 'users'
@@ -147,6 +148,7 @@ class Lists(db.Model):
 
     list_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    name = db.Column(db.String)
     geography = db.Column(db.String)
     headcount = db.Column(db.String)
     function = db.Column(db.String)
