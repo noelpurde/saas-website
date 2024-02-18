@@ -1,0 +1,44 @@
+.lists-container {
+
+}
+
+/*======== TABLE ==========*/
+
+.lists-table-div {
+    margin: 0px;  
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  .lists-table-content th, .lists-table-content td {
+      width: 150px;
+      text-align: center;
+      padding: 20px;
+      border: none;
+      font-size: 13px;
+  
+      user-select: none;
+      -moz-user-select: none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      -o-user-select: none;
+    }
+    
+    .lists-table-content {
+      table-layout: fixed;
+      width: 800px;
+      margin: 0px;
+      padding: 0px;
+  
+      user-select: none;
+      -moz-user-select: none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      -o-user-select: none;
+    }
+
+    lists-new-result-text {
+        color: rgb(78, 204, 78);
+    }

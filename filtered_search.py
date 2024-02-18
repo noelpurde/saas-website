@@ -142,26 +142,6 @@ def filter_data_from_database():
 
 # FUNCTION TO ADD FILTERS TO LIST "SAVE TO LIST" BUTTON IN SEARCH
             
-def add_to_list(filters, user_id):
-    try:
-        # Create a new Lists instance
-        new_list = Lists(
-            user_id=user_id,
-            geography=",".join(map(str, filters.get('geography', []))),
-            headcount=",".join(map(str, filters.get('headcount', []))),
-            function=",".join(map(str, filters.get('function', []))),
-            created_at=datetime.utcnow()
-        )
-
-        # Add the new_list to the database
-        db.session.add(new_list)
-        db.session.commit()
-
-        print("List added successfully.")
-
-    except Exception as e:
-        print(f"Error: {e}")
-        db.session.rollback()
 
 
 # FILTERS SELECTED AND GREY NUMBER TEXT + 
@@ -310,3 +290,30 @@ def function_filters_data_selection():
         if connection:
             cursor.close()
             connection.close()
+
+# ADD TO LIST
+def add_to_list(filters, user_id, list_name):
+    try:
+        # Create a new Lists instance
+        new_list = Lists(
+            user_id=user_id,
+            name = list_name,
+            geography=",".join(map(str, filters.get('geography', []))),
+            headcount=",".join(map(str, filters.get('headcount', []))),
+            function=",".join(map(str, filters.get('function', []))),
+            created_at=datetime.utcnow()
+        )
+
+        # Add the new_list to the database
+        db.session.add(new_list)
+        db.session.commit()
+
+        print("List added successfully.")
+
+    except Exception as e:
+        print(f"Error: {e}")
+        db.session.rollback()
+
+def show_list_content(user_id):
+    lists_data = Lists.query.filter_by(user_id=user_id).all()
+    return lists_data

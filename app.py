@@ -3,7 +3,7 @@ from flask import Flask, redirect, render_template, request, url_for, jsonify, s
 from datetime import datetime
 from dotenv import load_dotenv
 from filters_filling import create_filters_tables
-from filtered_search import search_query_real_time_refresh, create_or_replace_table, filter_data_from_database, add_to_list, geography_filters_data_selection, headcount_filters_data_selection, function_filters_data_selection
+from filtered_search import search_query_real_time_refresh, create_or_replace_table, filter_data_from_database, add_to_list, geography_filters_data_selection, headcount_filters_data_selection, function_filters_data_selection, show_list_content
 import requests, os, json, psycopg2
 from models.models import db, Users, Teams, TeamUsers, Invitations, Introductions, Notifications, Subscriptions, Connections
 from flask_sqlalchemy import SQLAlchemy
@@ -125,7 +125,10 @@ def introduction():
 
 @app.route('/lists')
 def lists():
-    return render_template("admin_routes/lists.html")
+
+    lists_data = show_list_content(session['user_id'])
+
+    return render_template("admin_routes/lists.html", lists_data=lists_data)
  
 @app.route('/admin')
 def admin():
@@ -135,9 +138,25 @@ def admin():
 def credits():
     return render_template("admin_routes/credits.html")
 
+@app.route('/user')
+def user():
+    # Retrieve the user name from the session
+    user_name = session.get('user_name')
+
+    # Check if the user name is present in the session
+    if user_name is not None:
+        # Replace spaces with underscores
+        user_name_url = user_name.replace(" ", "_")
+        return redirect(url_for('user_profile', name=user_name_url))
+    else:
+        # Handle the case where the user name is not available in the session
+        return redirect(url_for('index'))  # Redirect to the home page or handle appropriately
+
 @app.route('/user/<name>')
-def user(name):
-    return render_template("admin_routes/user.html", name=name)
+def user_profile(name):
+    # Replace underscores with spaces for displaying the user name
+    user_name_display = name.replace("_", " ")
+    return render_template("admin_routes/user.html", name=user_name_display)
 
 #USER SETTINGS ROUTES -----------------------------------------------------------------------------
 
@@ -229,8 +248,11 @@ def delete_table():
 def save_to_list_method():
     if request.method == 'POST':
         filters = request.json
-        print("[/save_to_list]:Saved Filters", filters)
-        add_to_list(filters, "1")
+        if not filters["geography"] and not filters["headcount"] and not filters["function"]:
+            print("No Filters Selected")
+        else:
+            add_to_list(filters, session['user_id'], "List Name")
+            print("[/save_to_list]:Saved Filters", filters)
         response_data = {"message": "Filters saved successfully"}
         return jsonify(response_data)
     else:
@@ -306,7 +328,7 @@ def callback():
         # Store user information in the session for future use (if needed)
         session['user_id'] = user.user_id if user else new_user.user_id
         session['user_name'] = user.name if user else new_user.name
-        session['user_email'] = user.email if user else new_user.email
+        session['user_emai  l'] = user.email if user else new_user.email
         session['user_profile_picture'] = user.profile_picture if user else new_user.profile_picture
 
         return redirect(url_for('search'))
