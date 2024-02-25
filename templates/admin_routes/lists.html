@@ -11,14 +11,55 @@
                 <th>Created On</th>
                 <th>Criteria</th>
                 <th>Alerts</th>
+                <th></th> <!-- Added column for buttons -->
             </tr>
-            {% for list_item in lists_data %}
+            {% for row in lists_data %}
             <tr>
-                <td>{{ list_item[1] }}</td>
-                <td class="lists-new-result-text">{{ list_item[2] }}</td>
-                <td>{{ list_item[3] }}</td>
-                <td>{{ list_item[4] }}</td>
+                <td>{{ row.name }}</td>
+                <td class="lists-new-result-text">{{ row.list_id }}</td>
+                <td>{{ row.created_at }}</td>
+                <td>{{ row.geography }}  {{ row.headcount }}  {{ row.function }}</td>
+                <td>{{ row.user_list_id }}</td>
+                <td>
+                    <!-- Edit button -->
+                    <a href="/lists_update?list_id={{ row.list_id }}" class="btn btn-primary edit-btn list-side-button" data-toggle="modal" data-target="#editModal{{ row.list_id }}">Edit</a>
+                    <!-- Delete button -->
+                    <a class="btn btn-danger delete-btn list-side-button" data-toggle="modal" data-target="#editModal">Delete</a>
+                </td>
             </tr>
+            
+            <!-- Edit popup modal -->
+            <div id="editModal{{ row.list_id }}" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit List</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url_for('list_update') }}" method="POST">
+                                <div class="form-group">
+                                    <label>Name:</label>
+                                    <input type="hidden" name="id" value="{{ row.list_id }}">
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ row.name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Alerts:</label>
+                                    <input type="text" class="form-control" id="alerts" name="alerts" value="{{ row.alerts }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary" id="okBtn">OK</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
         </table>
     </div>
