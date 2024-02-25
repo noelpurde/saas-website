@@ -153,11 +153,13 @@ class Lists(db.Model):
     headcount = db.Column(db.String)
     function = db.Column(db.String)
     created_at = db.Column(db.DateTime)
+    alerts = db.Column(db.String)
 
     user = db.relationship('Users', foreign_keys=[user_id])
 
     def __repr__(self):
-        return f"List_ID: {self.list_id}, User_ID: {self.user_id}, Geography: {self.geography}, Headcount: {self.headcount}, Function: {self.function}" 
+        return f"List_ID: {self.list_id}, User_ID: {self.user_id}, Name: {self.name}, Geography: {self.geography}, Headcount: {self.headcount}, Function: {self.function}, Created At: {self.created_at}, Alerts: {self.alerts}"
+
 
 
 # ------------------ FILTERS CREATED AND POPULATED --------------------

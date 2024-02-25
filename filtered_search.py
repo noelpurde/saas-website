@@ -294,10 +294,23 @@ def function_filters_data_selection():
 # ADD TO LIST
 def add_to_list(filters, user_id, list_name):
     try:
+        # Check if a list with the same combination of filters already exists
+        existing_list = Lists.query.filter_by(
+            user_id=user_id,
+            name=list_name,
+            geography=",".join(map(str, filters.get('geography', []))),
+            headcount=",".join(map(str, filters.get('headcount', []))),
+            function=",".join(map(str, filters.get('function', [])))
+        ).first()
+
+        if existing_list:
+            print("List with the same filters already exists.")
+            return
+
         # Create a new Lists instance
         new_list = Lists(
             user_id=user_id,
-            name = list_name,
+            name=list_name,
             geography=",".join(map(str, filters.get('geography', []))),
             headcount=",".join(map(str, filters.get('headcount', []))),
             function=",".join(map(str, filters.get('function', []))),
@@ -314,6 +327,10 @@ def add_to_list(filters, user_id, list_name):
         print(f"Error: {e}")
         db.session.rollback()
 
+
+# SHOW LISTS BASED ON THE USER ID
 def show_list_content(user_id):
     lists_data = Lists.query.filter_by(user_id=user_id).all()
     return lists_data
+
+# def list_search_count()Ë

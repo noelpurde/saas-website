@@ -127,7 +127,7 @@ def introduction():
 def lists():
 
     lists_data = show_list_content(session['user_id'])
-
+    print("LIST DATA", lists_data)
     return render_template("admin_routes/lists.html", lists_data=lists_data)
  
 @app.route('/admin')
@@ -193,7 +193,8 @@ def billing():
 @app.route('/update_data', methods=['POST'])
 def update_data():
     filters = request.json
-
+    # Save Filters in Session
+    session['filters'] = filters
     # Build the query based on the filters
     filtered_data=search_query_real_time_refresh(filters)
     length = len(filtered_data)
@@ -244,20 +245,51 @@ def delete_table():
     return jsonify("Empty Text")
 
 # Saves filters from search to lists
-@app.route('/save_to_list', methods=["POST"])
-def save_to_list_method():
-    if request.method == 'POST':
-        filters = request.json
-        if not filters["geography"] and not filters["headcount"] and not filters["function"]:
-            print("No Filters Selected")
-        else:
-            add_to_list(filters, session['user_id'], "List Name")
-            print("[/save_to_list]:Saved Filters", filters)
-        response_data = {"message": "Filters saved successfully"}
-        return jsonify(response_data)
+@app.route('/lists_insert', methods=['GET'])
+def lists_insert():
+    session['filters']
+    print("SAVE TO LIST")
+    if not session['filters']["geography"] and not session['filters']["headcount"] and not session['filters']["function"]:
+        print("No Filters Selected")
     else:
-        return jsonify({"message": "Unsupported method"})
+        add_to_list(session['filters'], session['user_id'], "List Name")
+        print("[/save_to_list]:Saved Filters", session['filters'])
+    response_data = {"message": "Filters saved successfully"}
+    return jsonify(response_data)
 
+@app.route("/lists_update", methods=["POST", "GET"])
+def list_update():
+    try:
+        if request.method == "POST":
+            list_id = request.form.get('id')
+            name = request.form.get('name')
+            alerts = request.form.get('alerts')
+        else:
+            list_id = request.args.get('list_id')
+            name = request.args.get('name')
+            alerts = request.args.get('alerts')
+
+        print("List ID:", list_id)
+        print("Name:", name)
+        print("Alerts:", alerts)
+
+        # Validate the received values
+        if list_id and name and alerts:
+            # Update the list
+            my_list = db.Lists.query.get(list_id)
+            if my_list:
+                my_list.name = name
+                my_list.alerts = alerts
+                db.session.commit()
+                return "Update successful"
+            else:
+                return "List not found"
+        else:
+            return "Error while updating list: Invalid data"
+        
+    except Exception as e:
+        print(e)
+        return "Error while updating list"
 #LINKEDIN ROUTES ----------------------------------------------------------------------------------
 
 @app.route('/linkedin_signin')
